@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class ArraysEasy {
 
     public static int missingNumbers(int[] nums) {
@@ -47,10 +50,26 @@ class ArraysEasy {
         // }
         // return maxLength;
 
-        // better solution
-
-        
-
+        // better solution  
+        long sum=0;
+        int maxLength=0;
+        long rem=0;
+        Map<Long, Integer> preSumMap = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            if(sum==k){
+                maxLength=Math.max(maxLength, i+1);
+            }
+            rem=sum-k;
+            if(preSumMap.containsKey((rem))){
+                int len = i-preSumMap.get(rem);
+                maxLength = Math.max(maxLength, len);
+            }
+            if(!preSumMap.containsKey(rem)){
+                preSumMap.put(sum,i);
+            }
+        }
+        return maxLength;
     }
 
     public static void main(String[] args) {
@@ -60,7 +79,7 @@ class ArraysEasy {
         // System.out.println((findMaxConsecutiveOnes(nums)));
         // int[] nums = { 1 };
         // System.out.println(singleNumber(nums));
-        int[] nums = {-5, 8, -14, 2, 4, 12};
-        System.out.println(longestSubarray(nums,-5));
+        int[] nums = {10, 5, 2, 7, 1, -10};
+        System.out.println(longestSubarray(nums,15));
     }
 }
