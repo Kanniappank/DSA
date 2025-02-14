@@ -51,21 +51,20 @@ class ArraysEasy {
         // return maxLength;
 
         // better solution  
-        long sum=0;
+        int sum=0;
         int maxLength=0;
-        long rem=0;
-        Map<Long, Integer> preSumMap = new HashMap<>();
+        Map<Integer, Integer> preSumMap = new HashMap<>();
         for(int i=0;i<nums.length;i++){
             sum+=nums[i];
             if(sum==k){
                 maxLength=Math.max(maxLength, i+1);
             }
-            rem=sum-k;
+            int rem=sum-k;
             if(preSumMap.containsKey((rem))){
                 int len = i-preSumMap.get(rem);
                 maxLength = Math.max(maxLength, len);
             }
-            if(!preSumMap.containsKey(rem)){
+            if(!preSumMap.containsKey(sum)){
                 preSumMap.put(sum,i);
             }
         }
