@@ -40,34 +40,53 @@ class ArraysEasy {
         // int sum;
         // int maxLength = 0;
         // for (int i = 0; i < nums.length; i++) {
-        //     sum=0;
-        //     for(int j=i;j<nums.length;j++){
-        //         sum+=nums[j];
-        //         if(sum==k){
-        //             maxLength = Math.max(maxLength,j-i+1);
-        //         }
-        //     }
+        // sum=0;
+        // for(int j=i;j<nums.length;j++){
+        // sum+=nums[j];
+        // if(sum==k){
+        // maxLength = Math.max(maxLength,j-i+1);
+        // }
+        // }
         // }
         // return maxLength;
 
-        // better solution  
-        int sum=0;
-        int maxLength=0;
-        Map<Integer, Integer> preSumMap = new HashMap<>();
-        for(int i=0;i<nums.length;i++){
-            sum+=nums[i];
-            if(sum==k){
-                maxLength=Math.max(maxLength, i+1);
+        // better solution optimal for negative zero and positive numbers
+        // int sum=0;
+        // int maxLength=0;
+        // Map<Integer, Integer> preSumMap = new HashMap<>();
+        // for(int i=0;i<nums.length;i++){
+        // sum+=nums[i];
+        // if(sum==k){
+        // maxLength=Math.max(maxLength, i+1);
+        // }
+        // int rem=sum-k;
+        // if(preSumMap.containsKey((rem))){
+        // int len = i-preSumMap.get(rem);
+        // maxLength = Math.max(maxLength, len);
+        // }
+        // if(!preSumMap.containsKey(sum)){
+        // preSumMap.put(sum,i);
+        // }
+        // }
+        // return maxLength;
+
+        // optimal solution for only positive numbers sliding window
+        int sum = 0;
+        int maxLength = 0;
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            sum += nums[j];
+            // subtract the starting index if sum exceed 'K' and i should not cross j
+            while (i <= j && sum > k) {
+                sum -= nums[i];
+                i++;
             }
-            int rem=sum-k;
-            if(preSumMap.containsKey((rem))){
-                int len = i-preSumMap.get(rem);
-                maxLength = Math.max(maxLength, len);
-            }
-            if(!preSumMap.containsKey(sum)){
-                preSumMap.put(sum,i);
+            // if sum and k are equal compute max index
+            if (sum == k) {
+                maxLength = Math.max(maxLength, j - 1 + 1);
             }
         }
+
         return maxLength;
     }
 
@@ -78,7 +97,7 @@ class ArraysEasy {
         // System.out.println((findMaxConsecutiveOnes(nums)));
         // int[] nums = { 1 };
         // System.out.println(singleNumber(nums));
-        int[] nums = {10, 5, 2, 7, 1, -10};
-        System.out.println(longestSubarray(nums,15));
+        int[] nums = { 10, 5, 2, 7, 1, 10 };
+        System.out.println(longestSubarray(nums, 15));
     }
 }
