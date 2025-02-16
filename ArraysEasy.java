@@ -72,25 +72,23 @@ class ArraysEasy {
         // return maxLength;
 
         // optimal solution for only positive numbers sliding window
-        // int sum = 0;
-        // int maxLength = 0;
-        // int i = 0;
-        // for (int j = 0; j < nums.length; j++) {
-        // sum += nums[j];
-        // // subtract the starting index if sum exceed 'K' and i should not cross j
-        // while (i <= j && sum > k) {
-        // sum -= nums[i];
-        // i++;
-        // }
-        // // if sum and k are equal compute max index
-        // if (sum == k) {
-        // maxLength = Math.max(maxLength, j - 1 + 1);
-        // }
-        // return maxLength
-        // better solution
-       
-
+        int sum = 0;
+        int maxLength = 0;
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            sum += nums[j];
+            // subtract the starting index if sum exceed 'K' and i should not cross j
+            while (i <= j && sum > k) {
+                sum -= nums[i];
+                i++;
+            }
+            // if sum and k are equal compute max index
+            if (sum == k) {
+                maxLength = Math.max(maxLength, j - 1 + 1);
+            }
+        }
         return maxLength;
+
     }
 
     public static int[] twoSum(int[] nums, int target) {
@@ -230,10 +228,6 @@ class ArraysEasy {
         // System.out.println((findMaxConsecutiveOnes(nums)));
         // int[] nums = { 1 };
         // System.out.println(singleNumber(nums));
-<<<<<<< HEAD
-        int[] nums = { 10, 5, 2, 7, 1, 10 };
-        System.out.println(longestSubarray(nums, 15));
-=======
         // int[] nums = { 10, 5, 2, 7, 1, -10 };
         // // System.out.println(longestSubarray(nums, 15));
         // int[] nums = { 2, 6, 5, 8, 11 };
@@ -242,7 +236,6 @@ class ArraysEasy {
         // System.out.println(Arrays.toString(sortColors(nums)));
         int[] nums = { 2, 2, 1, 1, 1, 2, 2 };
         System.out.println(majorityElement(nums));
->>>>>>> ebe589478f03fa74deed2746924f37b10d7ef213
     }
 
 }
