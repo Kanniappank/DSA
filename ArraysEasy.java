@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 class ArraysEasy {
+    // Easy Questions starts
 
     public static int missingNumbers(int[] nums) {
         int xor1 = 0;
@@ -38,18 +40,18 @@ class ArraysEasy {
 
     public static int longestSubarray(int[] nums, int k) {
         // brute force
-        // int sum;
-        // int maxLength = 0;
-        // for (int i = 0; i < nums.length; i++) {
-        // sum=0;
-        // for(int j=i;j<nums.length;j++){
-        // sum+=nums[j];
-        // if(sum==k){
-        // maxLength = Math.max(maxLength,j-i+1);
-        // }
-        // }
-        // }
-        // return maxLength;
+        int sum;
+        int maxLength = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum = 0;
+            for (int j = i; j < nums.length; j++) {
+                sum += nums[j];
+                if (sum == k) {
+                    maxLength = Math.max(maxLength, j - i + 1);
+                }
+            }
+        }
+        return maxLength;
 
         // better solution optimal for negative zero and positive numbers
         // int sum=0;
@@ -72,25 +74,26 @@ class ArraysEasy {
         // return maxLength;
 
         // optimal solution for only positive numbers sliding window
-        int sum = 0;
-        int maxLength = 0;
-        int i = 0;
-        for (int j = 0; j < nums.length; j++) {
-            sum += nums[j];
-            // subtract the starting index if sum exceed 'K' and i should not cross j
-            while (i <= j && sum > k) {
-                sum -= nums[i];
-                i++;
-            }
-            // if sum and k are equal compute max index
-            if (sum == k) {
-                maxLength = Math.max(maxLength, j - 1 + 1);
-            }
-        }
-        return maxLength;
+        // int sum = 0;
+        // int maxLength = 0;
+        // int i = 0;
+        // for (int j = 0; j < nums.length; j++) {
+        // sum += nums[j];
+        // // subtract the starting index if sum exceed 'K' and i should not cross j
+        // while (i <= j && sum > k) {
+        // sum -= nums[i];
+        // i++;
+        // }
+        // // if sum and k are equal compute max index
+        // if (sum == k) {
+        // maxLength = Math.max(maxLength, j - 1 + 1);
+        // }
+        // }
+        // return maxLength;
 
     }
 
+    // Medium Questions starts
     public static int[] twoSum(int[] nums, int target) {
         // public static boolean twoSum(int[] nums, int target) {
 
@@ -221,6 +224,113 @@ class ArraysEasy {
         return -1;
     }
 
+    public static int maxSubArray(int[] nums) {
+        // return the sum of the subarray with max length
+
+        // Brute Force
+        // int sum;
+        // int len = nums.length;
+        // int maximum = Integer.MIN_VALUE;
+        // for (int i = 0; i < len; i++) {
+        // sum = 0;
+        // for (int j = i+1; j < len; j++) {
+        // sum += nums[j];
+        // maximum = Math.max(sum, maximum);
+        // }
+        // }
+        // return maximum;
+
+        /*
+         * Optimal Kadane's Algorithm
+         * Iterate through out the array add every element to the sum
+         * if sum goes less than zero make sum = 0
+         * mean while track the max element
+         * at the end return the max element
+         * thats it kadanes's algorith of returning the sum of the largest sub array
+         */
+
+        int sum = 0;
+        int maximum = Integer.MIN_VALUE;
+        int len = nums.length;
+        int start = 0;
+        int ansStart = 0;
+        int ansEnd = 0;
+        for (int i = 0; i < len; i++) {
+            if (sum == 0) {
+                start = i;
+            }
+            sum += nums[i];
+            if (sum > maximum) {
+                maximum = sum;
+                ansStart = start;
+                ansEnd = i;
+            }
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+        for (int i = ansStart; i <= ansEnd; i++) {
+            System.out.print(nums[i] + " ");
+        }
+        System.out.println();
+        return maximum;
+    }
+
+    public static int maxProfit(int[] prices) {
+        int maxProfit = 0;
+        int mini = prices[0];
+        int cost = 0;
+        int len = prices.length;
+        for (int i = 1; i < len; i++) {
+            cost = prices[i] - mini;
+            maxProfit = Math.max(maxProfit, cost);
+            mini = Math.min(mini, prices[i]);
+        }
+        return maxProfit;
+    }
+
+    public static ArrayList<Integer> rearrangeArray(int[] nums) {
+
+        // Brute force
+        // ArrayList<Integer> positives = new ArrayList<>();
+        // ArrayList<Integer> negatives = new ArrayList<>();
+        // int len = nums.length;
+        // for (int i = 0; i < len; i++) {
+        // if (nums[i] > 0) {
+        // positives.add(nums[i]);
+        // }
+        // else{
+        // negatives.add(nums[i]);
+        // }
+        // }
+        // for (int i = 0; i < len / 2; i++) {
+        // nums[i * 2] = positives.get(i);
+        // nums[i * 2 + 1] = negatives.get(i);
+        // }
+        // return nums;
+
+        // Optimal
+        ArrayList<Integer> ans = new ArrayList<>();
+        int positiveIndex = 0;
+        int negativeIndex = 1;
+        int len = nums.length;
+        for (int i = 0; i < len; i++) {
+            ans.add(0);
+        }
+        System.out.println("ans"+ans);
+        for (int i = 0; i < len; i++) {
+            if (nums[i] > 0) {
+                ans.set(positiveIndex, nums[i]);
+                positiveIndex += 2;
+            } else {
+                ans.set(negativeIndex, nums[i]);
+                negativeIndex += 2;
+            }
+        }
+        return ans;
+
+    }
+
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -234,8 +344,14 @@ class ArraysEasy {
         // System.out.println(twoSum(nums, 14));
         // int[] nums = { 2, 0, 2, 1, 1, 0 };
         // System.out.println(Arrays.toString(sortColors(nums)));
-        int[] nums = { 2, 2, 1, 1, 1, 2, 2 };
-        System.out.println(majorityElement(nums));
+        // int[] nums = { 2, 2, 1, 1, 1, 2, 2 };
+        // System.out.println(majorityElement(nums));
+        // int[] nums = { 4 ,3, 1, 5, 6 };
+        // System.out.println(maxSubArray(nums));
+        // int[] prices = {7,1,5,3,6,4};
+        // System.out.println(maxProfit(prices));
+        int[] nums = { 3, 1, -2, -5, 2, -4 };
+        System.out.println(rearrangeArray(nums));
     }
 
 }
