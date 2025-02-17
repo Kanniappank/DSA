@@ -289,7 +289,7 @@ class ArraysEasy {
         return maxProfit;
     }
 
-    public static ArrayList<Integer> rearrangeArray(int[] nums) {
+    public static int[] rearrangeArray(int[] nums) {
 
         // Brute force
         // ArrayList<Integer> positives = new ArrayList<>();
@@ -310,24 +310,58 @@ class ArraysEasy {
         // return nums;
 
         // Optimal
-        ArrayList<Integer> ans = new ArrayList<>();
-        int positiveIndex = 0;
-        int negativeIndex = 1;
+        // ArrayList<Integer> ans = new ArrayList<>();
+        // int positiveIndex = 0;
+        // int negativeIndex = 1;
+        // int len = nums.length;
+        // for (int i = 0; i < len; i++) {
+        // ans.add(0);
+        // }
+        // System.out.println("ans"+ans);
+        // for (int i = 0; i < len; i++) {
+        // if (nums[i] > 0) {
+        // ans.set(positiveIndex, nums[i]);
+        // positiveIndex += 2;
+        // } else {
+        // ans.set(negativeIndex, nums[i]);
+        // negativeIndex += 2;
+        // }
+        // }
+        // return ans;
+
+        // varient 2 positive numbers and negative number are not equal
+        ArrayList<Integer> positives = new ArrayList<>();
+        ArrayList<Integer> negatives = new ArrayList<>();
         int len = nums.length;
         for (int i = 0; i < len; i++) {
-            ans.add(0);
-        }
-        System.out.println("ans"+ans);
-        for (int i = 0; i < len; i++) {
             if (nums[i] > 0) {
-                ans.set(positiveIndex, nums[i]);
-                positiveIndex += 2;
+                positives.add(nums[i]);
             } else {
-                ans.set(negativeIndex, nums[i]);
-                negativeIndex += 2;
+                negatives.add(nums[i]);
             }
         }
-        return ans;
+        int negaticeLength = negatives.size();
+        int postiveLength = positives.size();
+        if (positives.size() > negatives.size()) {
+            for (int i = 0; i < negaticeLength; i++) {
+                nums[2 * i] = positives.get(i);
+                nums[2 * i + 1] = negatives.get(i);
+            }
+            for (int i = negaticeLength; i < len; i++) {
+                nums[negaticeLength] = positives.get(negaticeLength);
+            }
+
+        } else {
+            for (int i = 0; i < postiveLength; i++) {
+                nums[2 * i] = positives.get(i);
+                nums[2 * i + 1] = negatives.get(i);
+            }
+            for (int i = postiveLength; i < len; i++) {
+                nums[negaticeLength] = negatives.get(postiveLength);
+            }
+
+        }
+        return nums;
 
     }
 
@@ -350,8 +384,8 @@ class ArraysEasy {
         // System.out.println(maxSubArray(nums));
         // int[] prices = {7,1,5,3,6,4};
         // System.out.println(maxProfit(prices));
-        int[] nums = { 3, 1, -2, -5, 2, -4 };
-        System.out.println(rearrangeArray(nums));
+        int[] nums = { 3, 1, -2, -5, -2, -4 };
+        System.out.println(Arrays.toString(rearrangeArray(nums)));
     }
 
 }
