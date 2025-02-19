@@ -199,6 +199,27 @@ class ArraysEasy {
 
         //optimal
         
+        int el=0,count=0,count1=0,len=nums.length;
+        for(int i=0;i<len;i++){
+            if(count==0){
+                el=nums[i];
+                count=1;
+            }
+            else if(el==nums[i]){
+                count++;
+            }
+            else{
+                count--;
+            }
+        }
+        for(int i=0;i<len;i++){
+            if(el==nums[i]){
+                count1++;
+            }
+        }
+        if(count1>(len/2)){
+            return el;
+        }
         
         return -1;
     }
