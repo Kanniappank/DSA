@@ -437,8 +437,9 @@ class ArraysEasy {
          * reverse the array
          * i.e. the first permutation if the given array is the gratest permutation
          * step-3 else you will get a index i.e. you found the brake point
-         * iterate from the last to the index look for the largest than index [i]>[index]
-         * swap the largest number and index number 
+         * iterate from the last to the index look for the largest than index
+         * [i]>[index]
+         * swap the largest number and index number
          * step-4 reverse the numbers after index
          * 
          */
@@ -465,8 +466,38 @@ class ArraysEasy {
     }
 
     public static void reverse(int[] arr, int startingIndex, int endingIndex) {
-        for (int i = startingIndex, j = endingIndex; i <= (((endingIndex - startingIndex) / 2)+startingIndex); swap(arr, i, j), i++, j--)
+        for (int i = startingIndex,
+                j = endingIndex; i <= (((endingIndex - startingIndex) / 2) + startingIndex); swap(arr, i, j), i++, j--)
             ;
+    }
+
+    static ArrayList<Integer> leaders(int arr[]) {
+        // code here
+        // brute force
+        /*
+         * brute force can be done using nested for loop
+         */
+        /*
+         * optimal
+         * travese the array from the back
+         * find the largest element in stages i.e.
+         * [10,22,12,3,0,6]
+         * in first iteration 6 is leader
+         * second 0 will not because 6 is a leader
+         * third 3 < 6 so not
+         * 12>6 so add 12 to
+         * 22>12 so add 22 too
+         */
+        ArrayList<Integer> leaders = new ArrayList<>();
+        int len = arr.length;
+        int leader = Integer.MIN_VALUE;
+        for (int i = len - 1; i >= 0; i--) {
+            if (arr[i] > leader) {
+                leaders.add(arr[i]);
+            }
+            leader = Math.max(leader, arr[i]);
+        }
+        return leaders;
     }
 
     public static void main(String[] args) {
@@ -490,8 +521,11 @@ class ArraysEasy {
         // System.out.println(maxProfit(prices));
         // int[] nums = { 3, 1, -2, -5, -2, -4 };
         // System.out.println(Arrays.toString(rearrangeArray(nums)));
-        int[] nums={1,3,2};
-        System.out.println(Arrays.toString(nextPermutation(nums)));
+        // int[] nums = { 1, 3, 2 };
+        // System.out.println(Arrays.toString(nextPermutation(nums)));
+
+        int[] nums = { 10, 22, 12, 3, 0, 6 };
+        System.out.println(leaders(nums));
     }
 
 }
