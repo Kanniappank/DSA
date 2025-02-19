@@ -219,30 +219,45 @@ class ArraysEasy {
         // }
         // }
 
-        //optimal
-        
-        int el=0,count=0,count1=0,len=nums.length;
-        for(int i=0;i<len;i++){
-            if(count==0){
-                el=nums[i];
-                count=1;
-            }
-            else if(el==nums[i]){
+        // optimal
+
+        /*
+         * mores voting algorithm
+         * two variables el,count
+         * iterate through the array for the first occurance of the array increase the
+         * count
+         * if you encounter the same element increase the count by 1
+         * if it is a diffrent element decrease the count
+         * if count becomes 0 change the el variable should be changed to the current
+         * variable
+         * after the iteration introduce new variable count1 iterate through the array
+         * again increase the
+         * count1 if you encounter the el which you found in the last iteration
+         * if count1 is grater than by len/2 el is the majority element
+         * i.e el appears more time in the array
+         * 
+         */
+
+        int el = 0, count = 0, count1 = 0, len = nums.length;
+        for (int i = 0; i < len; i++) {
+            if (count == 0) {
+                el = nums[i];
+                count = 1;
+            } else if (el == nums[i]) {
                 count++;
-            }
-            else{
+            } else {
                 count--;
             }
         }
-        for(int i=0;i<len;i++){
-            if(el==nums[i]){
+        for (int i = 0; i < len; i++) {
+            if (el == nums[i]) {
                 count1++;
             }
         }
-        if(count1>(len/2)){
+        if (count1 > (len / 2)) {
             return el;
         }
-        
+
         return -1;
     }
 
@@ -355,6 +370,7 @@ class ArraysEasy {
         ArrayList<Integer> positives = new ArrayList<>();
         ArrayList<Integer> negatives = new ArrayList<>();
         int len = nums.length;
+        int index;
         for (int i = 0; i < len; i++) {
             if (nums[i] > 0) {
                 positives.add(nums[i]);
@@ -369,8 +385,10 @@ class ArraysEasy {
                 nums[2 * i] = positives.get(i);
                 nums[2 * i + 1] = negatives.get(i);
             }
+            index = negaticeLength * 2;
             for (int i = negaticeLength; i < len; i++) {
-                nums[negaticeLength] = positives.get(negaticeLength);
+                nums[index] = positives.get(i);
+                index++;
             }
 
         } else {
@@ -378,13 +396,77 @@ class ArraysEasy {
                 nums[2 * i] = positives.get(i);
                 nums[2 * i + 1] = negatives.get(i);
             }
+            index = postiveLength * 2;
             for (int i = postiveLength; i < len; i++) {
-                nums[negaticeLength] = negatives.get(postiveLength);
+                nums[index] = negatives.get(i);
+                index++;
             }
-
         }
         return nums;
 
+    }
+
+    public static int[] nextPermutation(int[] nums) {
+        /*
+         * question is we will get a sample array say [3,1,2]
+         * possible permutations are
+         * 1-[1,2,3]
+         * 2-[1,3,2]
+         * 3-[2,1,3]
+         * 4-[2,3,1]
+         * 5-[3,1,2]
+         * 6-[3,2,1]
+         * in the sorted order respectively
+         * the sample array we got is in the in the 5th position
+         * we need to return the 6 position as per the sorted order it is the next
+         * permutation
+         */
+
+        // brute force
+        /*
+         * generate all the possible arrays
+         * linear search
+         * retrun the next index
+         * if not return the first index of the sorted order
+         */
+
+        // Optimal
+        /*
+         * Step-1 iterate from last to first find the brake point [i]<[i+1]
+         * Step-2 initialy set index to -1 after the iteration if index comes to -1
+         * reverse the array
+         * i.e. the first permutation if the given array is the gratest permutation
+         * step-3 else you will get a index i.e. you found the brake point
+         * iterate from the last to the index look for the largest than index [i]>[index]
+         * swap the largest number and index number 
+         * step-4 reverse the numbers after index
+         * 
+         */
+        int len = nums.length;
+        int index = -1;
+        for (int i = len - 2; i >= 0; i--) {
+            if (nums[i] < nums[i + 1]) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            reverse(nums, 0, nums.length - 1);
+        } else {
+            for (int i = len - 1; i > index; i--) {
+                if (nums[i] > nums[index]) {
+                    swap(nums, i, index);
+                    break;
+                }
+            }
+            reverse(nums, index + 1, len - 1);
+        }
+        return nums;
+    }
+
+    public static void reverse(int[] arr, int startingIndex, int endingIndex) {
+        for (int i = startingIndex, j = endingIndex; i <= (((endingIndex - startingIndex) / 2)+startingIndex); swap(arr, i, j), i++, j--)
+            ;
     }
 
     public static void main(String[] args) {
@@ -406,8 +488,10 @@ class ArraysEasy {
         // System.out.println(maxSubArray(nums));
         // int[] prices = {7,1,5,3,6,4};
         // System.out.println(maxProfit(prices));
-        int[] nums = { 3, 1, -2, -5, -2, -4 };
-        System.out.println(Arrays.toString(rearrangeArray(nums)));
+        // int[] nums = { 3, 1, -2, -5, -2, -4 };
+        // System.out.println(Arrays.toString(rearrangeArray(nums)));
+        int[] nums={1,3,2};
+        System.out.println(Arrays.toString(nextPermutation(nums)));
     }
 
 }
