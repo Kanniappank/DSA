@@ -500,6 +500,10 @@ class ArraysEasy {
         return leaders;
     }
 
+    static int[] longestConsecutive(int[] nums) {
+        Arrays.sort(nums);
+        return nums;
+    }
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -523,9 +527,10 @@ class ArraysEasy {
         // System.out.println(Arrays.toString(rearrangeArray(nums)));
         // int[] nums = { 1, 3, 2 };
         // System.out.println(Arrays.toString(nextPermutation(nums)));
-
-        int[] nums = { 10, 22, 12, 3, 0, 6 };
-        System.out.println(leaders(nums));
+        // int[] nums = { 10, 22, 12, 3, 0, 6 };
+        // System.out.println(leaders(nums));
+        int[] nums={5, 2, 8, 1, 3};
+        System.out.println(Arrays.toString(longestConsecutive(nums)));
     }
 
 }
