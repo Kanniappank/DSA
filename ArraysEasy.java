@@ -500,6 +500,38 @@ class ArraysEasy {
         return leaders;
     }
 
+    static int longestConsecutiveSequence(int[] numbers) {
+        //better force
+        /*
+         * sort the give array
+         * have currentcount=0;
+         * lastsmallest=min;
+         * longest=1;
+         * iterate through the sortedarray
+         * if lastsmallest = current number-1 increase the currentcount and set the lastsmallest as the current number
+         * if lastsamllest !=current number
+         * start the current count increment fresh by initializing it by 1 and set last smallest as current number 
+         * preserve longest
+         * time complexity will be n log n
+         */
+        Arrays.sort(numbers);
+        int currentcount = 0;
+        int lastSmallest = Integer.MIN_VALUE;
+        int longest = 1;
+        for(int i=0;i<numbers.length;i++){
+            if(lastSmallest==numbers[i]-1){
+                lastSmallest=numbers[i];
+                currentcount++;
+            }
+            else if(lastSmallest!=numbers[i]){
+                lastSmallest=numbers[i];
+                currentcount=1;
+            }
+            longest=Math.max(currentcount,longest);
+        }
+        return longest;
+    }
+
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -523,9 +555,11 @@ class ArraysEasy {
         // System.out.println(Arrays.toString(rearrangeArray(nums)));
         // int[] nums = { 1, 3, 2 };
         // System.out.println(Arrays.toString(nextPermutation(nums)));
+        // int[] nums = { 10, 22, 12, 3, 0, 6 };
+        // System.out.println(leaders(nums));
+        int[] nums={100,102,100,101,101,4,3,2,3,2,1,1,1,2};
+        System.out.println(longestConsecutiveSequence(nums));
 
-        int[] nums = { 10, 22, 12, 3, 0, 6 };
-        System.out.println(leaders(nums));
     }
 
 }
