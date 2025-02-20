@@ -501,6 +501,13 @@ class ArraysEasy {
     }
 
     static int longestConsecutiveSequence(int[] numbers) {
+
+        // brute 
+        /*
+         * brute can be done using nested for loops
+         */
+
+         
         //better force
         /*
          * sort the give array
