@@ -502,41 +502,50 @@ class ArraysEasy {
 
     static int longestConsecutiveSequence(int[] numbers) {
 
-        // brute 
+        // brute
         /*
          * brute can be done using nested for loops
          */
 
-         
-        //better force
+        // better force
         /*
          * sort the give array
          * have currentcount=0;
          * lastsmallest=min;
          * longest=1;
          * iterate through the sortedarray
-         * if lastsmallest = current number-1 increase the currentcount and set the lastsmallest as the current number
+         * if lastsmallest = current number-1 increase the currentcount and set the
+         * lastsmallest as the current number
          * if lastsamllest !=current number
-         * start the current count increment fresh by initializing it by 1 and set last smallest as current number 
+         * start the current count increment fresh by initializing it by 1 and set last
+         * smallest as current number
          * preserve longest
          * time complexity will be n log n
          */
-        Arrays.sort(numbers);
-        int currentcount = 0;
-        int lastSmallest = Integer.MIN_VALUE;
-        int longest = 1;
-        for(int i=0;i<numbers.length;i++){
-            if(lastSmallest==numbers[i]-1){
-                lastSmallest=numbers[i];
-                currentcount++;
-            }
-            else if(lastSmallest!=numbers[i]){
-                lastSmallest=numbers[i];
-                currentcount=1;
-            }
-            longest=Math.max(currentcount,longest);
+        // Arrays.sort(numbers);
+        // int currentcount = 0;
+        // int lastSmallest = Integer.MIN_VALUE;
+        // int longest = 1;
+        // for(int i=0;i<numbers.length;i++){
+        // if(lastSmallest==numbers[i]-1){
+        // lastSmallest=numbers[i];
+        // currentcount++;
+        // }
+        // else if(lastSmallest!=numbers[i]){
+        // lastSmallest=numbers[i];
+        // currentcount=1;
+        // }
+        // longest=Math.max(currentcount,longest);
+        // }
+        // return longest;
+
+        // Optimal solution
+
+        int len=numbers.length;
+        if(len==0)return 0;
+        for(int i=0;i<len;i++){
+            
         }
-        return longest;
     }
 
     public static void main(String[] args) {
@@ -564,7 +573,7 @@ class ArraysEasy {
         // System.out.println(Arrays.toString(nextPermutation(nums)));
         // int[] nums = { 10, 22, 12, 3, 0, 6 };
         // System.out.println(leaders(nums));
-        int[] nums={100,102,100,101,101,4,3,2,3,2,1,1,1,2};
+        int[] nums = { 100, 102, 100, 101, 101, 4, 3, 2, 3, 2, 1, 1, 1, 2 };
         System.out.println(longestConsecutiveSequence(nums));
 
     }
