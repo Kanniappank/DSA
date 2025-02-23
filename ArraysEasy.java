@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 class ArraysEasy {
     // Easy Questions starts
@@ -540,12 +542,38 @@ class ArraysEasy {
         // return longest;
 
         // Optimal solution
+        /*
+         * To do this without sorting add all the element to a set 
+         * iterate through the set 
+         * while encountering a element check wheather the element-1 is available
+         * if it is availabe don't go if it is not available it means
+         * it is the start of the conscutive element
+         * go for the consicutive elements with while loop
+         * check for the consecutive numbers and and increase the count if consecutive numbers available
+         * and keep track of the max using longest and current count
+         */
 
-        int len=numbers.length;
-        if(len==0)return 0;
-        for(int i=0;i<len;i++){
-            
+        int len = numbers.length;
+        Set<Integer> numsSet = new HashSet<Integer>();
+
+        int longest = Integer.MIN_VALUE;
+        if (len == 0)
+            return 0;
+        for (int i = 0; i < len; i++) {
+            numsSet.add(numbers[i]);
         }
+        for (Integer num : numsSet) {
+            if (!numsSet.contains(num - 1)) {
+                int curCount = 1;
+                int x = num;
+                while(numsSet.contains(x+1)){
+                    x+=1;
+                    curCount++;
+                }
+                longest=Math.max(curCount, longest);
+            }
+        }
+        return longest;
     }
 
     public static void main(String[] args) {
@@ -573,8 +601,8 @@ class ArraysEasy {
         // System.out.println(Arrays.toString(nextPermutation(nums)));
         // int[] nums = { 10, 22, 12, 3, 0, 6 };
         // System.out.println(leaders(nums));
-        int[] nums = { 100, 102, 100, 101, 101, 4, 3, 2, 3, 2, 1, 1, 1, 2 };
-        System.out.println(longestConsecutiveSequence(nums));
+        // int[] nums = { 100, 102, 100, 101, 101, 4, 3, 2, 3, 2, 1, 1, 1, 2 };
+        // System.out.println(longestConsecutiveSequence(nums));
 
     }
 
