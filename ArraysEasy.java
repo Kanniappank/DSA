@@ -543,13 +543,14 @@ class ArraysEasy {
 
         // Optimal solution
         /*
-         * To do this without sorting add all the element to a set 
-         * iterate through the set 
+         * To do this without sorting add all the element to a set
+         * iterate through the set
          * while encountering a element check wheather the element-1 is available
          * if it is availabe don't go if it is not available it means
          * it is the start of the conscutive element
          * go for the consicutive elements with while loop
-         * check for the consecutive numbers and and increase the count if consecutive numbers available
+         * check for the consecutive numbers and and increase the count if consecutive
+         * numbers available
          * and keep track of the max using longest and current count
          */
 
@@ -566,14 +567,112 @@ class ArraysEasy {
             if (!numsSet.contains(num - 1)) {
                 int curCount = 1;
                 int x = num;
-                while(numsSet.contains(x+1)){
-                    x+=1;
+                while (numsSet.contains(x + 1)) {
+                    x += 1;
                     curCount++;
                 }
-                longest=Math.max(curCount, longest);
+                longest = Math.max(curCount, longest);
             }
         }
         return longest;
+    }
+
+    static void setColumnsMinus1(int j, int[][] matrix) {
+        for (int i = 0; i < matrix[j].length; i++) {
+            if (matrix[i][j] != 0) {
+                matrix[i][j] = -1;
+            }
+        }
+    }
+
+    static void setRowMinus1(int i, int[][] matrix) {
+        for (int j = 0; j < matrix[i].length; j++) {
+            if (matrix[i][j] != 0) {
+                matrix[i][j] = -1;
+            }
+        }
+    }
+
+    static void setMatrixZeros(int[][] matrix) {
+
+        /*
+         * Brute force
+         * traverse through the matrix and find the placement of the
+         * mark the rows and columns as -1
+         * 
+         * after updating the rows and columns again iterate through the array
+         * and update the -1's as 0
+         */
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // if (matrix[i][j] == 0) {
+        // setRowMinus1(i, matrix);
+        // setColumnsMinus1(j, matrix);
+        // }
+        // }
+        // }
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // System.out.print("\t" + matrix[i][j]);
+        // }
+        // System.err.println();
+        // }
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // if (matrix[i][j] == -1) {
+        // matrix[i][j] = 0;
+        // }
+        // }
+        // }
+
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // System.out.print("\t" + matrix[i][j]);
+        // }
+        // System.err.println();
+        // }
+
+        /*
+         * Better solution
+         * use 2 arrays as size of row of a matrix and column of the matrix
+         * mark corresponding row and colum as 1 if you witness a 0 by iterating through
+         * the matrix
+         * iterate through the matrix again if row number or column number is 0 make the
+         * corresponding row and column as zero
+         */
+
+        // int[] row = new int[matrix.length];
+        // int[] colums = new int[matrix[0].length];
+
+        // for (int i = 0; i < matrix.length; i++) {
+        //     for (int j = 0; j < matrix[i].length; j++) {
+        //         if (matrix[i][j] == 0) {
+        //             row[i] = 1;
+        //             colums[j] = 1;
+        //         }
+        //     }
+        // }
+
+        // for (int i = 0; i < matrix.length; i++) {
+        //     for (int j = 0; j < matrix[i].length; j++) {
+        //         if (row[i] == 1 || colums[j] == 1) {
+        //             matrix[i][j] = 0;
+        //         }
+        //     }
+        // }
+
+        // for (int i = 0; i < matrix.length; i++) {
+        //     for (int j = 0; j < matrix[i].length; j++) {
+        //         System.out.print("\t" + matrix[i][j]);
+        //     }
+        //     System.err.println();
+        // }
+
+        /*
+         * Optimal solution
+         * 
+         */
+
     }
 
     public static void main(String[] args) {
@@ -603,6 +702,9 @@ class ArraysEasy {
         // System.out.println(leaders(nums));
         // int[] nums = { 100, 102, 100, 101, 101, 4, 3, 2, 3, 2, 1, 1, 1, 2 };
         // System.out.println(longestConsecutiveSequence(nums));
+
+        int[][] matrix = { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } };
+        setMatrixZeros(matrix);
 
     }
 
