@@ -646,10 +646,25 @@ class ArraysEasy {
          * [1][3]->[3][1]
          * [2][3]->[3][2]
          * 
+         * i->0 (1 to 3)
+         * i+1 to n-1
+         * 
+         * i->1 (2 to 3)
+         * i+1 to n-1
+         * 
          */
+
+         for(int i=0;i<matrix.length-1;i++){
+            for(int j=i+1;j<matrix.length;j++){
+                
+            }
+         }
+    }
+    static void swapMatrixElements(int[][] matrix, ){
+
     }
 
-    static void setColumnsMinus1(int j, int[][] matrix) {
+    static void setColumnsMinus1(int j, int[][] matrix,) {
         for (int i = 0; i < matrix[j].length; i++) {
             if (matrix[i][j] != 0) {
                 matrix[i][j] = -1;
