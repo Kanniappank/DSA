@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -654,7 +655,6 @@ class ArraysEasy {
          * 
          */
 
-
         for (int i = 0; i < matrix.length - 1; i++) {
             for (int j = i + 1; j < matrix.length; j++) {
                 swapMatrixElements(matrix, i, j);
@@ -812,6 +812,39 @@ class ArraysEasy {
 
     }
 
+    static List<Integer> spiralMatrix(int[][] matrix) {
+        int top = 0, bottom = matrix.length - 1, right = matrix[0].length - 1, left = 0;
+
+        List<Integer> spiralList = new ArrayList<Integer>();
+        while (top <= bottom && left <= right) {
+            for (int i = left; i <= right; i++) {
+                // System.out.print(matrix[top][i] + " ");
+            spiralList.add(matrix[top][i]);
+
+            }
+            top++;
+            for (int i = top; i <= bottom; i++) {
+                // System.out.print(matrix[i][right] + " ");
+            spiralList.add(matrix[i][right]);
+
+            }
+            right--;
+            for (int i = right; i >= left; i--) {
+                // System.out.print(matrix[bottom][i] + " ");
+            spiralList.add(matrix[bottom][i]);
+
+            }
+            bottom--;
+            for (int i = bottom; i >= top; i--) {
+                // System.out.print(matrix[i][left] + " ");
+            spiralList.add(matrix[i][left]);
+
+            }
+            left++;
+        }
+        return spiralList;
+    }
+
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -839,11 +872,13 @@ class ArraysEasy {
         // System.out.println(leaders(nums));
         // int[] nums = { 100, 102, 100, 101, 101, 4, 3, 2, 3, 2, 1, 1, 1, 2 };
         // System.out.println(longestConsecutiveSequence(nums));
-        int[][] matrix = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
-        rotate(matrix);
+        // int[][] matrix = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13,
+        // 14, 15, 16 } };
+        // rotate(matrix);
         // int[][] matrix = { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } };
         // setMatrixZeros(matrix);
+        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+        System.out.println(spiralMatrix(matrix));
 
     }
-
 }
