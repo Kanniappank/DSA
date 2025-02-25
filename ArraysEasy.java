@@ -624,20 +624,20 @@ class ArraysEasy {
         /*
          * Optimal approach
          * 
-         * first transpose the matrix and reverse the each row we 
+         * first transpose the matrix and reverse the each row we
          * can rotate the matrix 90 degrees
          * 
          * [[1 ,2 ,3 ,4 ]
-         *  [5 ,6 ,7 ,8 ]
-         *  [9 ,10,11,12]
-         *  [13,14,15,16]]
+         * [5 ,6 ,7 ,8 ]
+         * [9 ,10,11,12]
+         * [13,14,15,16]]
          * 
-         *     transopse
+         * transopse
          * 
          * [[1 ,5 ,9 ,13]
-         *  [2 ,6 ,10,14]
-         *  [3 ,7 ,11,15]
-         *  [4 ,8 ,12,16]]
+         * [2 ,6 ,10,14]
+         * [3 ,7 ,11,15]
+         * [4 ,8 ,12,16]]
          * 
          * [0][1]->[1][0]
          * [0][2]->[2][0]
@@ -647,6 +647,146 @@ class ArraysEasy {
          * [2][3]->[3][2]
          * 
          */
+    }
+
+    static void setColumnsMinus1(int j, int[][] matrix) {
+        for (int i = 0; i < matrix[j].length; i++) {
+            if (matrix[i][j] != 0) {
+                matrix[i][j] = -1;
+            }
+        }
+    }
+
+    static void setRowMinus1(int i, int[][] matrix) {
+        for (int j = 0; j < matrix[i].length; j++) {
+            if (matrix[i][j] != 0) {
+                matrix[i][j] = -1;
+            }
+        }
+    }
+
+    static void setMatrixZeros(int[][] matrix) {
+
+        /*
+         * Brute force
+         * traverse through the matrix and find the placement of the
+         * mark the rows and columns as -1
+         * 
+         * after updating the rows and columns again iterate through the array
+         * and update the -1's as 0
+         */
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // if (matrix[i][j] == 0) {
+        // setRowMinus1(i, matrix);
+        // setColumnsMinus1(j, matrix);
+        // }
+        // }
+        // }
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // System.out.print("\t" + matrix[i][j]);
+        // }
+        // System.err.println();
+        // }
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // if (matrix[i][j] == -1) {
+        // matrix[i][j] = 0;
+        // }
+        // }
+        // }
+
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // System.out.print("\t" + matrix[i][j]);
+        // }
+        // System.err.println();
+        // }
+
+        /*
+         * Better solution
+         * use 2 arrays as size of row of a matrix and column of the matrix
+         * mark corresponding row and colum as 1 if you witness a 0 by iterating through
+         * the matrix
+         * iterate through the matrix again if row number or column number is 0 make the
+         * corresponding row and column as zero
+         */
+
+        // int[] row = new int[matrix.length];
+        // int[] colums = new int[matrix[0].length];
+
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // if (matrix[i][j] == 0) {
+        // row[i] = 1;
+        // colums[j] = 1;
+        // }
+        // }
+        // }
+
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // if (row[i] == 1 || colums[j] == 1) {
+        // matrix[i][j] = 0;
+        // }
+        // }
+        // }
+
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // System.out.print("\t" + matrix[i][j]);
+        // }
+        // System.err.println();
+        // }
+
+        /*
+         * Optimal solution
+         * the optimal solution is as same as better insted of creating rows array and
+         * columns array we are using the first row and first colums as the anoter extra
+         * space
+         */
+
+        int col0 = 1;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    if (j != 0)
+                        matrix[0][j] = 0;
+                    else
+                        col0 = 0;
+                }
+            }
+        }
+
+        for (int i = 1; i < matrix.length; i++) {
+            for (int j = 1; j < matrix[i].length; j++) {
+                if (matrix[i][j] != 0) {
+                    if (matrix[0][j] == 0 || matrix[i][0] == 0) {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+        }
+        if (matrix[0][0] == 0) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[0][j] = 0;
+            }
+        }
+        if (col0 == 0) {
+            for (int i = 0; i < matrix.length; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print("\t" + matrix[i][j]);
+            }
+            System.err.println();
+        }
+
     }
 
     public static void main(String[] args) {
@@ -678,6 +818,9 @@ class ArraysEasy {
         // System.out.println(longestConsecutiveSequence(nums));
         int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
         rotate(matrix);
+        // int[][] matrix = { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } };
+        // setMatrixZeros(matrix);
+
     }
 
 }
