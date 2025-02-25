@@ -543,13 +543,14 @@ class ArraysEasy {
 
         // Optimal solution
         /*
-         * To do this without sorting add all the element to a set 
-         * iterate through the set 
+         * To do this without sorting add all the element to a set
+         * iterate through the set
          * while encountering a element check wheather the element-1 is available
          * if it is availabe don't go if it is not available it means
          * it is the start of the conscutive element
          * go for the consicutive elements with while loop
-         * check for the consecutive numbers and and increase the count if consecutive numbers available
+         * check for the consecutive numbers and and increase the count if consecutive
+         * numbers available
          * and keep track of the max using longest and current count
          */
 
@@ -566,14 +567,86 @@ class ArraysEasy {
             if (!numsSet.contains(num - 1)) {
                 int curCount = 1;
                 int x = num;
-                while(numsSet.contains(x+1)){
-                    x+=1;
+                while (numsSet.contains(x + 1)) {
+                    x += 1;
                     curCount++;
                 }
-                longest=Math.max(curCount, longest);
+                longest = Math.max(curCount, longest);
             }
         }
         return longest;
+    }
+
+    static void rotate(int[][] matrix) {
+        /*
+         * Brute force
+         * rotaring the matrix by 90 degree
+         * [[1 ,2 ,3 ,4 ]
+         * [5 ,6 ,7 ,8 ]
+         * [9 ,10,11,12]
+         * [13,14,15,16]]
+         * to
+         * [[13,9 ,5 ,1 ]
+         * [14,10,6 ,2]
+         * [15,11,7 ,3]
+         * [16,12,8 ,4]]
+         * 
+         * [0][0]->[0][3]
+         * [0][1]->[1][3]
+         * [0][2]->[2][3]
+         * [0][3]->[3][3]
+         * 
+         * [1][0]->[0][2]
+         * [1][1]->[1][2]
+         * [1][2]->[2][2]
+         * [1][3]->[3][2]
+         * 
+         * [i][j]->[j][n-1-i] we are concluding to this formula
+         * please refer
+         * https://www.youtube.com/watch?v=Z0R2u6gd3GU&ab_channel=takeUforward
+         */
+
+        int[][] ans = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                int formula = matrix.length - 1 - i;
+                ans[j][formula] = matrix[i][j];
+            }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print("\t" + ans[i][j]);
+            }
+            System.out.println();
+        }
+
+        /*
+         * Optimal approach
+         * 
+         * first transpose the matrix and reverse the each row we 
+         * can rotate the matrix 90 degrees
+         * 
+         * [[1 ,2 ,3 ,4 ]
+         *  [5 ,6 ,7 ,8 ]
+         *  [9 ,10,11,12]
+         *  [13,14,15,16]]
+         * 
+         *     transopse
+         * 
+         * [[1 ,5 ,9 ,13]
+         *  [2 ,6 ,10,14]
+         *  [3 ,7 ,11,15]
+         *  [4 ,8 ,12,16]]
+         * 
+         * [0][1]->[1][0]
+         * [0][2]->[2][0]
+         * [0][3]->[3][0]
+         * [1][2]->[2][1]
+         * [1][3]->[3][1]
+         * [2][3]->[3][2]
+         * 
+         */
     }
 
     public static void main(String[] args) {
@@ -603,7 +676,8 @@ class ArraysEasy {
         // System.out.println(leaders(nums));
         // int[] nums = { 100, 102, 100, 101, 101, 4, 3, 2, 3, 2, 1, 1, 1, 2 };
         // System.out.println(longestConsecutiveSequence(nums));
-
+        int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        rotate(matrix);
     }
 
 }
