@@ -606,20 +606,20 @@ class ArraysEasy {
          * https://www.youtube.com/watch?v=Z0R2u6gd3GU&ab_channel=takeUforward
          */
 
-        int[][] ans = new int[matrix.length][matrix[0].length];
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                int formula = matrix.length - 1 - i;
-                ans[j][formula] = matrix[i][j];
-            }
-        }
+        // int[][] ans = new int[matrix.length][matrix[0].length];
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // int formula = matrix.length - 1 - i;
+        // ans[j][formula] = matrix[i][j];
+        // }
+        // }
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                System.out.print("\t" + ans[i][j]);
-            }
-            System.out.println();
-        }
+        // for (int i = 0; i < matrix.length; i++) {
+        // for (int j = 0; j < matrix[i].length; j++) {
+        // System.out.print("\t" + ans[i][j]);
+        // }
+        // System.out.println();
+        // }
 
         /*
          * Optimal approach
@@ -654,17 +654,25 @@ class ArraysEasy {
          * 
          */
 
-         for(int i=0;i<matrix.length-1;i++){
-            for(int j=i+1;j<matrix.length;j++){
-                
+
+        for (int i = 0; i < matrix.length - 1; i++) {
+            for (int j = i + 1; j < matrix.length; j++) {
+                swapMatrixElements(matrix, i, j);
             }
-         }
-    }
-    static void swapMatrixElements(int[][] matrix, ){
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            reverse(matrix[i], 0, matrix[i].length - 1);
+        }
 
     }
 
-    static void setColumnsMinus1(int j, int[][] matrix,) {
+    static void swapMatrixElements(int[][] matrix, int i, int j) {
+        int temp = matrix[i][j];
+        matrix[i][j] = matrix[j][i];
+        matrix[j][i] = temp;
+    }
+
+    static void setColumnsMinus1(int j, int[][] matrix) {
         for (int i = 0; i < matrix[j].length; i++) {
             if (matrix[i][j] != 0) {
                 matrix[i][j] = -1;
@@ -831,7 +839,7 @@ class ArraysEasy {
         // System.out.println(leaders(nums));
         // int[] nums = { 100, 102, 100, 101, 101, 4, 3, 2, 3, 2, 1, 1, 1, 2 };
         // System.out.println(longestConsecutiveSequence(nums));
-        int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        int[][] matrix = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
         rotate(matrix);
         // int[][] matrix = { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } };
         // setMatrixZeros(matrix);
