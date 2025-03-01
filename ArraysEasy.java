@@ -226,7 +226,8 @@ class ArraysEasy {
         /*
          * mores voting algorithm
          * two variables el,count
-         * iterate through the array for the first occurance of the array increase the
+         * iterate through the array for the first occurance of the el in array set 1 to
+         * the
          * count
          * if you encounter the same element increase the count by 1
          * if it is a diffrent element decrease the count
@@ -827,74 +828,76 @@ class ArraysEasy {
             }
             right--;
             // if (top <= bottom) {
-                for (int i = right; i >= left; i--) {
-                    spiralList.add(matrix[bottom][i]);
-                }
-                bottom--;
+            for (int i = right; i >= left; i--) {
+                spiralList.add(matrix[bottom][i]);
+            }
+            bottom--;
             // }
             // if (left <= right) {
-                for (int i = bottom; i >= top; i--) {
-                    spiralList.add(matrix[i][left]);
-                }
-                left++;
+            for (int i = bottom; i >= top; i--) {
+                spiralList.add(matrix[i][left]);
+            }
+            left++;
             // }
         }
         return spiralList;
     }
 
     // public int subarraySum(int[] nums, int k) {
-        
-    // } 
+
+    // }
 
     // hard problems begins
 
-
-    public static int findNCR(int n,int r){
+    public static int findNCR(int n, int r) {
 
         /*
          * brute force
          * pacal triangle
-         *          1
-         *         1  1
-         *        1  2  1
-         *       1  3  3  1
-         *      1  4  6  4  1
-         *     1  5 10 10  5  1
-         *    1  6 15 20 15  6  1
-         *   1  7  21 35 32 21  7  1
-         * this is the pascal triangle 
+         * 1
+         * 1 1
+         * 1 2 1
+         * 1 3 3 1
+         * 1 4 6 4 1
+         * 1 5 10 10 5 1
+         * 1 6 15 20 15 6 1
+         * 1 7 21 35 32 21 7 1
+         * this is the pascal triangle
          * there can be asked 3 types of question asked they are
          * 
          * 1, the positions will be given and we have to give the corresponding elements
          * 
          * using the formuls nCr n!/r!(n-r)!
          * say 6C3 = 6*5*4*3*2*1/3*2*1 (3*2*!)
-         * common 3! will be cancled 
+         * common 3! will be cancled
          * 
-         *2, row number will be given and you will be asked to print the entire row
-         *  this can be achived using the same formula as above mentioned it is the brute force approach
+         * 2, row number will be given and you will be asked to print the entire row
+         * this can be achived using the same formula as above mentioned it is the brute
+         * force approach
          * 
          * 
          * 
-         */  
-        int res=1;
-        for(int i=0;i<r;i++){
-            res=res*(n-i);
-            res=res/(i+1);
+         */
+        int res = 1;
+        for (int i = 0; i < r; i++) {
+            res = res * (n - i);
+            res = res / (i + 1);
         }
         // System.out.println("Result "+res);
         return res;
     }
 
-    public static void printPascalRow(int row){
+    public static void printPascalRow(int row) {
 
-       /*2, row number will be given and you will be asked to print the entire row
-         *  this can be achived using the same formula as above mentioned it is the brute force approach
+        /*
+         * 2, row number will be given and you will be asked to print the entire row
+         * this can be achived using the same formula as above mentioned it is the brute
+         * force approach
          */
-         
+
         // brute force
         // for(int i=1;i<=row;i++){
-        //     System.out.print(findNCR(row-1, i-1)+"\t");
+        // System.out.print(findNCR(row-1, i-1)+"\t");
         // }
 
         /*
@@ -902,13 +905,19 @@ class ArraysEasy {
          * iterate from 1 to the number of the row given in the problem
          * first number and the last number of any row will be one(1)
          * first column we need to go with 1
-         * second column we need to go with 5/1 i.e 5C1 -> 5*4*3*2*1/1*4*3*2*1 -> 4! and 4! will be cancled we get 5
-         * third column we need to go with  5*4/1*2 -> 5C2 -> 5*4*3*2*1/1*2*(3*2*1) -> 3! and 3! will be cancled we get 10 
-         * fourth column we need to go with 5*4*3/1*2*3 -> 5C3 -> 5*4*3*2*1/3*2*1*(2*1) 2! and 2! will be cancled we get 10
-         * fifth column we need to go with 5*4*3*2/1*2*3*4 -> 5C4 -> 5*4*3*2*1/4*3*2*1* 4! and 41 will be cancled we get 5
-         * sixth column we need to go with 5*4*3*2*1/1*2*3*4*1 -> 5C5 5*4*3*2*1/1*2*3*4*1 5! and 5! will be cancled we get 1
+         * second column we need to go with 5/1 i.e 5C1 -> 5*4*3*2*1/1*4*3*2*1 -> 4! and
+         * 4! will be cancled we get 5
+         * third column we need to go with 5*4/1*2 -> 5C2 -> 5*4*3*2*1/1*2*(3*2*1) -> 3!
+         * and 3! will be cancled we get 10
+         * fourth column we need to go with 5*4*3/1*2*3 -> 5C3 -> 5*4*3*2*1/3*2*1*(2*1)
+         * 2! and 2! will be cancled we get 10
+         * fifth column we need to go with 5*4*3*2/1*2*3*4 -> 5C4 -> 5*4*3*2*1/4*3*2*1*
+         * 4! and 41 will be cancled we get 5
+         * sixth column we need to go with 5*4*3*2*1/1*2*3*4*1 -> 5C5
+         * 5*4*3*2*1/1*2*3*4*1 5! and 5! will be cancled we get 1
          * 
-         * in each itration 4/2 3/3 4/2 has been kept on multipiled we come to the formula
+         * in each itration 4/2 3/3 4/2 has been kept on multipiled we come to the
+         * formula
          * ans=1;
          * ans=ans*(n-i)
          * ans=ans/i
@@ -917,12 +926,12 @@ class ArraysEasy {
         // int ans = 1;
         // System.out.print(ans+"\t");
         // for(int i=1;i<row;i++){
-        //     ans = ans*(row-i);
-        //     ans = ans/(i);
-        //     System.out.print(ans+"\t");
+        // ans = ans*(row-i);
+        // ans = ans/(i);
+        // System.out.print(ans+"\t");
         // }
 
-        /*  se need to print the complete pascal triangle*/
+        /* se need to print the complete pascal triangle */
         /*
          * brute force
          * we go for a nested loop and call findNCR function
@@ -930,49 +939,142 @@ class ArraysEasy {
          */
 
         // for(int i=1;i<row;i++){
-        //     for(int j=1;j<=i;j++){
-        //         System.out.print(findNCR(i-1, j-1)+"\t");
-        //     }
-        //     System.out.println();
-        // }      
-        
+        // for(int j=1;j<=i;j++){
+        // System.out.print(findNCR(i-1, j-1)+"\t");
+        // }
+        // System.out.println();
+        // }
+
         /*
-         * optimal approach for printing the 
-         * we are gone uh use the above better approach to get the optimal approach of printing the each rows
+         * optimal approach for printing the
+         * we are gone uh use the above better approach to get the optimal approach of
+         * printing the each rows
          */
 
-         for(int i=1;i<row;i++){
-            int ans=1;
-            System.out.print(ans+"\t");
-            for(int j=1;j<i;j++){
-                ans=ans*(i-j);
-                ans=ans/j;
-                System.out.print(ans+"\t");
+        for (int i = 1; i < row; i++) {
+            int ans = 1;
+            System.out.print(ans + "\t");
+            for (int j = 1; j < i; j++) {
+                ans = ans * (i - j);
+                ans = ans / j;
+                System.out.print(ans + "\t");
             }
             System.out.println();
-         }
+        }
 
-        
     }
+
     // if pascal triangle need to be returned as a list of lists
-    public static List<Integer> generatePascalRow(int rowNum){
+    public static List<Integer> generatePascalRow(int rowNum) {
         List<Integer> ansRow = new ArrayList<Integer>();
         int ans = 1;
         ansRow.add(ans);
-        for(int row=1;row<rowNum;row++){
-            ans = ans*(rowNum-row);
-            ans=ans/row;
+        for (int row = 1; row < rowNum; row++) {
+            ans = ans * (rowNum - row);
+            ans = ans / row;
             ansRow.add(ans);
         }
         return ansRow;
     }
 
     public static List<List<Integer>> generatePascalTriangle(int numRows) {
-        List<List<Integer>> pascalTriangle = new ArrayList();
-        for(int i=1;i<=numRows;i++){
+        List<List<Integer>> pascalTriangle = new ArrayList<List<Integer>>();
+        for (int i = 1; i <= numRows; i++) {
             pascalTriangle.add(generatePascalRow(i));
         }
         return pascalTriangle;
+    }
+
+    public static List<Integer> majorityElementNby3(int[] nums) {
+
+        /*
+         * Brute force
+         * Use a nested array and count the occurance of the each element
+         */
+        // List<Integer> ans = new ArrayList<Integer>();
+        // for (int i = 0; i < nums.length; i++) {
+        // int count = 0;
+        // /*
+        // * if size of the array size is 8 we can only have
+        // * max of 2 elements repeating grated than n/3 time minimum of 0 repeating
+        // * elements
+        // * if length is 8 8/3=2.something so floor value is 2 morethan n/3 in the
+        // sense
+        // * the value should be repeate 3 times so 3+3+3=9 it applies for every size
+        // */
+        // if (ans.size() == 0 || ans.get(0) != nums[i]) {
+        // for (int j = 0; j < nums.length; j++) {
+        // if (nums[j] == nums[i]) {
+        // count++;
+        // }
+        // }
+        // if (count > (nums.length / 3)) {
+        // ans.add(nums[i]);
+        // }
+        // }
+        // if (ans.size() == 2)
+        // break;
+        // }
+        // return ans;
+        // List<Integer> ans = new ArrayList<Integer>();
+        // int targetCount = nums.length/3;
+        // Map<Integer,Integer> refMap = new HashMap<Integer,Integer>();
+        // for(int i=0;i<nums.length;i++){
+        // int value = refMap.getOrDefault(nums[i], 0);
+        // if(value==targetCount){
+        // ans.add(nums[i]);
+        // }
+        // refMap.put(nums[i], value+1);
+        // }
+        // return ans;
+
+        /*
+         * optimal apporach
+         * we are gone apply the same logic for this problem as we applied to majority
+         * element of n/2
+         * but this time we are using 2 el and 2 count vaiable but there is a slight
+         * change
+         * we need to modify the if condition to check wheather the number we are
+         * iterating
+         * should not be equal to element1 or element2 in the current iteration
+         * it will cause an error
+         */
+
+        int el1 = Integer.MIN_VALUE, el2 = Integer.MIN_VALUE, count1 = 0, count2 = 0;
+        List<Integer> ans = new ArrayList<Integer>();
+        for (int i = 0; i < nums.length; i++) {
+            if (count1 == 0 && nums[i] != el2) {
+                el1 = nums[i];
+                count1 = 1;
+            } else if (count2 == 0 && nums[i] != el1) {
+                el2 = nums[i];
+                count2 = 1;
+            } else if (el1 == nums[i]) {
+                count1++;
+            } else if (el2 == nums[i]) {
+                count2++;
+            } else {
+                count1--;
+                count2--;
+            }
+        }
+
+        count1 = 0;
+        count2 = 0;
+        int target = nums.length / 3;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == el1)
+                count1++;
+            if (nums[i] == el2)
+                count2++;
+        }
+        if (count1 > target)
+            ans.add(el1);
+        if (count2 > target)
+            ans.add(el2);
+
+        return ans;
+
     }
 
     public static void main(String[] args) {
@@ -1011,6 +1113,9 @@ class ArraysEasy {
         // System.out.println(spiralMatrix(matrix));
 
         // findNCR(4,2);
-        printPascalRow(7);
+        // printPascalRow(7);
+
+        int[] nums = { 1, 1, 1, 2, 2, 3, 3, 3 };
+        System.out.println(majorityElementNby3(nums));
     }
 }
