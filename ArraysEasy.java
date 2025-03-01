@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -43,38 +42,38 @@ class ArraysEasy {
 
     public static int longestSubarray(int[] nums, int k) {
         // brute force
-        int sum;
-        int maxLength = 0;
-        for (int i = 0; i < nums.length; i++) {
-            sum = 0;
-            for (int j = i; j < nums.length; j++) {
-                sum += nums[j];
-                if (sum == k) {
-                    maxLength = Math.max(maxLength, j - i + 1);
-                }
-            }
-        }
-        return maxLength;
-
-        // better solution optimal for negative zero and positive numbers
-        // int sum=0;
-        // int maxLength=0;
-        // Map<Integer, Integer> preSumMap = new HashMap<>();
-        // for(int i=0;i<nums.length;i++){
-        // sum+=nums[i];
-        // if(sum==k){
-        // maxLength=Math.max(maxLength, i+1);
+        // int sum;
+        // int maxLength = 0;
+        // for (int i = 0; i < nums.length; i++) {
+        // sum = 0;
+        // for (int j = i; j < nums.length; j++) {
+        // sum += nums[j];
+        // if (sum == k) {
+        // maxLength = Math.max(maxLength, j - i + 1);
         // }
-        // int rem=sum-k;
-        // if(preSumMap.containsKey((rem))){
-        // int len = i-preSumMap.get(rem);
-        // maxLength = Math.max(maxLength, len);
-        // }
-        // if(!preSumMap.containsKey(sum)){
-        // preSumMap.put(sum,i);
         // }
         // }
         // return maxLength;
+
+        // better solution optimal for negative zero and positive numbers
+        int sum = 0;
+        int maxLength = 0;
+        Map<Integer, Integer> preSumMap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum == k) {
+                maxLength = Math.max(maxLength, i + 1);
+            }
+            int rem = sum - k;
+            if (preSumMap.containsKey((rem))) {
+                int len = i - preSumMap.get(rem);
+                maxLength = Math.max(maxLength, len);
+            }
+            if (!preSumMap.containsKey(sum)) {
+                preSumMap.put(sum, i);
+            }
+        }
+        return maxLength;
 
         // optimal solution for only positive numbers sliding window
         // int sum = 0;
@@ -818,31 +817,162 @@ class ArraysEasy {
         List<Integer> spiralList = new ArrayList<Integer>();
         while (top <= bottom && left <= right) {
             for (int i = left; i <= right; i++) {
-                // System.out.print(matrix[top][i] + " ");
-            spiralList.add(matrix[top][i]);
+                spiralList.add(matrix[top][i]);
 
             }
             top++;
             for (int i = top; i <= bottom; i++) {
-                // System.out.print(matrix[i][right] + " ");
-            spiralList.add(matrix[i][right]);
+                spiralList.add(matrix[i][right]);
 
             }
             right--;
-            for (int i = right; i >= left; i--) {
-                // System.out.print(matrix[bottom][i] + " ");
-            spiralList.add(matrix[bottom][i]);
-
-            }
-            bottom--;
-            for (int i = bottom; i >= top; i--) {
-                // System.out.print(matrix[i][left] + " ");
-            spiralList.add(matrix[i][left]);
-
-            }
-            left++;
+            // if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    spiralList.add(matrix[bottom][i]);
+                }
+                bottom--;
+            // }
+            // if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    spiralList.add(matrix[i][left]);
+                }
+                left++;
+            // }
         }
         return spiralList;
+    }
+
+    // public int subarraySum(int[] nums, int k) {
+        
+    // } 
+
+    // hard problems begins
+
+
+    public static int findNCR(int n,int r){
+
+        /*
+         * brute force
+         * pacal triangle
+         *          1
+         *         1  1
+         *        1  2  1
+         *       1  3  3  1
+         *      1  4  6  4  1
+         *     1  5 10 10  5  1
+         *    1  6 15 20 15  6  1
+         *   1  7  21 35 32 21  7  1
+         * this is the pascal triangle 
+         * there can be asked 3 types of question asked they are
+         * 
+         * 1, the positions will be given and we have to give the corresponding elements
+         * 
+         * using the formuls nCr n!/r!(n-r)!
+         * say 6C3 = 6*5*4*3*2*1/3*2*1 (3*2*!)
+         * common 3! will be cancled 
+         * 
+         *2, row number will be given and you will be asked to print the entire row
+         *  this can be achived using the same formula as above mentioned it is the brute force approach
+         * 
+         * 
+         * 
+         */  
+        int res=1;
+        for(int i=0;i<r;i++){
+            res=res*(n-i);
+            res=res/(i+1);
+        }
+        // System.out.println("Result "+res);
+        return res;
+    }
+
+    public static void printPascalRow(int row){
+
+       /*2, row number will be given and you will be asked to print the entire row
+         *  this can be achived using the same formula as above mentioned it is the brute force approach
+         */
+         
+        // brute force
+        // for(int i=1;i<=row;i++){
+        //     System.out.print(findNCR(row-1, i-1)+"\t");
+        // }
+
+        /*
+         * optimal approach to print the given row number of the pascal triangle
+         * iterate from 1 to the number of the row given in the problem
+         * first number and the last number of any row will be one(1)
+         * first column we need to go with 1
+         * second column we need to go with 5/1 i.e 5C1 -> 5*4*3*2*1/1*4*3*2*1 -> 4! and 4! will be cancled we get 5
+         * third column we need to go with  5*4/1*2 -> 5C2 -> 5*4*3*2*1/1*2*(3*2*1) -> 3! and 3! will be cancled we get 10 
+         * fourth column we need to go with 5*4*3/1*2*3 -> 5C3 -> 5*4*3*2*1/3*2*1*(2*1) 2! and 2! will be cancled we get 10
+         * fifth column we need to go with 5*4*3*2/1*2*3*4 -> 5C4 -> 5*4*3*2*1/4*3*2*1* 4! and 41 will be cancled we get 5
+         * sixth column we need to go with 5*4*3*2*1/1*2*3*4*1 -> 5C5 5*4*3*2*1/1*2*3*4*1 5! and 5! will be cancled we get 1
+         * 
+         * in each itration 4/2 3/3 4/2 has been kept on multipiled we come to the formula
+         * ans=1;
+         * ans=ans*(n-i)
+         * ans=ans/i
+         */
+
+        // int ans = 1;
+        // System.out.print(ans+"\t");
+        // for(int i=1;i<row;i++){
+        //     ans = ans*(row-i);
+        //     ans = ans/(i);
+        //     System.out.print(ans+"\t");
+        // }
+
+        /*  se need to print the complete pascal triangle*/
+        /*
+         * brute force
+         * we go for a nested loop and call findNCR function
+         * time complexity will be O(nxnxr) ~ O(n^3)
+         */
+
+        // for(int i=1;i<row;i++){
+        //     for(int j=1;j<=i;j++){
+        //         System.out.print(findNCR(i-1, j-1)+"\t");
+        //     }
+        //     System.out.println();
+        // }      
+        
+        /*
+         * optimal approach for printing the 
+         * we are gone uh use the above better approach to get the optimal approach of printing the each rows
+         */
+
+         for(int i=1;i<row;i++){
+            int ans=1;
+            System.out.print(ans+"\t");
+            for(int j=1;j<i;j++){
+                ans=ans*(i-j);
+                ans=ans/j;
+                System.out.print(ans+"\t");
+            }
+            System.out.println();
+         }
+
+        
+    }
+    // if pascal triangle need to be returned as a list of lists
+    public static List<Integer> generatePascalRow(int rowNum){
+        List<Integer> ansRow = new ArrayList<Integer>();
+        int ans = 1;
+        ansRow.add(ans);
+        for(int row=1;row<rowNum;row++){
+            ans = ans*(rowNum-row);
+            ans=ans/row;
+            ansRow.add(ans);
+        }
+        return ansRow;
+    }
+
+    public static List<List<Integer>> generatePascalTriangle(int numRows) {
+        List<List<Integer>> pascalTriangle = new ArrayList();
+        for(int i=1;i<=numRows;i++){
+            pascalTriangle.add(generatePascalRow(i));
+        }
+        return pascalTriangle;
     }
 
     public static void main(String[] args) {
@@ -877,8 +1007,10 @@ class ArraysEasy {
         // rotate(matrix);
         // int[][] matrix = { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } };
         // setMatrixZeros(matrix);
-        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
-        System.out.println(spiralMatrix(matrix));
+        // int[][] matrix = { { 1, 2, 3, 4 } };
+        // System.out.println(spiralMatrix(matrix));
 
+        // findNCR(4,2);
+        printPascalRow(7);
     }
 }
