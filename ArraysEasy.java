@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1077,6 +1080,106 @@ class ArraysEasy {
 
     }
 
+    public static List<List<Integer>> threeSum(int[] nums) {
+
+        /*
+         * brute force
+         * iterate through the array using the nested of 3 loops with indexes i,j,k find
+         * wheather the sum is 0 or not
+         * if it is zero add it to a temprory list and sort them push it to a set
+         * end of the day add all the list in the set to the ans list return the answer
+         * list
+         * 
+         * Time complexity -> O(n^3)
+         * Space complexity -> O(no. of triplets)
+         */
+
+        // Set<List<Integer>> uniqeSet = new HashSet<List<Integer>>();
+        // for (int i = 0; i < nums.length; i++) {
+        // for (int j = i + 1; j < nums.length; j++) {
+        // for (int k = j + 1; k < nums.length; k++) {
+        // if (nums[i] + nums[j] + nums[k] == 0) {
+        // List<Integer> temp = Arrays.asList(nums[i],nums[j],nums[k]);
+        // temp.sort(null);
+        // uniqeSet.add(temp);
+        // }
+        // }
+        // }
+        // }
+        // List<List<Integer>> ans = new ArrayList<>(uniqeSet);
+        // return ans;
+
+        /*
+         * Better approach we are reducing the kth loop here by deriving a formula
+         * nums[i]+nums[j]+nums[k]=0
+         * nums[k]=-(nums[i]+nums[j])
+         * with the help of hasing we are going to find the nums[k]
+         * we should ensure we are the duplicating the numbers in the triplet
+         * we can confirm this by hashing only between the current i and j th indexes
+         * as we seen above store the triplets in the set for uinqeness
+         * 
+         * Time complexity -> O(N^2) log M
+         * Space complexity -> O(N)+O(No.oftuples)
+         * 
+         */
+        // int len = nums.length;
+        // Set<List<Integer>> uniquSet = new HashSet<>();
+        // for (int i = 0; i < len; i++) {
+        // Set<Integer> hashSet = new HashSet<>();
+        // for (int j = i + 1; j < len; j++) {
+        // int thirdItem = -(nums[i] + nums[j]);
+        // if (hashSet.contains(thirdItem)) {
+        // List<Integer> temp = Arrays.asList(nums[i], nums[j], thirdItem);
+        // temp.sort(null);
+        // uniquSet.add(temp);
+        // }
+        // hashSet.add(nums[j]);
+
+        // }
+        // }
+        // return new ArrayList<>(uniquSet);
+
+        /*
+         * optimal solution
+         * we are using a 2-pointer to solve this in the optimal way
+         * firstly sort the given array
+         * i at the first element k at the last element
+         * j is at i+1 add the 3 elements
+         * if sum = 0 form a triplet
+         * if sum is grater reduce k
+         * if sum is lesser than 0 increase j
+         */
+
+        Arrays.sort(nums);
+        int len = nums.length;
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < len; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            int j = i + 1;
+            int k = len - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum < 0) {
+                    j++;
+                } else if (sum > 0) {
+                    k--;
+                } else {
+                    List<Integer> temp = Arrays.asList(nums[i], nums[j], nums[k]);
+                    ans.add(temp);
+                    j++;
+                    k--;
+                    while (j < k && nums[j] == nums[j - 1])
+                        j++;
+                    while (j < k && nums[k] == nums[k + 1])
+                        k--;
+                }
+            }
+
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -1111,11 +1214,12 @@ class ArraysEasy {
         // setMatrixZeros(matrix);
         // int[][] matrix = { { 1, 2, 3, 4 } };
         // System.out.println(spiralMatrix(matrix));
-
         // findNCR(4,2);
         // printPascalRow(7);
+        // int[] nums = { 1, 1, 1, 2, 2, 3, 3, 3 };
+        // System.out.println(majorityElementNby3(nums));
 
-        int[] nums = { 1, 1, 1, 2, 2, 3, 3, 3 };
-        System.out.println(majorityElementNby3(nums));
+        int nums[] = { -1, 0, 1, 2, -1, -4 };
+        System.out.println(threeSum(nums));
     }
 }
