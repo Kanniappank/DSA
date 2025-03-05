@@ -1180,6 +1180,47 @@ class ArraysEasy {
         return ans;
     }
 
+    public static int longestSubarrayOfSumZero(int[] nums) {
+
+        /*
+         * brute force
+         * genetating the all the sub arrays with the nested for loops and finding the
+         * largest sub array
+         * 
+         */
+
+        /*
+         * optimal solution
+         * we are having a arr
+         * say from 0 index m we are getting a sum as some number say for example 3
+         * and form 0 index to k index we are getting the sum as same 3 so form
+         * index m to n the summation will be 0 in this way we find the longest subarray
+         * with sum zero
+         * iterate throught the array add the elements in the array to sum variable
+         * if sum == 0 add 1 with the current index that is maxi
+         * if not 0 check wheather the has map consist of the sum already 
+         * if it is available get the pair it has the index subtract the current index
+         * index in the pair compare with the maxi variable and store the maximum variable 
+         * if the the hash map does nt have the value add the value and the index to the map
+         */
+        int maxi = 0, sum = 0;
+        Map<Integer, Integer> hash = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum == 0) {
+                maxi = i + 1;
+            } else {
+                if (hash.containsKey(sum)) {
+                    int value = hash.get(sum);
+                    maxi = Math.max(maxi, i - value);
+                } else {
+                    hash.put(sum, i);
+                }
+            }
+        }
+        return maxi;
+    }
+
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -1218,8 +1259,10 @@ class ArraysEasy {
         // printPascalRow(7);
         // int[] nums = { 1, 1, 1, 2, 2, 3, 3, 3 };
         // System.out.println(majorityElementNby3(nums));
+        // int nums[] = { -1, 0, 1, 2, -1, -4 };
+        // System.out.println(threeSum(nums));
 
-        int nums[] = { -1, 0, 1, 2, -1, -4 };
-        System.out.println(threeSum(nums));
+        int[] nums = { 1, -1, 3, 2, -2, -8, 1, 7, 10, 23 };
+        System.out.println(longestSubarrayOfSumZero(nums));
     }
 }
