@@ -846,9 +846,51 @@ class ArraysEasy {
         return spiralList;
     }
 
-    // public int subarraySum(int[] nums, int k) {
+    public static int noOfSubarraysWithGivenSum(int[] nums, int k) {
+        /*
+         * Brute force
+         * generate every subarray and check for the sum
+         * if the sum is equal to the sum calculated increase the count
+         * at the end of the iteration return the count
+         * 
+         * Time complexity = O(n^2)
+         * Space Complexity - O(1) there is no extra spaces
+         */
 
-    // }
+        // int count = 0;
+        // int len = nums.length;
+        // for (int i = 0; i < len; i++) {
+        // int sum = 0;
+        // for (int j = i; j < len; j++) {
+        // sum += nums[j];
+        // if (sum == k) {
+        // count++;
+        // }
+        // }
+        // }
+        // return count;
+
+        /*
+         * optimal solution
+         * using prefix sum we are gone find the solution
+         * at any point we get k we need to find the s-k in the sub array
+         * 
+         */
+
+        int preSum = 0;
+        int count = 0;
+        Map<Integer, Integer> hash = new HashMap<Integer, Integer>();
+        hash.put(0, 1);
+        int len = nums.length;
+        for (int i = 0; i < len; i++) {
+            System.out.println(hash);
+            preSum += nums[i];
+            int remove = preSum - k;
+            count += hash.getOrDefault(remove, 0);
+            hash.put(preSum, hash.getOrDefault(preSum, 0) + 1);
+        }
+        return count++;
+    }
 
     // hard problems begins
 
@@ -1198,10 +1240,12 @@ class ArraysEasy {
          * with sum zero
          * iterate throught the array add the elements in the array to sum variable
          * if sum == 0 add 1 with the current index that is maxi
-         * if not 0 check wheather the has map consist of the sum already 
+         * if not 0 check wheather the has map consist of the sum already
          * if it is available get the pair it has the index subtract the current index
-         * index in the pair compare with the maxi variable and store the maximum variable 
-         * if the the hash map does nt have the value add the value and the index to the map
+         * index in the pair compare with the maxi variable and store the maximum
+         * variable
+         * if the the hash map does nt have the value add the value and the index to the
+         * map
          */
         int maxi = 0, sum = 0;
         Map<Integer, Integer> hash = new HashMap<>();
@@ -1261,8 +1305,9 @@ class ArraysEasy {
         // System.out.println(majorityElementNby3(nums));
         // int nums[] = { -1, 0, 1, 2, -1, -4 };
         // System.out.println(threeSum(nums));
-
-        int[] nums = { 1, -1, 3, 2, -2, -8, 1, 7, 10, 23 };
-        System.out.println(longestSubarrayOfSumZero(nums));
+        // int[] nums = { 1, -1, 3, 2, -2, -8, 1, 7, 10, 23 };
+        // System.out.println(longestSubarrayOfSumZero(nums));
+        int[] nums = { 1, 2, 3 };
+        System.out.println(noOfSubarraysWithGivenSum(nums, 3));
     }
 }
