@@ -1267,6 +1267,7 @@ class ArraysEasy {
 
     public static void mergeIntevals(int[][] intervals){
 
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
         Arrays.sort(intervals,new Comparator<int[]>() {
             public int compare(int[] a,int[] b){
                 return a[0]-b[0];
@@ -1275,10 +1276,24 @@ class ArraysEasy {
         for(int i=0;i<intervals.length;i++){
             System.out.print(Arrays.toString(intervals[i]));
         }
+        System.out.println("after processing");
         for(int i=0;i<intervals.length;i++){
             int start=intervals[i][0];
-            int end = int
+            int end = intervals[i][1];
+            if(ans.isEmpty() && end>ans.get(ans.size()-1).get(1)){
+                for(int j=i+1;i<intervals.length;j++){
+                    if(intervals[j][0]<=end){
+                        end=Math.max()
+                    }
+                }
+            }
+                
+            
         }
+        for(int i=0;i<intervals.length;i++){
+            System.out.print(Arrays.toString(intervals[i]));
+        }
+        
 
         // return new int[][] {{0,0},{0,0}};
 
@@ -1328,9 +1343,6 @@ class ArraysEasy {
         // int[] nums = { 1, 2, 3 };
         // System.out.println(noOfSubarraysWithGivenSum(nums, 3));
         int[][] intervals={{15,18},{1,3},{2,6},{8,10},};
-        mergeIntevals(intervals);
-
-
-
+        mergeIntevals(intervals);   
     }
 }
