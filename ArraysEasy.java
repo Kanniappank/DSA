@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1265,6 +1265,24 @@ class ArraysEasy {
         return maxi;
     }
 
+    public static void mergeIntevals(int[][] intervals){
+
+        Arrays.sort(intervals,new Comparator<int[]>() {
+            public int compare(int[] a,int[] b){
+                return a[0]-b[0];
+            }
+        });
+        for(int i=0;i<intervals.length;i++){
+            System.out.print(Arrays.toString(intervals[i]));
+        }
+        for(int i=0;i<intervals.length;i++){
+            int start=intervals[i][0];
+            int end = int
+        }
+
+        // return new int[][] {{0,0},{0,0}};
+
+    }
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -1307,7 +1325,12 @@ class ArraysEasy {
         // System.out.println(threeSum(nums));
         // int[] nums = { 1, -1, 3, 2, -2, -8, 1, 7, 10, 23 };
         // System.out.println(longestSubarrayOfSumZero(nums));
-        int[] nums = { 1, 2, 3 };
-        System.out.println(noOfSubarraysWithGivenSum(nums, 3));
+        // int[] nums = { 1, 2, 3 };
+        // System.out.println(noOfSubarraysWithGivenSum(nums, 3));
+        int[][] intervals={{15,18},{1,3},{2,6},{8,10},};
+        mergeIntevals(intervals);
+
+
+
     }
 }
