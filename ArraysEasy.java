@@ -1265,6 +1265,74 @@ class ArraysEasy {
         return maxi;
     }
 
+    public static void mergeSortedArrays(int[] firstarr, int[] secondArr) {
+        /*Brute force 
+         * we are using a third array for this solution
+         * have 2 pointers first in first array and second in second array
+         * initialize the pointers as 0
+         * compare the current pointers in both the arrays
+         * and add it to the third array using a index variable
+         * 
+         */
+        // int n = firstarr.length;
+        // int m = secondArr.length;
+        // int[] thirdArr = new int[n + m];
+        // int i = 0;
+        // int j = 0;
+        // int index = 0;
+        // while (i < n && j < m) {
+        //     if (firstarr[i] <= secondArr[j]) {
+        //         thirdArr[index] = firstarr[i];
+        //         i++;
+        //     } else {
+        //         thirdArr[index] = secondArr[j];
+        //         j++;
+        //     }
+        //     index++;
+        // }
+        // while (i < n) {
+        //     thirdArr[index] = firstarr[i];
+        //     i++;
+        //     index++;
+        // }
+        // while (j < m) {
+        //     thirdArr[index] = secondArr[j];
+        //     j++;
+        //     index++;
+        // }
+        // for (int k = 0; k < n + m; k++) {
+        //     if (k < n)
+        //         firstarr[k] = thirdArr[k];
+        //     else
+        //         secondArr[k - n] = thirdArr[k];
+        // }
+        // return thirdArr;
+
+        /*Better solution */
+        int n=firstarr.length;
+        int m=secondArr.length;
+        int i=n-1;
+        int j=0;
+    
+        while (i>=0 && j<m) {
+            if(firstarr[i]>secondArr[j]){
+                int temp = firstarr[i];
+                firstarr[i]=secondArr[j];
+                secondArr[j]=temp;
+                i--;
+                j++;
+            }
+            else{
+                break;
+            }    
+        }
+        Arrays.sort(firstarr);
+        Arrays.sort(secondArr);
+        System.out.println(Arrays.toString(firstarr));
+        System.out.println(Arrays.toString(secondArr));
+
+    }
+
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -1307,7 +1375,10 @@ class ArraysEasy {
         // System.out.println(threeSum(nums));
         // int[] nums = { 1, -1, 3, 2, -2, -8, 1, 7, 10, 23 };
         // System.out.println(longestSubarrayOfSumZero(nums));
-        int[] nums = { 1, 2, 3 };
-        System.out.println(noOfSubarraysWithGivenSum(nums, 3));
+        // int[] nums = { 1, 2, 3 };
+        // System.out.println(noOfSubarraysWithGivenSum(nums, 3));
+        int[] firstArr = { 1, 3, 5, 7 };
+        int[] secondArr = { 0, 2, 4, 6, 8 };
+        mergeSortedArrays(firstArr, secondArr);
     }
 }
