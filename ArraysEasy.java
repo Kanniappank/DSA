@@ -1460,5 +1460,6 @@ class ArraysEasy {
         // mergeSortedArrays(firstArr, secondArr);
         // int[][] intervals = { { 15, 18 }, { 1, 3 }, { 2, 6 }, { 8, 10 }, };
         // mergeIntevals(intervals);
+    
     }
 }
