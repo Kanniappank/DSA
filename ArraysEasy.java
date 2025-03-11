@@ -1266,7 +1266,8 @@ class ArraysEasy {
     }
 
     public static void mergeSortedArrays(int[] firstarr, int[] secondArr) {
-        /*Brute force 
+        /*
+         * Brute force
          * we are using a third array for this solution
          * have 2 pointers first in first array and second in second array
          * initialize the pointers as 0
@@ -1281,50 +1282,57 @@ class ArraysEasy {
         // int j = 0;
         // int index = 0;
         // while (i < n && j < m) {
-        //     if (firstarr[i] <= secondArr[j]) {
-        //         thirdArr[index] = firstarr[i];
-        //         i++;
-        //     } else {
-        //         thirdArr[index] = secondArr[j];
-        //         j++;
-        //     }
-        //     index++;
+        // if (firstarr[i] <= secondArr[j]) {
+        // thirdArr[index] = firstarr[i];
+        // i++;
+        // } else {
+        // thirdArr[index] = secondArr[j];
+        // j++;
+        // }
+        // index++;
         // }
         // while (i < n) {
-        //     thirdArr[index] = firstarr[i];
-        //     i++;
-        //     index++;
+        // thirdArr[index] = firstarr[i];
+        // i++;
+        // index++;
         // }
         // while (j < m) {
-        //     thirdArr[index] = secondArr[j];
-        //     j++;
-        //     index++;
+        // thirdArr[index] = secondArr[j];
+        // j++;
+        // index++;
         // }
         // for (int k = 0; k < n + m; k++) {
-        //     if (k < n)
-        //         firstarr[k] = thirdArr[k];
-        //     else
-        //         secondArr[k - n] = thirdArr[k];
+        // if (k < n)
+        // firstarr[k] = thirdArr[k];
+        // else
+        // secondArr[k - n] = thirdArr[k];
         // }
         // return thirdArr;
 
-        /*Better solution */
-        int n=firstarr.length;
-        int m=secondArr.length;
-        int i=n-1;
-        int j=0;
-    
-        while (i>=0 && j<m) {
-            if(firstarr[i]>secondArr[j]){
+        /*
+         * first optimal solution
+         * have 2 pointers in each arrays i and j compare ith index and jth index
+         * if ith index is grater than jth index ith index element belongs to jth index
+         * array
+         * if jth index is lesser than ith index jth index element belongs to ith index
+         * array
+         * swap the corresponding elements to their respective arrays and sort them
+         */
+        int n = firstarr.length;
+        int m = secondArr.length;
+        int i = n - 1;
+        int j = 0;
+
+        while (i >= 0 && j < m) {
+            if (firstarr[i] > secondArr[j]) {
                 int temp = firstarr[i];
-                firstarr[i]=secondArr[j];
-                secondArr[j]=temp;
+                firstarr[i] = secondArr[j];
+                secondArr[j] = temp;
                 i--;
                 j++;
-            }
-            else{
+            } else {
                 break;
-            }    
+            }
         }
         Arrays.sort(firstarr);
         Arrays.sort(secondArr);
@@ -1333,39 +1341,76 @@ class ArraysEasy {
 
     }
 
-    public static void mergeIntevals(int[][] intervals){
+    public static List<List<Integer>> mergeIntevals(int[][] intervals) {
+
+        // List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        // Arrays.sort(intervals,new Comparator<int[]>() {
+        // public int compare(int[] a,int[] b){
+        // return a[0]-b[0];
+        // }
+        // });
+        // for(int i=0;i<intervals.length;i++){
+        // System.out.print(Arrays.toString(intervals[i]));
+        // }
+        // System.out.println("after processing");
+        // for(int i=0;i<intervals.length;i++){
+        // int start=intervals[i][0];
+        // int end = intervals[i][1];
+        // if (!ans.isEmpty() && end <= ans.get(ans.size() - 1).get(1)) {
+        // continue;
+        // }
+        // for(int j=i+1;i<intervals.length;j++){
+        // if(intervals[j][0]<=end){
+        // end=Math.max(end,intervals[j][1]);
+        // }
+        // else{
+        // break;
+        // }
+        // }
+        // ans.add(Arrays.asList(start,end));
+        // }
+
+        // for(int i=0;i<intervals.length;i++){
+        // System.out.print(Arrays.toString(intervals[i]));
+        // }
+
+        // // return new int[][] {{0,0},{0,0}};
+
+        /*
+         * Optimal approach
+         * iterate through the array if the second item of the interval is grater than
+         * the
+         * next intervals first item expand the interval
+         * if the second item is lesser than first item of the next intrval
+         * it is the new interval
+         */
 
         List<List<Integer>> ans = new ArrayList<List<Integer>>();
-        Arrays.sort(intervals,new Comparator<int[]>() {
-            public int compare(int[] a,int[] b){
-                return a[0]-b[0];
+        int len = intervals.length;
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
             }
         });
-        for(int i=0;i<intervals.length;i++){
-            System.out.print(Arrays.toString(intervals[i]));
-        }
-        System.out.println("after processing");
-        for(int i=0;i<intervals.length;i++){
-            int start=intervals[i][0];
-            int end = intervals[i][1];
-            if(ans.isEmpty() && end>ans.get(ans.size()-1).get(1)){
-                for(int j=i+1;i<intervals.length;j++){
-                    if(intervals[j][0]<=end){
-                        end=Math.max()
-                    }
-                }
-            }
-                
-            
-        }
-        for(int i=0;i<intervals.length;i++){
-            System.out.print(Arrays.toString(intervals[i]));
-        }
-        
+        System.out.println("after sorting");
+        // for(int i=0;i<intervals.length;i++){
+        // System.out.print(Arrays.toString(intervals[i]));
+        // }
 
-        // return new int[][] {{0,0},{0,0}};
+        for (int i = 0; i < len; i++) {
+            if (ans.isEmpty() || ans.get(ans.size() - 1).get(1) < intervals[i][0]) {
+                ans.add(Arrays.asList(intervals[i][0], intervals[i][1]));
+            } else {
+                int size = ans.size();
+                ans.get(size - 1).set(1, Math.max(intervals[i][1], ans.get(size - 1).get(1)));
+            }
+        }
+
+        return ans;
 
     }
+
+
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -1410,10 +1455,10 @@ class ArraysEasy {
         // System.out.println(longestSubarrayOfSumZero(nums));
         // int[] nums = { 1, 2, 3 };
         // System.out.println(noOfSubarraysWithGivenSum(nums, 3));
-        int[] firstArr = { 1, 3, 5, 7 };
-        int[] secondArr = { 0, 2, 4, 6, 8 };
-        mergeSortedArrays(firstArr, secondArr);
-        int[][] intervals={{15,18},{1,3},{2,6},{8,10},};
-        mergeIntevals(intervals);   
+        // int[] firstArr = { 1, 3, 5, 7 };
+        // int[] secondArr = { 0, 2, 4, 6, 8 };
+        // mergeSortedArrays(firstArr, secondArr);
+        // int[][] intervals = { { 15, 18 }, { 1, 3 }, { 2, 6 }, { 8, 10 }, };
+        // mergeIntevals(intervals);
     }
 }
