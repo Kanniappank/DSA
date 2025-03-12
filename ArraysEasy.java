@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1410,6 +1409,98 @@ class ArraysEasy {
 
     }
 
+    public static ArrayList<Integer> findTwoElement(int arr[]) {
+        /*
+         * Brute force
+         * Initialize variables: len, ans (ArrayList), missing = -1, repeating = -2.
+         * Loop through numbers from 1 to N:
+         * Count occurrences using a nested loop.
+         * If count == 2, set repeating = i.
+         * If count == 0, set missing = i.
+         * Break early if both numbers are found.
+         * Add missing and repeating to ans and return.
+         * 
+         */
+        // int len = arr.length;
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        // int missing = -1;
+        // int repeating = -1;
+        // for (int i = 1; i <= len; i++) {
+        // int count = 0;
+        // for (int j = 0; j < len; j++) {
+        // if (i == arr[j]) {
+        // count++;
+        // }
+        // }
+        // if (count == 2)
+        // repeating = i;
+        // else if (count == 0)
+        // missing = i;
+        // if (missing != -1 && repeating != -1) {
+        // break;
+        // }
+
+        // }
+        // ans.add(missing);
+        // ans.add(repeating);
+        // return ans;
+
+        /*
+         * better approach
+         * Initialize variables: missing = -1, repeating = -1, len = arr.length.
+         * Create and initialize a hash array of size len + 1 to store element
+         * frequencies.
+         * First loop:
+         * Count occurrences of each number in arr using hash[arr[i]]++.
+         * Second loop (1 to N):
+         * If hash[i] == 2, set repeating = i.
+         * If hash[i] == 0, set missing = i.
+         * Break early if both numbers are found.
+         * Store repeating and missing in ans and return it.
+         * Efficiency:
+         * ✅ Time Complexity: O(N)
+         * ✅ Space Complexity: O(N) (due to extra hash array)
+         */
+
+        // int missing = -1;
+        // int repeating = -1;
+        // int len = arr.length;
+        // var hash = new int[len + 1];
+        // Arrays.fill(hash, 0);
+        // for (int i = 0; i < len; i++) {
+        // hash[arr[i]]++;
+        // }
+        // for (int i = 1; i <= len; i++) {
+        // if (hash[i] == 2) {
+        // repeating = i;
+        // } else if (hash[i] == 0) {
+        // missing = i;
+        // }
+        // if (missing != -1 && repeating != -1) {
+        // break;
+        // }
+        // }
+        // ans.add(repeating);
+        // ans.add(missing);
+        // return ans;
+
+        /*
+         * Optimal approach
+         * 
+         */
+
+        long n = arr.length;
+        long Sn = (n * (n + 1)) / 2;
+        long S2n = (n * (n + 1) * (2 * (n + 1))) / 2;
+        long S = 0, S2 = 0;
+        for (int i = 0; i < n; i++) {
+            S += arr[i];
+            S2 += arr[i] * arr[i];
+        }
+        long val1 = S - Sn;
+        long val2 = S2 - S2n;
+long x = 
+    }
 
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
@@ -1460,6 +1551,7 @@ class ArraysEasy {
         // mergeSortedArrays(firstArr, secondArr);
         // int[][] intervals = { { 15, 18 }, { 1, 3 }, { 2, 6 }, { 8, 10 }, };
         // mergeIntevals(intervals);
-    
+        int[] nums = { 4, 3, 6, 2, 1, 1 };
+        System.out.println(findTwoElement(nums));
     }
 }
