@@ -1409,7 +1409,7 @@ class ArraysEasy {
 
     }
 
-    public static ArrayList<Integer> findTwoElement(int arr[]) {
+    public static ArrayList<Long> findTwoElement(int arr[]) {
         /*
          * Brute force
          * Initialize variables: len, ans (ArrayList), missing = -1, repeating = -2.
@@ -1422,7 +1422,7 @@ class ArraysEasy {
          * 
          */
         // int len = arr.length;
-        ArrayList<Integer> ans = new ArrayList<Integer>();
+        ArrayList<Long> ans = new ArrayList<Integer>();
         // int missing = -1;
         // int repeating = -1;
         // for (int i = 1; i <= len; i++) {
@@ -1486,7 +1486,31 @@ class ArraysEasy {
 
         /*
          * Optimal approach
+         * Calculate expected sum (Sn) and sum of squares (S2n) for numbers 1 to N:
          * 
+         * Sn = (N * (N + 1)) / 2 → Sum of first N natural numbers.
+         * S2n = (N * (N + 1) * (2N + 1)) / 6 → Sum of squares of first N natural
+         * numbers (Incorrect in your code).
+         * Compute actual sum (S) and sum of squares (S2) from the given arr:
+         * 
+         * S = sum of all elements in arr
+         * S2 = sum of squares of all elements in arr
+         * Find the differences:
+         * 
+         * val1 = S - Sn → Difference between actual sum and expected sum → (Repeating -
+         * Missing)
+         * val2 = S2 - S2n → Difference between actual sum of squares and expected sum
+         * of squares → (Repeating² - Missing²)
+         * Solve for x (repeating number) and y (missing number):
+         * 
+         * val2 = val2 / val1 → Computes (Repeating + Missing)
+         * x = (val1 + val2) / 2 → Repeating number
+         * y = x - val1 → Missing number
+         * Store the results in ans and return.
+         * 
+         * Time & Space Complexity:
+         * ✅ O(N) Time Complexity (Single pass through arr).
+         * ✅ O(1) Space Complexity (Only a few extra variables).
          */
 
         long n = arr.length;
@@ -1499,7 +1523,13 @@ class ArraysEasy {
         }
         long val1 = S - Sn;
         long val2 = S2 - S2n;
-long x = 
+        val2 = val2 / val1;
+        long x = (val1 + val2) / 2;
+        long y = x - val1;
+        ans.add(x);
+        ans.add(y);
+        return ans;
+
     }
 
     public static void main(String[] args) {
