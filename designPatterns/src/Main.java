@@ -1,3 +1,9 @@
+import Momento.Editor;
+import Momento.History;
+import State.BrushTool;
+import State.Canvas;
+import State.EraserTool;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -30,15 +36,38 @@ public class Main {
 //        mailServer.sendEmail();
 
 //        Inheritance
-        var textBox = new TextBox();
-        var checkBox = new CheckBox();
-        textBox.enable();
+//        var textBox = new TextBox();
+//        var checkBox = new CheckBox();
+//        textBox.enable();
 
 //        polymorphism
-        textBox.draw();
+//        textBox.draw();
 //        checkBox.draw();
+//drawUIControl(new CheckBox());
 
-drawUIControl(new CheckBox());
+
+//        Momento pattern
+
+//        var editor = new Editor();
+//        var history = new History();
+//        editor.setContent("a");
+//        history.push(editor.createState());
+//        editor.setContent("b");
+//        history.push(editor.createState());
+//        editor.setContent("c");
+//        editor.restore(history.pop());
+//
+//        System.out.println(editor.getContent());
+
+//        State pattern
+        var canvas = new Canvas();
+        canvas.setCurrentTool(new BrushTool());
+        canvas.mouseDown();
+        canvas.mouseUp();
+        canvas.setCurrentTool(new EraserTool());
+        canvas.mouseDown();
+        canvas.mouseUp();
+
     }
 
     public static void drawUIControl(UIControl control){

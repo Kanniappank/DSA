@@ -1499,7 +1499,6 @@ class ArraysEasy {
         }
         long val1 = S - Sn;
         long val2 = S2 - S2n;
-long x = 
     }
 
     public static void main(String[] args) {
