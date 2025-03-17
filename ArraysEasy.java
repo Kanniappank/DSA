@@ -1155,7 +1155,7 @@ class ArraysEasy {
          * nums[i]+nums[j]+nums[k]=0
          * nums[k]=-(nums[i]+nums[j])
          * with the help of hasing we are going to find the nums[k]
-         * we should ensure we are the duplicating the numbers in the triplet
+         * we should ensure we are not the duplicating the numbers in the triplet
          * we can confirm this by hashing only between the current i and j th indexes
          * as we seen above store the triplets in the set for uinqeness
          * 
@@ -1217,6 +1217,116 @@ class ArraysEasy {
                 }
             }
 
+        }
+        return ans;
+    }
+
+    public static List<List<Integer>> fourSum(int[] nums) {
+
+        /*
+         * Brute force
+         * created nested loop and check the wheather the addition get to the target
+         * i.e 0 if it goes to 0 add every thing to the
+         * array and add them to the final array
+         */
+        // int len = nums.length;
+        // int sum = 0;
+        // Set<List<Integer>> uniqueSet = new HashSet<List<Integer>>();
+
+        // for (int i = 0; i < len; i++) {
+        // for (int j = i + 1; j < len; j++) {
+        // for (int k = j + 1; k < len; k++) {
+        // for (int l = k + 1; l < len; l++) {
+        // sum = nums[l] + nums[k];
+        // sum += nums[j];
+        // sum += nums[i];
+        // if (sum == 0) {
+        // List<Integer> temp = Arrays.asList(nums[i], nums[j], nums[k], nums[l]);
+        // uniqueSet.add(temp);
+        // }
+        // }
+        // }
+        // }
+        // }
+        // List<List<Integer>> ans = new ArrayList<>(uniqueSet);
+        // return ans;
+
+        /*
+         * Better approach we are reducing the kth loop here by deriving a formula
+         * nums[i]+nums[j]+nums[k]+nums[l]=0
+         * nums[l]=-(nums[i]+nums[j]+nums[k])
+         * with the help of hasing we are going to find the nums[l]
+         * we should ensure we are not the duplicating the numbers in the triplet
+         * we can confirm this by hashing only between the current j and k th indexes
+         * as we seen above store the triplets in the set for uinqeness
+         * 
+         * Time complexity -> O(N^2) log M
+         * Space complexity -> O(N)+O(No.4pairs)
+         * 
+         */
+
+        // int len = nums.length;
+        // Set<List<Integer>> uniqueSet = new HashSet<List<Integer>>();
+        // for(int i=0;i<len;i++){
+        // for(int j=i+1;j<len;j++){
+        // Set<Integer> hashSet = new HashSet<>();
+        // for(int k = j+1;k<len;k++){
+        // int fourthEle = -(nums[i]+nums[j]+nums[k]);
+        // if(hashSet.contains(fourthEle)){
+        // List<Integer> temp = new
+        // ArrayList<>(Arrays.asList(nums[i],nums[j],nums[k],fourthEle));
+        // temp.sort(null);
+        // uniqueSet.add(temp);
+        // }
+        // hashSet.add(nums[k]);
+        // }
+        // }
+        // }
+        // List<List<Integer>> ans = new ArrayList<>(uniqueSet);
+        // return ans;
+
+        /*
+         * Optimal approach
+         * using 2 pointer
+         * sort the array first
+         * fix i and j l will be the last element of the array
+         * k wil be the next element of j
+         * while added it should give target
+         * if less than the target increase k value
+         * if grater than the target decrease the l value
+         */
+
+        int len = nums.length;
+        List<List<Integer>> ans = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < len; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            for (int j = i + 1; j < len; j++) {
+                if (j != i + 1 && nums[j] == nums[j - 1])
+                    continue;
+                int k = j + 1;
+                int l = len - 1;
+                while (k < l) {
+                    int sum = nums[i] + nums[j] + nums[k] + nums[l];
+                    if (sum > 0) {
+                        l--;
+                    } else if (sum < 0) {
+                        k++;
+                    } else {
+                        List<Integer> temp = new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[k], nums[l]));
+                        ans.add(temp);
+                        k++;
+                        l--;
+                        while (k < l && nums[k] == nums[k - 1]) {
+                            k++;
+                        }
+                        while (k < l && nums[l] == nums[l + 1]) {
+                            l--;
+                        }
+                    }
+                }
+            }
         }
         return ans;
     }
@@ -1422,7 +1532,7 @@ class ArraysEasy {
          * 
          */
         // int len = arr.length;
-        ArrayList<Long> ans = new ArrayList<Integer>();
+        ArrayList<Long> ans = new ArrayList<Long>();
         // int missing = -1;
         // int repeating = -1;
         // for (int i = 1; i <= len; i++) {
@@ -1581,7 +1691,9 @@ class ArraysEasy {
         // mergeSortedArrays(firstArr, secondArr);
         // int[][] intervals = { { 15, 18 }, { 1, 3 }, { 2, 6 }, { 8, 10 }, };
         // mergeIntevals(intervals);
-        int[] nums = { 4, 3, 6, 2, 1, 1 };
-        System.out.println(findTwoElement(nums));
+        // int[] nums = { 4, 3, 6, 2, 1, 1 };
+        // System.out.println(findTwoElement(nums));
+        int[] nums = { 1, 0, -1, 0, -2, 2 };
+        System.out.println(fourSum(nums));
     }
 }
