@@ -1642,6 +1642,73 @@ class ArraysEasy {
 
     }
 
+    public static int subarrayCountWithXor(ArrayList<Integer> nums, int target) {
+
+        /*Brute force 
+         * generate all the subarrays and find the sum with xor
+         */
+        int count = 0;
+        int len = nums.size();
+        for (int i = 0; i < len; i++) {
+            int xor = 0;
+            for (int j = i; j < len; j++) {
+                xor = xor ^ nums.get(j);
+                if (xor == target)
+                    count++;
+            }
+        }
+        return count;
+        
+        /*
+         * Optimal approach
+         * 
+         */
+
+    }
+
+    public static int maxProductSubarray(int[] nums){
+
+        /*Brute force 
+         * generate all the subarray using a nested loop
+         */
+
+        // int len =nums.length;
+        // int maxi=Integer.MIN_VALUE;
+        //  for(int i=0;i<len;i++){
+        //     int product=1;
+        //     for(int j=i;j<len;j++){
+        //         product*=nums[j];
+        //         maxi=Math.max(maxi, product);
+        //     }
+        //  }
+        //  return maxi;
+
+        /*
+         * Optimal approach
+         * we are finding this with 3 scenarios
+         * all are positives in the array it leads to multiplying all the numbers
+         * even number of positive numbers eventually it leads to a positive number after multiplication
+         * odd number of negative numbers which leads to the turn the total sum to be the negative number
+         * so neglate any one negative number so that you get the positive number at the end this can be found 
+         * by using prefix sum and sufix sum you get the answer for this solution
+         * if the arrays got zero restart from 1 because you add zero in between the array you end up with zero
+         */
+
+        int len = nums.length;
+        int maxi = Integer.MIN_VALUE;
+        int prefix=1;
+        int suffix=1;
+        for(int i=0;i<len;i++){
+            prefix*=nums[i];
+            suffix*=nums[len-i-1];
+            if(prefix==0) prefix=1;
+            if(suffix==0) suffix=1;
+            maxi = Math.max(maxi, Math.max(prefix, suffix));
+        }
+        return maxi;
+    }
+
+
     public static void main(String[] args) {
         // int[] nums = {9,6,4,2,3,5,7,0,1};
         // System.out.println(missingNumbers(nums));
@@ -1693,7 +1760,11 @@ class ArraysEasy {
         // mergeIntevals(intervals);
         // int[] nums = { 4, 3, 6, 2, 1, 1 };
         // System.out.println(findTwoElement(nums));
-        int[] nums = { 1, 0, -1, 0, -2, 2 };
-        System.out.println(fourSum(nums));
+        // int[] nums = { 1, 0, -1, 0, -2, 2 };
+        // System.out.println(fourSum(nums));
+        // ArrayList<Integer> nums= new ArrayList<>(Arrays.asList(4, 2, 2, 6, 4));
+        // System.out.println(subarrayCountWithXor(nums, 6));
+        int[] nums = {2,3,-2,4};
+        System.out.println(maxProductSubarray(nums));
     }
 }
