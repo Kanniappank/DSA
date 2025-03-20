@@ -58,11 +58,30 @@ public class BinarySearch {
         return upperBound;
     }
 
+    public static int[] findFloorCeil(int[] nums, int x) {
+        int low = 0;
+        int high = nums.length - 1;
+        int mid = 0;
+        int floor = -1;
+        int ceil = -1;
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (x >= nums[mid]) {
+                floor = nums[mid];
+                low = mid + 1;
+            } else {
+                ceil = nums[mid];
+                high = mid - 1;
+            }
+        }
+        return new int[] { floor, ceil };
+    }
+
     public static void main(String[] args) {
 
-        int[] nums = { 5, 6, 8, 9, 6, 5, 5, 6 };
-        // System.out.println(Arrays.toString(findLowerBoundAndUpperBound(nums, 7)));
-        System.out.println(findLowerBound(nums, 7));
+        int[] nums = { 3 ,4 ,4 ,7 ,8 ,10};
+        System.out.println(Arrays.toString(findFloorCeil(nums, 8)));
+        // System.out.println(findLowerBound(nums, 7));
 
     }
 }
