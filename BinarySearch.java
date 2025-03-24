@@ -305,7 +305,23 @@ public class BinarySearch {
 
         /*
          * Optimal Solution
+         * Handle Edge Cases
          * 
+         * If the array has only one element, return it.
+         * 
+         * If the first or last element is unique, return it immediately.
+         * 
+         * Binary Search for the Unique Element
+         * 
+         * If nums[mid] is not equal to nums[mid + 1] or nums[mid - 1], it is the unique
+         * element.
+         * 
+         * Check the pattern of duplicates:
+         * 
+         * If mid is odd and nums[mid] == nums[mid - 1], or mid is even and nums[mid] ==
+         * nums[mid + 1], the unique element is on the right half → move low = mid + 1.
+         * 
+         * Otherwise, search in the left half → move high = mid - 1.
          */
         int len = nums.length;
         if (len == 1) {
@@ -353,7 +369,7 @@ public class BinarySearch {
         // System.out.println(Arrays.toString(firstAndLastOccurenceSeperate(nums, 2)));
         // int[] nums = { 39, 6, 11, 14, 18, 36, 37, 38 };
         // System.out.println(noOfRotationsUsingBinarySearch(nums));
-        int[] nums={1,1,2,3,3,4,4,8,8};
+        int[] nums = { 1, 1, 2, 3, 3, 4, 4, 8, 8 };
         System.out.println(singleElementInSortedArray(nums));
 
     }
