@@ -274,6 +274,73 @@ public class BinarySearch {
         return ans;
     }
 
+    public static int findPeakElement(int[] nums) {
+        /*
+         * Brute force
+         * search through the array linearly
+         * add the peak condition if condition matches return the number
+         * this works only for single peak
+         */
+        // int len=nums.length;
+        // for(int i=0; i<len;i++){
+        // if((i==0 || nums[i-1]< nums[i]) && (i==len-1 ||nums[i]> nums[i+1])){
+        // return i;
+        // }
+        // }
+        // return -1;
+
+        /*
+         * Brute force
+         * Handle Edge Cases:
+         * 
+         * If the array has only one element, return index 0.
+         * 
+         * If the first element is greater than the second, return 0.
+         * 
+         * If the last element is greater than the second last, return len - 1.
+         * 
+         * Initialize Binary Search:
+         * 
+         * Set low = 1 and high = len - 2.
+         * 
+         * Binary Search Loop:
+         * 
+         * Compute mid = (low + high) / 2.
+         * 
+         * If nums[mid] is greater than both neighbors, return mid (peak found).
+         * 
+         * If nums[mid] > nums[mid - 1] and nums[mid] < nums[mid + 1], move low = mid +
+         * 1 (search right).
+         * 
+         * Else, move high = mid - 1 (search left).
+         * 
+         * Return -1 (should never be reached if a peak exists).
+         */
+        int len = nums.length;
+        if (len == 1) {
+            return 0;
+        }
+        if (nums[0] > nums[1]) {
+            return 0;
+        }
+        if (nums[len - 1] > nums[len - 2]) {
+            return len - 1;
+        }
+        int high = nums.length - 2;
+        int low = 1;
+        while (low < high) {
+            int mid = (low + high) / 2;
+            if (nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]) {
+                return mid;
+            } else if (nums[mid] > nums[mid - 1]) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return -1;
+
+    }
     // public static int noOfRotationsUsingBinarySearch(int[] nums) {
 
     // }
@@ -364,13 +431,14 @@ public class BinarySearch {
         // System.out.println(findTargetSortedRotatedArr(nums, 0));
         // int[] nums = { 2, 5, 6, 0, 0, 1, 2 };
         // System.out.println(findTargetSortedRotatedArrWithDuplicates(nums, 0));
-
         // int[] nums = { 1, 1, 2, 2, 2, 2, 3 };
         // System.out.println(Arrays.toString(firstAndLastOccurenceSeperate(nums, 2)));
         // int[] nums = { 39, 6, 11, 14, 18, 36, 37, 38 };
         // System.out.println(noOfRotationsUsingBinarySearch(nums));
-        int[] nums = { 1, 1, 2, 3, 3, 4, 4, 8, 8 };
-        System.out.println(singleElementInSortedArray(nums));
+        // int[] nums = { 1, 1, 2, 3, 3, 4, 4, 8, 8 };
+        // System.out.println(singleElementInSortedArray(nums));
+        int[] nums = { 1, 5, 1, 2, 1 };
+        System.out.println(findPeakElement(nums));
 
     }
 }
