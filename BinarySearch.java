@@ -417,6 +417,50 @@ public class BinarySearch {
         return -1;
     }
 
+    public static int floorSqurt(int n) {
+        int low = 1;
+        int high = n;
+        int mid = 0;
+        int val = 0;
+        while (low <= high) {
+            mid = (low + high) / 2;
+            val = mid * mid;
+            if (val <= n) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return high;
+    }
+
+    public static int multiply(int times, int number) {
+        int result = 1;
+        for (int i = 0; i < times; i++) {
+            result *= number;
+        }
+        return result;
+    }
+
+    public static int nthRoot(int n, int m) {
+        // code here
+        int low = 1;
+        int high = m;
+        int mid = 0;
+        while (low <= high) {
+            mid = (low + high) / 2;
+            int multipluedValue = multiply(n, mid);
+            if (multipluedValue == m) {
+                return mid;
+            } else if (multipluedValue < m) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
 
         // int[] nums = { 3, 4, 4, 7, 8, 10 };
@@ -437,8 +481,8 @@ public class BinarySearch {
         // System.out.println(noOfRotationsUsingBinarySearch(nums));
         // int[] nums = { 1, 1, 2, 3, 3, 4, 4, 8, 8 };
         // System.out.println(singleElementInSortedArray(nums));
-        int[] nums = { 1, 5, 1, 2, 1 };
-        System.out.println(findPeakElement(nums));
-
+        // int[] nums = { 1, 5, 1, 2, 1 };
+        // System.out.println(findPeakElement(nums));
+        System.out.println(nthRoot(2, 9));
     }
 }
