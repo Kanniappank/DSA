@@ -461,6 +461,40 @@ public class BinarySearch {
         return -1;
     }
 
+    public static int findLargestElementInArray(int[] arr) {
+        int largest = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > largest) {
+                largest = arr[i];
+            }
+        }
+        return largest;
+    }
+
+    public static int timeConsumeToEatAPile(int[] pile, int bananasPerHr) {
+        int result = 0;
+        for (int i = 0; i < pile.length; i++) {
+            result += (int) Math.ceil((double) pile[i] / bananasPerHr);
+        }
+        return result;
+    }
+
+    public static int minEatingSpeed(int[] piles, int h) {
+        int low = 1;
+        int high = findLargestElementInArray(piles);
+        int mid = 0;
+        while (low <= high) {
+            mid = (low + high) / 2;
+            int timeConsumed = timeConsumeToEatAPile(piles, mid);
+            if (h < timeConsumed) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return low;
+    }
+
     public static void main(String[] args) {
 
         // int[] nums = { 3, 4, 4, 7, 8, 10 };
@@ -483,6 +517,9 @@ public class BinarySearch {
         // System.out.println(singleElementInSortedArray(nums));
         // int[] nums = { 1, 5, 1, 2, 1 };
         // System.out.println(findPeakElement(nums));
-        System.out.println(nthRoot(2, 9));
+        // System.out.println(nthRoot(2, 9));
+        int[] piles = { 805306368,805306368,805306368 };
+        int h = 6;
+        System.out.println(minEatingSpeed(piles, h));
     }
 }
