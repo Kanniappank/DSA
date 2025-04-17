@@ -1,6 +1,8 @@
+
 import java.util.Arrays;
 
 public class BinarySearch {
+
     public static int[] findLowerBoundAndUpperBound(int[] nums, int x) {
         int lowerBound = -1;
         int low = 0;
@@ -18,7 +20,7 @@ public class BinarySearch {
                 high = mid - 1; // Move left to find a smaller value
             }
         }
-        return new int[] { lowerBound, upperBound };
+        return new int[]{lowerBound, upperBound};
     }
 
     public static int findLowerBound(int[] nums, int x) {
@@ -73,7 +75,7 @@ public class BinarySearch {
                 high = mid - 1;
             }
         }
-        return new int[] { floor, ceil };
+        return new int[]{floor, ceil};
     }
 
     public static int searchInsert(int[] nums, int target) {
@@ -102,21 +104,20 @@ public class BinarySearch {
          * return array with the first variable and second variable
          */
 
-        /*
+ /*
          * Optimal solution
          * use the function already created find lower bound and upper bound
          */
         int lowerBound = findLowerBound(nums, target);
         if (lowerBound != target || lowerBound == nums.length) {
-            return new int[] { -1, -1 };
+            return new int[]{-1, -1};
         }
-        return new int[] { lowerBound, findUpperBound(nums, lowerBound) - 1 };
+        return new int[]{lowerBound, findUpperBound(nums, lowerBound) - 1};
 
         /*
          * if
          * lower bound and upper bound is not accepted
          */
-
     }
 
     public static int firstOccurence(int[] nums, int target) {
@@ -168,7 +169,6 @@ public class BinarySearch {
          * Otherwise, search left (high = mid - 1).
          * If target is found, return its index; otherwise, return -1.
          */
-
         int low = 0;
         int high = nums.length - 1;
         int mid = 0;
@@ -233,9 +233,9 @@ public class BinarySearch {
     public static int[] firstAndLastOccurenceSeperate(int[] nums, int target) {
         int first = firstOccurence(nums, target);
         if (first == -1) {
-            return new int[] { -1, -1 };
+            return new int[]{-1, -1};
         }
-        return new int[] { firstOccurence(nums, target), lastOccurance(nums, target) };
+        return new int[]{firstOccurence(nums, target), lastOccurance(nums, target)};
     }
 
     public static int minimumOfSortedRotatedArr(int[] nums) {
@@ -344,7 +344,6 @@ public class BinarySearch {
     // public static int noOfRotationsUsingBinarySearch(int[] nums) {
 
     // }
-
     public static int singleElementInSortedArray(int[] nums) {
         /*
          * Brute force
@@ -471,6 +470,17 @@ public class BinarySearch {
         return largest;
     }
 
+    public static int findSmallestElementInArray(int[] arr) {
+        int smallest = arr[0];
+        int len = arr.length;
+        for (int i = 1; i < len; i++) {
+            if (smallest > arr[i]) {
+                smallest = arr[i];
+            }
+        }
+        return smallest;
+    }
+
     public static int timeConsumeToEatAPile(int[] pile, int bananasPerHr) {
         int result = 0;
         for (int i = 0; i < pile.length; i++) {
@@ -493,6 +503,213 @@ public class BinarySearch {
             }
         }
         return low;
+    }
+
+    public static int minDaysToMakeBoqute(int[] bloomDay, int m, int k) {
+        /*
+         * Brute force
+         * by checking the each and every item in the arry you do the brute force
+         * approach
+         */
+        // int mini = smallestElementInArray(bloomDay);
+        // int maxi = findLargestElementInArray(bloomDay);
+        // for (int i = mini; i <= maxi; i++) {
+        // if (possible(bloomDay, i, m, k)) {
+        // return i;
+        // }
+        // }
+        // return -1;
+
+        /*
+         * Optimal approach
+         * we know the range do binary serch between the range
+         */
+        if (bloomDay.length < (m * k)) {
+            return -1;
+        }
+        int low = findSmallestElementInArray(bloomDay);
+        int high = findLargestElementInArray(bloomDay);
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (possible(bloomDay, mid, m, k)) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    public static boolean possible(int[] bloomDay, int currentDay, int m, int k) {
+        int len = bloomDay.length;
+        int count = 0;
+        int noOfBouqutes = 0;
+        for (int i = 0; i < len; i++) {
+            if (bloomDay[i] <= currentDay) {
+                count++;
+            } else {
+                noOfBouqutes += count / k;
+                count = 0;
+            }
+        }
+        noOfBouqutes += count / k;
+        if (noOfBouqutes >= m) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static int smallestDivisor(int[] nums, int threshold) {
+        /*
+         * Brute force
+         * choose the divisor by iterating from 1 to maxi element
+         * add the every element divid by the current divisor
+         * if sum <= return the divisor
+         */
+        // int maxi = findLargestElementInArray(nums);
+        // int len = nums.length;
+        // for (int d = 1; d <= maxi; d++) {
+        //     int sum = 0;
+        //     for (int j = 0; j < len; j++) {
+        //         sum += Math.ceil((double) nums[j] / d);
+        //     }
+        //     if (sum <= threshold) {
+        //         return d;
+        //     }
+        // }
+        // return -1;
+        int low = 1;
+        int high = findLargestElementInArray(nums);
+        int ans = 0;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int sum = returnSumByDivisor(nums, mid);
+            if (sum <= threshold) {
+                //1 2 3 4 5 6 7 8 9
+                //low    mid      high 
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    public static int returnSumByDivisor(int[] arr, int divisor) {
+        int len = arr.length;
+        int sum = 0;
+        for (int i = 0; i < len; i++) {
+            sum += Math.ceil((double) arr[i] / divisor);
+        }
+        return sum;
+    }
+
+    public static int summationOfArray(int[] arr) {
+        int sum = 0;
+        int len = arr.length;
+        for (int i = 0; i < len; i++) {
+            sum += arr[i];
+        }
+        return sum;
+    }
+
+    public static int calculateLoadAndDays(int[] weight, int capacity) {
+        int days = 1;
+        int load = 0;
+        int len = weight.length;
+        for (int i = 0; i < len; i++) {
+            int currentLoad = load + weight[i];
+            if (currentLoad > capacity) {
+                days += 1;
+                load = weight[i];
+            } else {
+                load += weight[i];
+            }
+        }
+        return days;
+    }
+
+    public static int shipWithinDays(int[] weights, int days) {
+        /*Brute Force
+         * Goal: Find the minimum ship capacity to deliver all packages within a given number of days.
+
+           *  Starts checking from:
+
+            *max(weights) → Minimum possible capacity.
+
+            *sum(weights) → Maximum needed capacity.
+
+            * For each capacity:
+
+            *Uses calculateLoadAndDays to compute how many days it takes to ship.
+
+            * Returns the first capacity that meets the day requirement.
+
+            * Returns -1 if no valid capacity found (edge case).
+         */
+        // int mini = findLargestElementInArray(weights);
+        // int totalWeight = summationOfArray(weights);
+        // for (int capacity = mini; capacity <= totalWeight; capacity++) {
+        //     int daysRequire = calculateLoadAndDays(weights, capacity);
+        //     if (daysRequire <= days) {
+        //         return capacity;
+        //     }
+        // }
+        // return -1;
+
+        int low = findLargestElementInArray(weights);
+        int high = summationOfArray(weights);
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int currentCalculation = calculateLoadAndDays(weights, mid);
+            if (currentCalculation <= days) {
+                ans = mid;
+                //10 11 12 13 14 15 16 17 18 19 ......   55
+                // low                                  high
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
+    public static int findKthPositive(int[] arr, int k) {
+        /*Brute force
+         * Iterates through the array arr, incrementing k for each element less than or equal to k. 
+         * Stops at the first element greater than k and returns k.
+         */
+        // int len = arr.length;
+        // for (int i = 0; i < len; i++) {
+        //     if (arr[i] <= k) {
+        //         k++;
+        //     } else {
+        //         break;
+        //     }
+        // }
+        // return k;
+        /*Optimal
+         * 
+         */
+        int len=arr.length;
+        int low=0;
+        int high=len-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            int missing = arr[mid]-(mid+1);
+            if(missing<k){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return (high+1+k);
     }
 
     public static void main(String[] args) {
@@ -518,8 +735,21 @@ public class BinarySearch {
         // int[] nums = { 1, 5, 1, 2, 1 };
         // System.out.println(findPeakElement(nums));
         // System.out.println(nthRoot(2, 9));
-        int[] piles = { 805306368,805306368,805306368 };
-        int h = 6;
-        System.out.println(minEatingSpeed(piles, h));
+        // int[] piles = { 805306368,805306368,805306368 };
+        // int h = 6;
+        // System.out.println(minEatingSpeed(piles, h));
+        // int[] bloomDay = { 1, 10, 3, 10, 2 };
+        // int m = 2;
+        // int k = 3;
+        // System.out.println(minDaysToMakeBoqute(bloomDay, m, k));
+        // int[] nums = {44,22,33,11,1};
+        // int threshold = 5;
+        // System.out.println(smallestDivisor(nums, threshold));
+        // int[] weights = {1, 2, 3, 1, 1};
+        // int days = 4;
+        // System.out.println(shipWithinDays(weights, days));
+        int[] arr = {2, 3, 4, 7, 11};
+        int k = 5;
+        System.out.println(findKthPositive(arr, k));
     }
 }
