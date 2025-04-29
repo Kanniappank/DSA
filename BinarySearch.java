@@ -696,20 +696,96 @@ public class BinarySearch {
         /*Optimal
          * 
          */
-        int len=arr.length;
-        int low=0;
-        int high=len-1;
-        while(low<=high){
-            int mid=(low+high)/2;
-            int missing = arr[mid]-(mid+1);
-            if(missing<k){
-                low=mid+1;
-            }
-            else{
-                high=mid-1;
+        int len = arr.length;
+        int low = 0;
+        int high = len - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int missing = arr[mid] - (mid + 1);
+            if (missing < k) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
             }
         }
-        return (high+1+k);
+        return (high + 1 + k);
+    }
+
+    public static int aggressiveCows(int[] nums, int k) {
+        /*Brute force
+     * search linearly to get the answer
+         */
+        // Arrays.sort(nums);
+        // int len = nums[nums.length-1]-nums[0];
+        // for (int i = 1; i < len; i++) {
+        //     if (!canArrangeCows(nums, k, i)) {
+        //         return i - 1;
+        //     }
+        // }
+        // return len;
+
+        /*Optimal approach
+         * Binary search
+         */
+        Arrays.sort(nums);
+        int low = 0;
+        int high = nums[nums.length - 1] - nums[0];
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (canArrangeCows(nums, k, mid)) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return high;
+    }
+
+    public static boolean canArrangeCows(int[] nums, int cows, int distance) {
+        int len = nums.length;
+        int cowCount = 1;
+        int lastCow = nums[0];
+        for (int i = 1; i < len; i++) {
+            int distanceWithcurrentSpace = (nums[i] - lastCow);
+            if (distanceWithcurrentSpace >= distance) {
+                cowCount++;
+                lastCow = nums[i];
+            }
+        }
+        return cowCount >= cows;
+
+    }
+
+    public static int findPages(int[] nums, int m) {
+        int low = findLargestElementInArray(nums);
+        int high = summationOfArray(nums);
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if(isAllocationPossible(nums,mid,m)){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return low;
+    }
+
+    public static boolean isAllocationPossible(int[] nums, int pagesRange, int noOfStudents) {
+        int len = nums.length;
+        int studentsCount = 1;
+        int noOfpages = 0;
+        for (int i = 0; i < len; i++) {
+            int accumulatedPages=noOfpages+nums[i];
+            if(accumulatedPages>pagesRange){
+                studentsCount++;
+                noOfpages+=nums[i];
+            }
+            else{
+                noOfpages+=nums[i];
+            }
+        }
+        return studentsCount<=noOfStudents;
     }
 
     public static void main(String[] args) {
@@ -748,8 +824,13 @@ public class BinarySearch {
         // int[] weights = {1, 2, 3, 1, 1};
         // int days = 4;
         // System.out.println(shipWithinDays(weights, days));
-        int[] arr = {2, 3, 4, 7, 11};
-        int k = 5;
-        System.out.println(findKthPositive(arr, k));
+        // int[] arr = {2, 3, 4, 7, 11};
+        // int k = 5;
+        // System.out.println(findKthPositive(arr, k));
+        // int[] nums = {4, 2, 1, 3, 6};
+        // System.out.println(aggressiveCows(nums, 2));
+    int[] nums={25, 46, 28, 49, 24};
+    System.out.println(findPages(nums, 4));
+    
     }
 }
