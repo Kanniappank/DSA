@@ -20,7 +20,7 @@ public class BinarySearch {
                 high = mid - 1; // Move left to find a smaller value
             }
         }
-        return new int[]{lowerBound, upperBound};
+        return new int[] { lowerBound, upperBound };
     }
 
     public static int findLowerBound(int[] nums, int x) {
@@ -75,7 +75,7 @@ public class BinarySearch {
                 high = mid - 1;
             }
         }
-        return new int[]{floor, ceil};
+        return new int[] { floor, ceil };
     }
 
     public static int searchInsert(int[] nums, int target) {
@@ -104,15 +104,15 @@ public class BinarySearch {
          * return array with the first variable and second variable
          */
 
- /*
+        /*
          * Optimal solution
          * use the function already created find lower bound and upper bound
          */
         int lowerBound = findLowerBound(nums, target);
         if (lowerBound != target || lowerBound == nums.length) {
-            return new int[]{-1, -1};
+            return new int[] { -1, -1 };
         }
-        return new int[]{lowerBound, findUpperBound(nums, lowerBound) - 1};
+        return new int[] { lowerBound, findUpperBound(nums, lowerBound) - 1 };
 
         /*
          * if
@@ -233,9 +233,9 @@ public class BinarySearch {
     public static int[] firstAndLastOccurenceSeperate(int[] nums, int target) {
         int first = firstOccurence(nums, target);
         if (first == -1) {
-            return new int[]{-1, -1};
+            return new int[] { -1, -1 };
         }
-        return new int[]{firstOccurence(nums, target), lastOccurance(nums, target)};
+        return new int[] { firstOccurence(nums, target), lastOccurance(nums, target) };
     }
 
     public static int minimumOfSortedRotatedArr(int[] nums) {
@@ -572,13 +572,13 @@ public class BinarySearch {
         // int maxi = findLargestElementInArray(nums);
         // int len = nums.length;
         // for (int d = 1; d <= maxi; d++) {
-        //     int sum = 0;
-        //     for (int j = 0; j < len; j++) {
-        //         sum += Math.ceil((double) nums[j] / d);
-        //     }
-        //     if (sum <= threshold) {
-        //         return d;
-        //     }
+        // int sum = 0;
+        // for (int j = 0; j < len; j++) {
+        // sum += Math.ceil((double) nums[j] / d);
+        // }
+        // if (sum <= threshold) {
+        // return d;
+        // }
         // }
         // return -1;
         int low = 1;
@@ -588,8 +588,8 @@ public class BinarySearch {
             int mid = (low + high) / 2;
             int sum = returnSumByDivisor(nums, mid);
             if (sum <= threshold) {
-                //1 2 3 4 5 6 7 8 9
-                //low    mid      high 
+                // 1 2 3 4 5 6 7 8 9
+                // low mid high
                 ans = mid;
                 high = mid - 1;
             } else {
@@ -634,30 +634,32 @@ public class BinarySearch {
     }
 
     public static int shipWithinDays(int[] weights, int days) {
-        /*Brute Force
-         * Goal: Find the minimum ship capacity to deliver all packages within a given number of days.
-
-           *  Starts checking from:
-
-            *max(weights) → Minimum possible capacity.
-
-            *sum(weights) → Maximum needed capacity.
-
-            * For each capacity:
-
-            *Uses calculateLoadAndDays to compute how many days it takes to ship.
-
-            * Returns the first capacity that meets the day requirement.
-
-            * Returns -1 if no valid capacity found (edge case).
+        /*
+         * Brute Force
+         * Goal: Find the minimum ship capacity to deliver all packages within a given
+         * number of days.
+         * 
+         * Starts checking from:
+         * 
+         * max(weights) → Minimum possible capacity.
+         * 
+         * sum(weights) → Maximum needed capacity.
+         * 
+         * For each capacity:
+         * 
+         * Uses calculateLoadAndDays to compute how many days it takes to ship.
+         * 
+         * Returns the first capacity that meets the day requirement.
+         * 
+         * Returns -1 if no valid capacity found (edge case).
          */
         // int mini = findLargestElementInArray(weights);
         // int totalWeight = summationOfArray(weights);
         // for (int capacity = mini; capacity <= totalWeight; capacity++) {
-        //     int daysRequire = calculateLoadAndDays(weights, capacity);
-        //     if (daysRequire <= days) {
-        //         return capacity;
-        //     }
+        // int daysRequire = calculateLoadAndDays(weights, capacity);
+        // if (daysRequire <= days) {
+        // return capacity;
+        // }
         // }
         // return -1;
 
@@ -669,8 +671,8 @@ public class BinarySearch {
             int currentCalculation = calculateLoadAndDays(weights, mid);
             if (currentCalculation <= days) {
                 ans = mid;
-                //10 11 12 13 14 15 16 17 18 19 ......   55
-                // low                                  high
+                // 10 11 12 13 14 15 16 17 18 19 ...... 55
+                // low high
                 high = mid - 1;
             } else {
                 low = mid + 1;
@@ -680,20 +682,23 @@ public class BinarySearch {
     }
 
     public static int findKthPositive(int[] arr, int k) {
-        /*Brute force
-         * Iterates through the array arr, incrementing k for each element less than or equal to k. 
+        /*
+         * Brute force
+         * Iterates through the array arr, incrementing k for each element less than or
+         * equal to k.
          * Stops at the first element greater than k and returns k.
          */
         // int len = arr.length;
         // for (int i = 0; i < len; i++) {
-        //     if (arr[i] <= k) {
-        //         k++;
-        //     } else {
-        //         break;
-        //     }
+        // if (arr[i] <= k) {
+        // k++;
+        // } else {
+        // break;
+        // }
         // }
         // return k;
-        /*Optimal
+        /*
+         * Optimal
          * 
          */
         int len = arr.length;
@@ -712,19 +717,21 @@ public class BinarySearch {
     }
 
     public static int aggressiveCows(int[] nums, int k) {
-        /*Brute force
-     * search linearly to get the answer
+        /*
+         * Brute force
+         * search linearly to get the answer
          */
         // Arrays.sort(nums);
         // int len = nums[nums.length-1]-nums[0];
         // for (int i = 1; i < len; i++) {
-        //     if (!canArrangeCows(nums, k, i)) {
-        //         return i - 1;
-        //     }
+        // if (!canArrangeCows(nums, k, i)) {
+        // return i - 1;
+        // }
         // }
         // return len;
 
-        /*Optimal approach
+        /*
+         * Optimal approach
          * Binary search
          */
         Arrays.sort(nums);
@@ -761,11 +768,10 @@ public class BinarySearch {
         int high = summationOfArray(nums);
         while (low <= high) {
             int mid = (low + high) / 2;
-            if(isAllocationPossible(nums,mid,m)){
-                high=mid-1;
-            }
-            else{
-                low=mid+1;
+            if (isAllocationPossible(nums, mid, m)) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
             }
         }
         return low;
@@ -776,18 +782,16 @@ public class BinarySearch {
         int studentsCount = 1;
         int noOfpages = 0;
         for (int i = 0; i < len; i++) {
-            int accumulatedPages=noOfpages+nums[i];
-            if(accumulatedPages>pagesRange){
+            int accumulatedPages = noOfpages + nums[i];
+            if (accumulatedPages > pagesRange) {
                 studentsCount++;
-                noOfpages+=nums[i];
-            }
-            else{
-                noOfpages+=nums[i];
+                noOfpages += nums[i];
+            } else {
+                noOfpages += nums[i];
             }
         }
-        return studentsCount<=noOfStudents;
+        return studentsCount <= noOfStudents;
     }
-
 
     public static boolean withintheSplitRange(int[] arr, int currentNum, int k) {
         int sum = 0;
@@ -954,6 +958,51 @@ public class BinarySearch {
         }
         return 0;
     }
+
+    public static int kthElement(int[] a, int[] b, int k) {
+        int len1 = a.length;
+        int len2 = b.length;
+        if (len2 < len1) {
+            return kthElement(b, a, k);
+        }
+        int left = k;
+        int low = Math.max(0, k - len2);
+        int high = Math.min(k, len1);
+        while (low <= high) {
+            int mid1 = (low + high) / 2;
+            int mid2 = left - mid1;
+            int l1 = Integer.MIN_VALUE;
+            int l2 = Integer.MIN_VALUE;
+            int r1 = Integer.MAX_VALUE;
+            int r2 = Integer.MAX_VALUE;
+
+            if (mid1 - 1 >= 0) {
+                l1 = a[mid1 - 1];
+            }
+
+            if (mid2 - 1 >= 0) {
+                l2 = b[mid2 - 1];
+            }
+
+            if (mid1 < len1) {
+                r1 = a[mid1];
+            }
+
+            if (mid2 < len2) {
+                r2 = b[mid2];
+            }
+
+            if (l2 <= r1 && l1 <= r2) {
+                return Math.max(l1, l2);
+            } else if (l1 > r2) {
+                high = mid1 - 1;
+            } else {
+                low = mid1 + 1;
+            }
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
 
         // int[] nums = { 3, 4, 4, 7, 8, 10 };
@@ -995,8 +1044,12 @@ public class BinarySearch {
         // System.out.println(findKthPositive(arr, k));
         // int[] nums = {4, 2, 1, 3, 6};
         // System.out.println(aggressiveCows(nums, 2));
-    int[] nums={25, 46, 28, 49, 24};
-    System.out.println(findPages(nums, 4));
-    
+        // int[] nums={25, 46, 28, 49, 24};
+        // System.out.println(findPages(nums, 4));
+        // int[] nums1 = { 2, 3, 6, 7, 9 };
+        // int[] nums2 = { 1, 4, 8, 10 };
+        // int k = 5;
+        // System.out.println(kthElement(nums1, nums2, k));
+
     }
 }
