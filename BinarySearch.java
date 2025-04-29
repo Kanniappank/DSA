@@ -788,6 +788,172 @@ public class BinarySearch {
         return studentsCount<=noOfStudents;
     }
 
+
+    public static boolean withintheSplitRange(int[] arr, int currentNum, int k) {
+        int sum = 0;
+        int currentSplit = 1;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (sum > currentNum) {
+                currentSplit++;
+                sum = arr[i];
+            }
+        }
+        return currentSplit <= k;
+    }
+
+    public static int largestSubarraySumMinimized(int[] a, int k) {
+        int low = findLargestElementInArray(a);
+        int high = summationOfArray(a);
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (withintheSplitRange(a, mid, k)) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        /*
+         * Brute force
+         * merge 2 sorted arrays using 2 pointers
+         * then find the median of the merged array
+         * if the merged array size is even, return the average of the two middle
+         * elements
+         * if odd, return the middle element
+         * Time complexity: O(n+m) where n and m are the lengths of the two arrays
+         * Space complexity: O(n+m) for the merged array
+         */
+        // int i=0, j=0;
+        // int len1=nums1.length;
+        // int len2=nums2.length;
+        // List<Integer> mergedList = new ArrayList<>();
+
+        // while(i<len1 && j<len2){
+        // if(nums1[i]<nums2[j]){
+        // mergedList.add(nums1[i++]);
+        // }
+        // else{
+        // mergedList.add(nums2[j++]);
+        // }
+        // }
+        // while(i<len1){
+        // mergedList.add(nums1[i++]);
+        // }
+        // while(j<len2){
+        // mergedList.add(nums2[j++]);
+        // }
+        // if(mergedList.size()%2==0){
+        // return
+        // (double)(mergedList.get(mergedList.size()/2)+mergedList.get((mergedList.size()/2)-1))/2;
+        // }
+        // else{
+        // return mergedList.get(mergedList.size()/2);
+        // }
+        /*
+         * Better approach
+         * insted of using the 3rd array we can use the 2 pointer approach to find the
+         * median
+         */
+        // int len1 = nums1.length;
+        // int len2 = nums2.length;
+        // int i = 0, j = 0;
+        // int totalLen = len1 + len2;
+        // int index2 = totalLen / 2;
+        // int index1 = index2 - 1;
+        // int element1 = -1, element2 = -1;
+        // int count = 0;
+        // while (i < len1 && j < len2) {
+        // if (nums1[i] < nums2[j]) {
+        // if (count == index1) {
+        // element1 = nums1[i];
+        // }
+        // if (count == index2) {
+        // element2 = nums1[i];
+        // }
+        // count++;
+        // i++;
+        // } else {
+        // if (count == index1) {
+        // element1 = nums2[j];
+        // }
+        // if (count == index2) {
+        // element2 = nums2[j];
+        // }
+        // count++;
+        // j++;
+        // }
+        // }
+        // while (i < len1) {
+        // if (count == index1) {
+        // element1 = nums1[i];
+        // }
+        // if (count == index2) {
+        // element2 = nums1[i];
+        // }
+        // count++;
+        // i++;
+        // }
+        // while (j < len2) {
+        // if (count == index1) {
+        // element1 = nums2[j];
+        // }
+        // if (count == index2) {
+        // element2 = nums2[j];
+        // }
+        // count++;
+        // j++;
+        // }
+        // if (totalLen % 2 == 0) {
+        // return (double) (((double) element1 + (double) element2) / 2);
+        // }
+        // return (double) (element2);
+        int len1 = nums1.length;
+        int len2 = nums2.length;
+        if (len2 < len1) {
+            return findMedianSortedArrays(nums2, nums1);
+        }
+        int totalLen = len1 + len2;
+        int left = (len1 + len2 + 1) / 2;
+        int low = 0;
+        int high = len1;
+        while (low <= high) {
+            int mid1 = (low + high) / 2;
+            int mid2 = left - mid1;
+            int l1 = Integer.MIN_VALUE;
+            int l2 = Integer.MIN_VALUE;
+            int r1 = Integer.MAX_VALUE;
+            int r2 = Integer.MAX_VALUE;
+            if (mid1 - 1 >= 0) {
+                l1 = nums1[mid1 - 1];
+            }
+            if (mid2 - 1 >= 0) {
+                l2 = nums2[mid2 - 1];
+            }
+            if (mid1 < len1) {
+                r1 = nums1[mid1];
+            }
+            if (mid2 < len2) {
+                r2 = nums2[mid2];
+            }
+            if (l1 <= r2 && l2 <= r2) {
+                if (totalLen % 2 == 0) {
+                    return (((double) Math.max(l1, l2)) + ((double) Math.min(r1, r2))) / 2.0;
+                } else {
+                    return Math.max(l1, l2);
+                }
+            } else if (l1 > r2) {
+                high = mid1 - 1;
+            } else {
+                low = mid1 + 1;
+            }
+
+        }
+        return 0;
+    }
     public static void main(String[] args) {
 
         // int[] nums = { 3, 4, 4, 7, 8, 10 };
