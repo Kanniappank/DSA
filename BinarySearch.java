@@ -924,8 +924,8 @@ public class BinarySearch {
         // int[] nums={3,5,1};
         // int k=3;
         // System.out.println(largestSubarraySumMinimized(nums, k));
-        int[] nums1 = {1, 3, 8, 9, 15};
-        int[] nums2 = {7, 11, 18, 19, 21, 25};
-        System.out.println(findMedianSortedArrays(nums1, nums2));
+        // int[] nums1 = {1, 3, 8, 9, 15};
+        // int[] nums2 = {7, 11, 18, 19, 21, 25};
+        // System.out.println(findMedianSortedArrays(nums1, nums2));
     }
 }
