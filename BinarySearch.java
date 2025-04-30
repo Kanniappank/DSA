@@ -20,7 +20,7 @@ public class BinarySearch {
                 high = mid - 1; // Move left to find a smaller value
             }
         }
-        return new int[]{lowerBound, upperBound};
+        return new int[] { lowerBound, upperBound };
     }
 
     public static int findLowerBound(int[] nums, int x) {
@@ -75,7 +75,7 @@ public class BinarySearch {
                 high = mid - 1;
             }
         }
-        return new int[]{floor, ceil};
+        return new int[] { floor, ceil };
     }
 
     public static int searchInsert(int[] nums, int target) {
@@ -104,15 +104,15 @@ public class BinarySearch {
          * return array with the first variable and second variable
          */
 
- /*
+        /*
          * Optimal solution
          * use the function already created find lower bound and upper bound
          */
         int lowerBound = findLowerBound(nums, target);
         if (lowerBound != target || lowerBound == nums.length) {
-            return new int[]{-1, -1};
+            return new int[] { -1, -1 };
         }
-        return new int[]{lowerBound, findUpperBound(nums, lowerBound) - 1};
+        return new int[] { lowerBound, findUpperBound(nums, lowerBound) - 1 };
 
         /*
          * if
@@ -233,9 +233,9 @@ public class BinarySearch {
     public static int[] firstAndLastOccurenceSeperate(int[] nums, int target) {
         int first = firstOccurence(nums, target);
         if (first == -1) {
-            return new int[]{-1, -1};
+            return new int[] { -1, -1 };
         }
-        return new int[]{firstOccurence(nums, target), lastOccurance(nums, target)};
+        return new int[] { firstOccurence(nums, target), lastOccurance(nums, target) };
     }
 
     public static int minimumOfSortedRotatedArr(int[] nums) {
@@ -716,6 +716,83 @@ public class BinarySearch {
         return (high + 1 + k);
     }
 
+    public static int aggressiveCows(int[] nums, int k) {
+        /*
+         * Brute force
+         * search linearly to get the answer
+         */
+        // Arrays.sort(nums);
+        // int len = nums[nums.length-1]-nums[0];
+        // for (int i = 1; i < len; i++) {
+        // if (!canArrangeCows(nums, k, i)) {
+        // return i - 1;
+        // }
+        // }
+        // return len;
+
+        /*
+         * Optimal approach
+         * Binary search
+         */
+        Arrays.sort(nums);
+        int low = 0;
+        int high = nums[nums.length - 1] - nums[0];
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (canArrangeCows(nums, k, mid)) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return high;
+    }
+
+    public static boolean canArrangeCows(int[] nums, int cows, int distance) {
+        int len = nums.length;
+        int cowCount = 1;
+        int lastCow = nums[0];
+        for (int i = 1; i < len; i++) {
+            int distanceWithcurrentSpace = (nums[i] - lastCow);
+            if (distanceWithcurrentSpace >= distance) {
+                cowCount++;
+                lastCow = nums[i];
+            }
+        }
+        return cowCount >= cows;
+
+    }
+
+    public static int findPages(int[] nums, int m) {
+        int low = findLargestElementInArray(nums);
+        int high = summationOfArray(nums);
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (isAllocationPossible(nums, mid, m)) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
+    public static boolean isAllocationPossible(int[] nums, int pagesRange, int noOfStudents) {
+        int len = nums.length;
+        int studentsCount = 1;
+        int noOfpages = 0;
+        for (int i = 0; i < len; i++) {
+            int accumulatedPages = noOfpages + nums[i];
+            if (accumulatedPages > pagesRange) {
+                studentsCount++;
+                noOfpages += nums[i];
+            } else {
+                noOfpages += nums[i];
+            }
+        }
+        return studentsCount <= noOfStudents;
+    }
+
     public static boolean withintheSplitRange(int[] arr, int currentNum, int k) {
         int sum = 0;
         int currentSplit = 1;
@@ -882,6 +959,145 @@ public class BinarySearch {
         return 0;
     }
 
+    public static int kthElement(int[] a, int[] b, int k) {
+        int len1 = a.length;
+        int len2 = b.length;
+        if (len2 < len1) {
+            return kthElement(b, a, k);
+        }
+        int left = k;
+        int low = Math.max(0, k - len2);
+        int high = Math.min(k, len1);
+        while (low <= high) {
+            int mid1 = (low + high) / 2;
+            int mid2 = left - mid1;
+            int l1 = Integer.MIN_VALUE;
+            int l2 = Integer.MIN_VALUE;
+            int r1 = Integer.MAX_VALUE;
+            int r2 = Integer.MAX_VALUE;
+
+            if (mid1 - 1 >= 0) {
+                l1 = a[mid1 - 1];
+            }
+
+            if (mid2 - 1 >= 0) {
+                l2 = b[mid2 - 1];
+            }
+
+            if (mid1 < len1) {
+                r1 = a[mid1];
+            }
+
+            if (mid2 < len2) {
+                r2 = b[mid2];
+            }
+
+            if (l2 <= r1 && l1 <= r2) {
+                return Math.max(l1, l2);
+            } else if (l1 > r2) {
+                high = mid1 - 1;
+            } else {
+                low = mid1 + 1;
+            }
+        }
+        return 0;
+    }
+
+    // Binary search on a 2D array
+
+    public static int rowWithMax1s(int[][] mat) {
+        /*
+         * Brute force go through all the rows using a
+         * nested for loop and count ones
+         */
+        int len = mat.length;
+        int index = -1;
+        int maxCount = -1;
+        for (int i = 0; i < len; i++) {
+            int len2 = mat[i].length;
+            int rowCount = 0;
+
+            // brute force
+            // for (int j = 0; j < len2; j++) {
+            // if (mat[i][j] == 1) {
+            // rowCount++;
+            // }
+            // }
+
+            // optimal approach binary search
+            rowCount = len2 - findLowerBound(mat[i], 1);
+            if (rowCount > maxCount) {
+                maxCount = rowCount;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public static boolean BinarySearch(int[] arr, int target) {
+        int len = arr.length;
+        int low = 0;
+        int high = len - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (target == arr[mid]) {
+                return true;
+            } else if (target <= arr[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return false;
+    }
+
+    public static boolean searchMatrix(int[][] matrix, int target) {
+        /*
+         * Brute force is travese through every element in the array
+         * and find the element or return false;
+         */
+
+        /*
+         * better solution
+         * check the starting and ending index in the each row
+         * if the target is in between the starting and ending item of the array
+         * do a binary serach to find the target value if value available return true
+         * else false
+         */
+
+        // int len = matrix.length;
+        // for (int i = 0; i < len; i++) {
+        // int len2 = matrix[i].length;
+        // if (matrix[i][0] <= target && target <= matrix[i][len2 - 1]) {
+        // return BinarySearch(matrix[i], target);
+        // }
+        // }
+        // return true;
+
+        /*
+         * optimal solution
+         * form a imaginary 1D array and do a binary search on it
+         * the 1D array is formed by taking the first element of each row and the last
+         */
+        int low = 0;
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        int high = rows * columns - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int currentRow = mid / columns;
+            int currentColumn = mid % columns;
+            if (matrix[currentRow][currentColumn] == target) {
+                return true;
+            } else if (matrix[currentRow][currentColumn] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 
         // int[] nums = { 3, 4, 4, 7, 8, 10 };
@@ -927,5 +1143,17 @@ public class BinarySearch {
         // int[] nums1 = {1, 3, 8, 9, 15};
         // int[] nums2 = {7, 11, 18, 19, 21, 25};
         // System.out.println(findMedianSortedArrays(nums1, nums2));
+        // int[] nums = {4, 2, 1, 3, 6};
+        // System.out.println(aggressiveCows(nums, 2));
+        // int[] nums={25, 46, 28, 49, 24};
+        // System.out.println(findPages(nums, 4));
+        // int[] nums1 = { 2, 3, 6, 7, 9 };
+        // int[] nums2 = { 1, 4, 8, 10 };
+        // int k = 5;
+        // System.out.println(kthElement(nums1, nums2, k));
+        // int[][] mat = { { 0, 0, 0 }, { 1, 0, 1 }, { 0, 0, 0 } };
+        // System.out.println(rowWithMax1s(mat));
+        int[][] matrix = { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 60 } };
+        System.out.println(searchMatrix(matrix, 16));
     }
 }
