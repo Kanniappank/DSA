@@ -1098,6 +1098,40 @@ public class BinarySearch {
         return false;
     }
 
+    public static int findMaxIndex(int[][] matrix, int col) {
+        int maxValue = -1;
+        int index = -1;
+        int len = matrix.length;
+        for (int i = 0; i < len; i++) {
+            if (maxValue < matrix[i][col]) {
+                maxValue = matrix[i][col];
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public static int[] findPeakElementInMatrix(int[][] arr) {
+        int len = arr.length;
+        int len2 = arr[0].length;
+        int low = 0;
+        int high = len2-1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int maxRowIndex = findMaxIndex(arr, mid);
+            int left = mid - 1 >= 0 ? arr[maxRowIndex][mid - 1] : -1;
+            int right = mid + 1 < len2 ? arr[maxRowIndex][mid + 1] : -1;
+            if (arr[maxRowIndex][mid] > left && arr[maxRowIndex][mid] > right) {
+                return new int[] { maxRowIndex, mid };
+            } else if (arr[maxRowIndex][mid] < left) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return new int[] { -1, -1 };
+    }
+
     public static void main(String[] args) {
 
         // int[] nums = { 3, 4, 4, 7, 8, 10 };
@@ -1153,7 +1187,11 @@ public class BinarySearch {
         // System.out.println(kthElement(nums1, nums2, k));
         // int[][] mat = { { 0, 0, 0 }, { 1, 0, 1 }, { 0, 0, 0 } };
         // System.out.println(rowWithMax1s(mat));
-        int[][] matrix = { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 60 } };
-        System.out.println(searchMatrix(matrix, 16));
+        // int[][] matrix = { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 60 } };
+        // System.out.println(searchMatrix(matrix, 16));
+        int[][] arr = { { 10,20,15},
+                        { 21,30,14},
+                        { 7,16,32} };
+        System.out.println(Arrays.toString(findPeakElementInMatrix(arr)));
     }
 }
