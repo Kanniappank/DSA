@@ -1098,6 +1098,25 @@ public class BinarySearch {
         return false;
     }
 
+    public static boolean searchTargetInMatrix(int[][] matrix, int target) {
+        int len = matrix.length;
+        int len2 = matrix[0].length;
+        int row = 0;
+        int col = len2 - 1;
+        while (row < len && col >= 0) {
+            if (matrix[row][col] == target) {
+                return true;
+            } else if (matrix[row][col] < target) {
+                row++;
+            } else {
+                col--;
+            }
+        }
+        return false;
+    }
+
+    
+
     public static void main(String[] args) {
 
         // int[] nums = { 3, 4, 4, 7, 8, 10 };
@@ -1153,7 +1172,8 @@ public class BinarySearch {
         // System.out.println(kthElement(nums1, nums2, k));
         // int[][] mat = { { 0, 0, 0 }, { 1, 0, 1 }, { 0, 0, 0 } };
         // System.out.println(rowWithMax1s(mat));
-        int[][] matrix = { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 60 } };
-        System.out.println(searchMatrix(matrix, 16));
+        // int[][] matrix = { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 60 } };
+        // System.out.println(searchMatrix(matrix, 16));
+
     }
 }
