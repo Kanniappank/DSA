@@ -23,7 +23,7 @@ public class BinarySearch {
         return new int[] { lowerBound, upperBound };
     }
 
-    public static int findLowerBound(int[] nums, int x) {
+    public static int findLowerBound(int[] nums, int x) {   //smallest index grater than or equal to x arr[mid]>=x
         int lowerBound = nums.length;
         int low = 0;
         int high = nums.length - 1;
@@ -41,7 +41,7 @@ public class BinarySearch {
         return lowerBound;
     }
 
-    public static int findUpperBound(int[] nums, int x) {
+    public static int findUpperBound(int[] nums, int x) { //smallest inded grater than x arr[mid]>x
         int upperBound = nums.length;
         int low = 0;
         int high = nums.length - 1;
@@ -51,9 +51,9 @@ public class BinarySearch {
             mid = (low + high) / 2;
             if (x < nums[mid]) {
                 upperBound = mid;
-                low = mid + 1;
+                high=mid-1;
             } else {
-                high = mid - 1;
+                low=mid+1;
             }
         }
         return upperBound;
@@ -1115,7 +1115,6 @@ public class BinarySearch {
         return false;
     }
 
-    
     public static int findMaxIndex(int[][] matrix, int col) {
         int maxValue = -1;
         int index = -1;
@@ -1133,7 +1132,7 @@ public class BinarySearch {
         int len = arr.length;
         int len2 = arr[0].length;
         int low = 0;
-        int high = len2-1;
+        int high = len2 - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
             int maxRowIndex = findMaxIndex(arr, mid);
@@ -1150,7 +1149,75 @@ public class BinarySearch {
         return new int[] { -1, -1 };
     }
 
-    
+    public static int samllestElementInMatrix(int[][] matrix) {
+        int smallest = Integer.MAX_VALUE;
+        int len = matrix.length;
+        for (int i = 0; i < len; i++) {
+            if (matrix[i][0] < smallest) {
+                smallest = matrix[i][0];
+            }
+        }
+        return smallest;
+    }
+
+    public static int largestElementInMatrix(int[][] matrix) {
+        int largest = Integer.MIN_VALUE;
+        int len = matrix.length;
+        int len2 = matrix[0].length;
+        for (int i = 0; i < len; i++) {
+            if (matrix[i][len2 - 1] > largest) {
+                largest = matrix[i][len2 - 1];
+            }
+        }
+        return largest;
+    }
+
+    public static int blackbox(int[][] matrix, int mid) {
+        int count = 0;
+        int len = matrix.length;
+        for (int i = 0; i < len; i++) {
+            count += findUpperBound(matrix[i], mid);
+        }
+        return count;
+    }
+
+    public static int findMedian(int[][] matrix) {
+        /*
+         * Brute force form a single dimensional array
+         * and sort the array and find the median
+         */
+
+        /*
+         * optimal approach
+         * find the min and max element in the array
+         * do a binary search between the min and max element
+         * find the mid element
+         * count the number of elements less than or equal to mid
+         * if count is less than or equal to (rows*columns)/2
+         * move the left pointer to mid+1
+         * else move the right pointer to mid-1
+         * if count is equal to (rows*columns)/2
+         * return mid
+         */
+
+        int low = samllestElementInMatrix(matrix);
+        int high = largestElementInMatrix(matrix);
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        int required = (rows * columns) / 2;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int smallerEquals = blackbox(matrix, mid);
+            if (smallerEquals <= required) {
+
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return low;
+    }
+
     public static void main(String[] args) {
 
         // int[] nums = { 3, 4, 4, 7, 8, 10 };
@@ -1209,8 +1276,10 @@ public class BinarySearch {
         // int[][] matrix = { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 60 } };
         // System.out.println(searchMatrix(matrix, 16));
         // int[][] arr = { { 10,20,15},
-        //                 { 21,30,14},
-        //                 { 7,16,32} };
+        // { 21,30,14},
+        // { 7,16,32} };
         // System.out.println(Arrays.toString(findPeakElementInMatrix(arr)));
+        int[][] matrix=  {{ 1, 4, 9}, {2, 5, 6}, {3, 7, 8}};
+        System.out.println(findMedian(matrix));
     }
 }
