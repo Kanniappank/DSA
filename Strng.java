@@ -16,21 +16,20 @@ public class Strng {
         return s1.equals(s2);
     }
 
-    public static String removeOuterParanthesis(String s){
-        String result="";
-        int balance=0;
-        int start=0;
-        for(int i=0;i<s.length();i++){
-            if(s.charAt(i)=='('){
-                if(balance==0){
-                    start=i;
+    public static String removeOuterParanthesis(String s) {
+        String result = "";
+        int balance = 0;
+        int start = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                if (balance == 0) {
+                    start = i;
                 }
                 balance++;
-            }
-            else{
+            } else {
                 balance--;
-                if(balance==0){
-                    result += s.substring(start+1,i);
+                if (balance == 0) {
+                    result += s.substring(start + 1, i);
                 }
             }
         }
@@ -43,7 +42,8 @@ public class Strng {
 
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
-                if (balance == 0) start = i;
+                if (balance == 0)
+                    start = i;
                 balance++;
             } else {
                 balance--;
@@ -61,7 +61,8 @@ public class Strng {
 
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
-                if (balance == 0) start = i;
+                if (balance == 0)
+                    start = i;
                 balance++;
             } else {
                 balance--;
@@ -73,14 +74,28 @@ public class Strng {
         return result.toString();
     }
 
-    public static String largestOddNumberInString(String s){
-        System.out.println(s.length()-1);
-        for(int i=s.length()-1;i>=0;i--){
-            if((s.charAt(i)-'0')%2==1){
-                return s.substring(0,i+1);
+    public static String largestOddNumberInString(String s) {
+        System.out.println(s.length() - 1);
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if ((s.charAt(i) - '0') % 2 == 1) {
+                return s.substring(0, i + 1);
             }
         }
         return "";
+    }
+
+    public static String reverseWords(String s) {
+        System.out.println(s.length());
+        int start = 0 ;
+        int end = 0;
+        StringBuilder result = new StringBuilder();
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if(s.charAt(i) == ' ') {
+                start=i;
+                result.append(s.substring(i, s.length()));
+            }
+        }
+        return result.toString();
     }
 
     public static void main(String[] args) {
@@ -102,34 +117,36 @@ public class Strng {
         // startTime = System.nanoTime();
         // String result1 = "";
         // for (int i = 0; i < loops; i++) {
-        //     result1 = removeWithString(input);
+        // result1 = removeWithString(input);
         // }
         // endTime = System.nanoTime();
-        // System.out.println("Using String took: " + (endTime - startTime)/1_000_000.0 + " ms");
+        // System.out.println("Using String took: " + (endTime - startTime)/1_000_000.0
+        // + " ms");
 
         // // Using StringBuilder
         // startTime = System.nanoTime();
         // String result2 = "";
         // for (int i = 0; i < loops; i++) {
-        //     result2 = removeWithBuilder(input);
+        // result2 = removeWithBuilder(input);
         // }
         // endTime = System.nanoTime();
-        // System.out.println("Using StringBuilder took: " + (endTime - startTime)/1_000_000.0 + " ms");
-
+        // System.out.println("Using StringBuilder took: " + (endTime -
+        // startTime)/1_000_000.0 + " ms");
 
         // string is imutable in java
         // String s = "hello";
         // s = s + " world"; // creates a new string object
         // System.out.println(s); // prints "hello world"
         // StringBuilder sb = new StringBuilder("hello");
-        // sb.append(" world"); // modifies the existing object      
-        
-        
+        // sb.append(" world"); // modifies the existing object
+
         // System.out.println(((Object) ('7' - '0')).getClass());
         // System.err.println(((Object)("7")).getClass());
 
-        System.out.println(largestOddNumberInString("5234"));
+        // System.out.println(largestOddNumberInString("5234"));
 
+        String s = "the sky is blue";
+        System.out.println(reverseWords(s));
         
 
     }
