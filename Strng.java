@@ -1,3 +1,4 @@
+
 public class Strng {
 
     public static StringBuilder getBackSpaceString(String s) {
@@ -86,14 +87,12 @@ public class Strng {
 
     public static String reverseWords(String s) {
         System.out.println(s.length());
-        int start = 0 ;
-        int end = 0;
         StringBuilder result = new StringBuilder();
-        for (int i = s.length() - 1; i >= 0; i--) {
-            if(s.charAt(i) == ' ') {
-                start=i;
-                result.append(s.substring(i, s.length()));
-            }
+        String[] words = s.split("\\s+");
+        for (int i = words.length - 1; i >= 0; i--) {
+            result.append(words[i]);
+            if (i > 0)
+                result.append(" ");
         }
         return result.toString();
     }
@@ -145,9 +144,55 @@ public class Strng {
 
         // System.out.println(largestOddNumberInString("5234"));
 
+        // String s = " hello world ";
+        // System.out.println(reverseWords(s));
+
         String s = "the sky is blue";
-        System.out.println(reverseWords(s));
-        
+        // System.out.println("After reversing words");
+        // System.out.println(s);
+        // s+=' ';
+        // Stack<String> st = new Stack<String>();
+        // String str="";
+        // String ans = "";
+        // for(int i=0;i<s.length();i++){
+        // if(s.charAt(i)==' '){
+        // st.push(str);
+        // str="";
+        // }
+        // else{
+        // str+=s.charAt(i);
+        // }
+        // }
+        // System.out.println("Stact "+st+"stack Size "+st.size()+" st peek
+        // "+st.peek());
+        // while(st.size()!=1){
+        // ans+=st.peek()+ " ";
+        // st.pop();
+        // }
+        // ans+=st.peek();
+        // System.out.println("after reversions");
+        // System.out.println(ans);
+
+        int left = 0;
+        int right = s.length() - 1;
+        String temp = "";
+        String ans = "";
+
+        while (left <= right) {
+            char ch = s.charAt(left);
+            if (ch != ' ') {
+                temp += s.charAt(left);
+            } else {
+                if(!ans.equals("")){
+                    ans = temp+" "+ans;
+                }
+                else{
+                    ans =temp;
+                }
+                temp="";
+            }
+            left++;
+        }
 
     }
 }
