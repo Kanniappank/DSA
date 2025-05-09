@@ -1,4 +1,6 @@
 
+import java.util.HashMap;
+
 public class Strng {
 
     public static StringBuilder getBackSpaceString(String s) {
@@ -97,7 +99,28 @@ public class Strng {
         return result.toString();
     }
 
+    public static HashMap comparisonMaps(String s) {
+        HashMap<Character, Integer> hash = new HashMap<Character, Integer>();
+        for (int i = 0; i < s.length(); i++) {
+            if (hash.containsKey(s.charAt(i))) {
+                int value = hash.get(s.charAt(i));
+                hash.put(s.charAt(i), value + 1);
+            } else {
+                hash.put(s.charAt(i), 1);
+            }
+        }
+        System.out.println(hash);
+        return hash;
+    }
+
+    public static boolean anagram(String s, String t) {
+        return comparisonMaps(s).equals(comparisonMaps(t));
+    }
+
     public static void main(String[] args) {
+        String s = "rat";
+        String t = "car";
+        System.out.println(anagram(s, t));
         // StringBuilder s1 = getBackSpaceString("a#b#cd");
         // StringBuilder s2 = getBackSpaceString("a#b#cd");
 
@@ -147,7 +170,7 @@ public class Strng {
         // String s = " hello world ";
         // System.out.println(reverseWords(s));
 
-        String s = "the sky is blue";
+        // String s = "the sky is blue";
         // System.out.println("After reversing words");
         // System.out.println(s);
         // s+=' ';
@@ -172,27 +195,6 @@ public class Strng {
         // ans+=st.peek();
         // System.out.println("after reversions");
         // System.out.println(ans);
-
-        int left = 0;
-        int right = s.length() - 1;
-        String temp = "";
-        String ans = "";
-
-        while (left <= right) {
-            char ch = s.charAt(left);
-            if (ch != ' ') {
-                temp += s.charAt(left);
-            } else {
-                if(!ans.equals("")){
-                    ans = temp+" "+ans;
-                }
-                else{
-                    ans =temp;
-                }
-                temp="";
-            }
-            left++;
-        }
 
     }
 }
