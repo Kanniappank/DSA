@@ -26,22 +26,37 @@ public class Hashing {
             hash.add(arr[i]);
         }
         for (Integer num : hash) {
-            if(!hash.contains(num-1)){
-                int count=1;
+            if (!hash.contains(num - 1)) {
+                int count = 1;
                 int currentNum = num;
-                while(hash.contains(currentNum+1)){
+                while (hash.contains(currentNum + 1)) {
                     count++;
                     currentNum++;
                 }
-                maxSequence=Math.max(maxSequence, count);
+                maxSequence = Math.max(maxSequence, count);
             }
         }
         System.out.println(hash);
         return maxSequence;
     }
 
+    public static int repeatingInteger(int[] arr) {
+        int len = arr.length;
+        Map<Integer, Integer> hash = new LinkedHashMap<>();
+        for (int i = 0; i < len; i++) {
+            hash.put(arr[i], hash.getOrDefault(arr[i], 0) + 1);
+        }
+        for (Map.Entry<Integer, Integer> entry : hash.entrySet()) {
+            if (entry.getValue() > 1) {
+                return entry.getKey();
+            }
+        }
+
+        return -1;
+    }
+
     public static void main(String[] args) {
-        int[] arr = { 9, 1, 4, 7, 3, 2, 6, 8, 0 };
-        System.out.println(longestConsicutiveSequence(arr));
+        int[] arr = { 1, 2, 3, 4, 5 };
+        System.out.println(repeatingInteger(arr));
     }
 }
