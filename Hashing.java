@@ -51,12 +51,28 @@ public class Hashing {
                 return entry.getKey();
             }
         }
-
         return -1;
+    }
+    public static List repeatingNumberOfNby3times(int[] arr){
+        int len = arr.length;
+        int requiredCount = len/3;
+        Map<Integer,Integer> hash = new HashMap<>();
+        List<Integer> ans = new ArrayList<>();
+        for(int i = 0;i<len;i++){
+            hash.put(arr[i],hash.getOrDefault(arr[i], 0)+1);
+        }
+        System.out.println(hash);
+        System.out.println(requiredCount);
+        for(Map.Entry<Integer,Integer> entry:hash.entrySet()){
+            if(entry.getValue()>requiredCount){
+                ans.add(entry.getKey());
+            }
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
-        int[] arr = { 1, 2, 3, 4, 5 };
-        System.out.println(repeatingInteger(arr));
+        int[] arr = {1, 2, 3 };
+        System.out.println(repeatingNumberOfNby3times(arr));
     }
 }
