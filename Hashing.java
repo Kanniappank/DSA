@@ -1,6 +1,9 @@
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Hashing {
 
@@ -18,8 +21,23 @@ public class Hashing {
        }
        return -1;
     }
+    public static int returnRepeatingNumber(int[] arr){
+        Set<Integer> hash=new HashSet<Integer>();
+        int len= arr.length;
+        for(int i=0;i<len;i++){
+            if(hash.contains(arr[i])){
+                return arr[i];
+            }
+            else{
+                hash.add(arr[i]);
+            }
+        }
+        return -1;
+    }
     public static void main(String[] args){
-        System.out.println(nonRepeatingChar("aabb"));
+        // System.out.println(nonRepeatingChar("aabb"));
+        int[] arr={1, 5, 3, 4, 3, 5, 6};
+        System.out.println(returnRepeatingNumber(arr));
 
     }
 }
