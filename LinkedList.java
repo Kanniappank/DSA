@@ -105,6 +105,12 @@ public class LinkedList {
         return head;
     }
 
+    private <T> Node<T> insertAtHead(Node<T> head, T value){
+        Node <T> temp = new Node(value);
+        temp.next=head;
+        return temp;
+    }
+
     public static void main(String[] args) {
         int[] arr = { 3, 5, 6, 4 };
         LinkedList testList = new LinkedList();
@@ -119,6 +125,8 @@ public class LinkedList {
         System.out.println();
         testList.printLinkedList(head);
         System.out.println();
-        testList.printLinkedList(testList.removeANodeAtvalue(head, 5));
+        // testList.printLinkedList(testList.removeANodeAtvalue(head, 5));
+        System.out.println();
+        testList.printLinkedList(testList.insertAtHead(head, 17));
     }
 }
