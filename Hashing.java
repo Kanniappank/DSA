@@ -30,8 +30,6 @@ public class Hashing {
         }
         return -1;
     }
-  
-
     public static int longestConsicutiveSequence(int[] arr) {
         int len = arr.length;
         int maxSequence = 0;

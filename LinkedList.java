@@ -119,8 +119,6 @@ public class LinkedList {
         System.out.println();
         testList.printLinkedList(head);
         System.out.println();
-        testList.printLinkedList(testList.removeAtPosition(head, 3));
-        System.out.println(testList.removeANodeAtvalue(head, 3));
-        testList.printLinkedList(head);
+        testList.printLinkedList(testList.removeANodeAtvalue(head, 5));
     }
 }
