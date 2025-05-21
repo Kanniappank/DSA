@@ -105,10 +105,54 @@ public class LinkedList {
         return head;
     }
 
-    private <T> Node<T> insertAtHead(Node<T> head, T value){
-        Node <T> temp = new Node(value);
-        temp.next=head;
+    private <T> Node<T> insertAtHead(Node<T> head, T value) {
+        Node<T> temp = new Node(value);
+        temp.next = head;
         return temp;
+    }
+
+    private <T> Node<T> insertAtTail(Node<T> head, T data) {
+        Node<T> temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        Node<T> newNode = new Node<>(data);
+        temp.next = newNode;
+        return head;
+    }
+
+    private <T> Node<T> insertAtPosition(Node<T> head, int position, T data) {
+        Node<T> temp = head;
+        int count = 1;
+        while (temp.next != null) {
+            count++;
+            if (count == position) {
+                Node<T> newNode = new Node<>(data);
+                Node<T> endNode = temp.next.next;
+                temp.next = newNode;
+                newNode.next = endNode;
+                break;
+            } else {
+                temp = temp.next;
+            }
+        }
+        return head;
+    }
+
+    private <T> Node<T> insertAtValue(Node<T> head, T value, T data) {
+        Node<T> temp = head;
+        while (temp.next != null) {
+            if (temp.data == value) {
+                Node<T> endNode = temp.next.next;
+                Node<T> newNode = new Node<>(data);
+                temp.next = newNode;
+                newNode.next = endNode;
+                break;
+            } else {
+                temp = temp.next;
+            }
+        }
+        return head;
     }
 
     public static void main(String[] args) {
