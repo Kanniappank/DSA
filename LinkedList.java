@@ -112,6 +112,9 @@ public class LinkedList {
     }
 
     private <T> Node<T> insertAtTail(Node<T> head, T data) {
+        if (head == null) {
+            return new Node<>(data);
+        }
         Node<T> temp = head;
         while (temp.next != null) {
             temp = temp.next;
@@ -122,15 +125,24 @@ public class LinkedList {
     }
 
     private <T> Node<T> insertAtPosition(Node<T> head, int position, T data) {
+        if (head == null) {
+            if (position == 1)
+                return new Node<>(data);
+            else
+                throw new RuntimeException("the given position is not in the linked list");
+        }
+        if (position == 1) {
+            return new Node<>(data);    
+        }
+
         Node<T> temp = head;
-        int count = 1;
+        int count = 0;
         while (temp.next != null) {
             count++;
-            if (count == position) {
+            if (count == position-1) {
                 Node<T> newNode = new Node<>(data);
-                Node<T> endNode = temp.next.next;
+                newNode.next = temp.next;
                 temp.next = newNode;
-                newNode.next = endNode;
                 break;
             } else {
                 temp = temp.next;
@@ -140,13 +152,18 @@ public class LinkedList {
     }
 
     private <T> Node<T> insertAtValue(Node<T> head, T value, T data) {
+        if(head==null){
+            return new Node<>(data);
+        }
+        if(head.data==value){
+            return new Node<>(data);    
+        }
         Node<T> temp = head;
         while (temp.next != null) {
-            if (temp.data == value) {
-                Node<T> endNode = temp.next.next;
+            if (temp.next.data == value) {
                 Node<T> newNode = new Node<>(data);
-                temp.next = newNode;
-                newNode.next = endNode;
+                newNode.next=temp.next;
+                temp.next=newNode;            
                 break;
             } else {
                 temp = temp.next;
