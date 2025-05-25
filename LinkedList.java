@@ -17,7 +17,7 @@ public class LinkedList {
         for (int i = 1; i < arr.length; i++) {
             Node<Integer> temp = new Node<>(arr[i]);
             mover.next = temp;
-            mover = temp;
+            mover = temp; // used to move to the next next nodesxt next nodes
         }
         return head;
     }
