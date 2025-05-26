@@ -145,25 +145,29 @@ public class DoublyLinkedList {
         int count = 0;
         Node<T> temp = head;
         while (temp != null) {
-            if (count == position - 1) {
-                Node<T> prev = temp.back;
-                Node<T> next = temp.next;
-                if (next == null) {
-                    return this.insertBeforeTail(head, value);
-                }
-                else if(prev!=null){
-                    Node<T> newNode = new Node<>(value, temp, prev);
-                    prev.next = newNode;
-                    temp.back = newNode;
-                    break;
-                }
-            }
-            else{
-                temp=temp.next;
-                count++;
-            }
+            count++;
+            if (count == position)
+                break;
+            temp = temp.next;
+
         }
+        if (temp == null) {
+            return this.insertBeforeTail(head, value);
+        }
+        Node<T> prev = temp.back;
+        Node<T> newNode = new Node<>(value, temp, prev);
+        if (prev != null) {
+            prev.next = newNode;
+        }
+        temp.back = newNode;
         return head;
+    }
+
+    private <T> void insertBeforeNode(Node<T> head, T value) {
+        Node prev = head.back;
+        Node<T> newNode = new Node<>(value,head,prev);
+        prev.next=newNode;
+        head.back=newNode;
     }
 
     public static void main(String[] args) {
@@ -183,6 +187,9 @@ public class DoublyLinkedList {
         System.out.println("Insert before tail");
         testList.printDoublyLinkedList(testList.insertBeforeTail(head, 200));
         System.out.println("Insert at position");
-        testList.printDoublyLinkedList(testList.insertAtkthPosition(head, 6, 300));
+        testList.printDoublyLinkedList(testList.insertAtkthPosition(head, 8, 300));
+        System.out.println("Insert before node");
+        testList.insertBeforeNode(head.next.next.next.next.next.next.next, 800);
+        testList.printDoublyLinkedList(head);
     }
 }
