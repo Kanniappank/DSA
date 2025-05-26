@@ -1,4 +1,8 @@
 
+
+
+
+
 public class DoublyLinkedList {
     class Node<T> {
         T data;
@@ -164,10 +168,55 @@ public class DoublyLinkedList {
     }
 
     private <T> void insertBeforeNode(Node<T> head, T value) {
-        Node prev = head.back;
-        Node<T> newNode = new Node<>(value,head,prev);
-        prev.next=newNode;
-        head.back=newNode;
+        Node<T> prev = head.back;
+        Node<T> newNode = new Node<>(value, head, prev);
+        prev.next = newNode;
+        head.back = newNode;
+    }
+
+    private <T> Node<T> insertAfterTail(Node<T> head, T value) {
+        Node<T> tail = head;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+        Node<T> newNode = new Node<>(value, null, tail);
+        tail.next = newNode;
+        return head;
+    }
+
+    private <T> Node<T> reverseADoublyLinkedList(Node<T> head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        //brute force 
+        /*
+         * travese through the DLL add data to the stack
+         * again traverse through the DLL replace the data with the every data in DLL
+         * time complexity 
+         */
+        // Stack<T> stk=new Stack<>(); //space complexity O(N)
+        // Node<T> temp = head;
+        // while (temp!=null) {
+        //     stk.add(temp.data);
+        //     temp=temp.next;            
+        // } //O(N)
+        // temp=head;
+        // while(temp!=null){
+        //     temp.data=stk.peek();
+        //     stk.pop();
+        //     temp=temp.next;
+        // }//O(N)
+        // time complexity O(2N)
+
+        Node<T> last = null;
+        Node<T> temp= head;
+        while(temp!=null){
+            last = temp.back;
+            temp.back = temp.next;
+            temp.next= last;
+            temp=temp.back;
+        }
+        return last.back;
     }
 
     public static void main(String[] args) {
@@ -176,20 +225,25 @@ public class DoublyLinkedList {
         Integer[] arr = { 3, 5, 7, 8, 6, 9 };
         testList.printDoublyLinkedList(testList.convertArraytoDLL(arr));
         Node<Integer> head = testList.convertArraytoDLL(arr);
-        System.out.println("Delete Head");
+        // System.out.println("Delete Head");
         // testList.printDoublyLinkedList(testList.deleteAtHead(head));
         // System.out.println("Delete Tail");
-        testList.printDoublyLinkedList(testList.deleteTailNode(head));
-        System.out.println("Delete at kth position");
+        // testList.printDoublyLinkedList(testList.deleteTailNode(head));
+        // System.out.println("Delete at kth position");
         // testList.printDoublyLinkedList(testList.deleteAtKthPosition(head, 1));
         // System.out.println("New node at head");
-        testList.printDoublyLinkedList(testList.insertBeforeHead(head, 100));
-        System.out.println("Insert before tail");
-        testList.printDoublyLinkedList(testList.insertBeforeTail(head, 200));
-        System.out.println("Insert at position");
-        testList.printDoublyLinkedList(testList.insertAtkthPosition(head, 8, 300));
-        System.out.println("Insert before node");
-        testList.insertBeforeNode(head.next.next.next.next.next.next.next, 800);
-        testList.printDoublyLinkedList(head);
+        // testList.printDoublyLinkedList(testList.insertBeforeHead(head, 100));
+        // System.out.println("Insert before tail");
+        // testList.printDoublyLinkedList(testList.insertBeforeTail(head, 200));
+        // System.out.println("Insert at position");
+        // testList.printDoublyLinkedList(testList.insertAtkthPosition(head, 8, 300));
+        // System.out.println("Insert before node");
+        // testList.insertBeforeNode(head.next.next.next.next.next.next, 800);
+        // testList.printDoublyLinkedList(head);
+        // System.out.println("Insert after tail");
+        // testList.printDoublyLinkedList(testList.insertAfterTail(head, 700));
+        System.out.println("REverse");
+        testList.printDoublyLinkedList(testList.reverseADoublyLinkedList(head));
+
     }
 }
