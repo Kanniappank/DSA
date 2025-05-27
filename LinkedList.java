@@ -132,14 +132,14 @@ public class LinkedList {
                 throw new RuntimeException("the given position is not in the linked list");
         }
         if (position == 1) {
-            return new Node<>(data);    
+            return new Node<>(data);
         }
 
         Node<T> temp = head;
         int count = 0;
         while (temp.next != null) {
             count++;
-            if (count == position-1) {
+            if (count == position - 1) {
                 Node<T> newNode = new Node<>(data);
                 newNode.next = temp.next;
                 temp.next = newNode;
@@ -152,18 +152,18 @@ public class LinkedList {
     }
 
     private <T> Node<T> insertAtValue(Node<T> head, T value, T data) {
-        if(head==null){
+        if (head == null) {
             return new Node<>(data);
         }
-        if(head.data==value){
-            return new Node<>(data);    
+        if (head.data == value) {
+            return new Node<>(data);
         }
         Node<T> temp = head;
         while (temp.next != null) {
             if (temp.next.data == value) {
                 Node<T> newNode = new Node<>(data);
-                newNode.next=temp.next;
-                temp.next=newNode;            
+                newNode.next = temp.next;
+                temp.next = newNode;
                 break;
             } else {
                 temp = temp.next;
@@ -172,8 +172,44 @@ public class LinkedList {
         return head;
     }
 
+    private <T> Node<T> returnTheMidNode(Node<T> head) {
+
+        /*
+         * Brute force
+         * iterate throught the linked list
+         * count the number of linked list
+         * find the mid using mid = (count/2)+1;
+         * set temp = head again
+         * iterate again reduce mid by one for each iteration
+         * it mid reaches 0 it is the mid node
+         */
+        // int count = 0;
+        // Node temp = head;
+        // while (temp != null) {
+        // count++;
+        // temp = temp.next;
+        // }
+        // temp = head;
+        // int mid = (count / 2) + 1;
+        // System.out.println("Mid " + mid);
+        // while (temp != null) {
+        // mid--;
+        // if (mid == 0)
+        // break;
+        // temp = temp.next;
+        // }
+
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
     public static void main(String[] args) {
-        int[] arr = { 3, 5, 6, 4 };
+        int[] arr = { 3, 5, 6, 4, 7, 8, 9, 1, 0 };
         LinkedList testList = new LinkedList();
 
         Node<Integer> head = testList.convertArray2LinkedList(arr);
@@ -189,5 +225,9 @@ public class LinkedList {
         // testList.printLinkedList(testList.removeANodeAtvalue(head, 5));
         System.out.println();
         testList.printLinkedList(testList.insertAtHead(head, 17));
+        System.out.println("priting linked list");
+        testList.printLinkedList(head);
+        System.out.println("Printing the mid node");
+        System.out.println(testList.returnTheMidNode(head).data);
     }
 }

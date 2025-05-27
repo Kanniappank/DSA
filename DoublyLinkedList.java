@@ -208,6 +208,21 @@ public class DoublyLinkedList {
         // }//O(N)
         // time complexity O(2N)
 
+        //Optimal approach
+        /*
+         * idea is to turn the pointers front to back and back to front
+         * iterate throught the array caputure the last address
+         * and replace the back address with next 
+         * and next to last 
+         * through we can turn the point this is as simple as swapping the numbers
+         * 
+         * temp = a
+         * a=b
+         * b=temp
+         * 
+         * at the end return the last.back which will be the new head
+         */
+
         Node<T> last = null;
         Node<T> temp= head;
         while(temp!=null){
