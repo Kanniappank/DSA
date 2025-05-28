@@ -208,26 +208,47 @@ public class LinkedList {
         return slow;
     }
 
+    private <T> Node<T> reverseLL(Node head) {
+        /*
+         * Brute force
+         * add each element to the stack
+         * iterate again set each element in the stack to each node
+         * 
+         */
+        // Node temp = head;
+        // Stack stk = new Stack();
+        // while(temp!=null){
+        // stk.add(temp.data);
+        // temp=temp.next;
+        // }
+        // System.out.println(stk);
+        // temp=head;
+        // while(temp!=null){
+        // temp.data=stk.peek();
+        // stk.pop();
+        // temp=temp.next;
+        // }
+        // return head;
+
+        /* optimal approach */
+        Node temp = head;
+        Node prev = null;
+        while (temp != null) {
+            prev = temp;
+            temp = temp.next;
+            temp.next = prev;
+            System.out.println("loo");
+        }
+        return temp;
+    }
+
     public static void main(String[] args) {
         int[] arr = { 3, 5, 6, 4, 7, 8, 9, 1, 0 };
         LinkedList testList = new LinkedList();
 
         Node<Integer> head = testList.convertArray2LinkedList(arr);
         testList.printLinkedList(head);
-        System.out.println("Linked list length " + linkListLength(head));
-        System.out.println(testList.isPresent(head, 6));
-        testList.printLinkedList(testList.removeHead(head));
         System.out.println();
-        testList.printLinkedList(testList.removeTail(head));
-        System.out.println();
-        testList.printLinkedList(head);
-        System.out.println();
-        // testList.printLinkedList(testList.removeANodeAtvalue(head, 5));
-        System.out.println();
-        testList.printLinkedList(testList.insertAtHead(head, 17));
-        System.out.println("priting linked list");
-        testList.printLinkedList(head);
-        System.out.println("Printing the mid node");
-        System.out.println(testList.returnTheMidNode(head).data);
+        testList.printLinkedList(testList.reverseLL(head));
     }
 }
