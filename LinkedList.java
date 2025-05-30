@@ -231,15 +231,26 @@ public class LinkedList {
         // return head;
 
         /* optimal approach */
-        Node temp = head;
-        Node prev = null;
-        while (temp != null) {
-            prev = temp;
-            temp = temp.next;
-            temp.next = prev;
-            System.out.println("loo");
+        // Node temp = head;
+        // Node prev = null;
+        // while (temp != null) {
+        //     Node front = temp.next;     // step-1 preserve the front node
+        //     temp.next = prev;           // step-2 reverse the link
+        //     prev = temp;                // step-3 move prev to the current node
+        //     temp = front;               // step-4 move temp to the front node (i.e) next node
+        // }
+        // return temp;
+
+        /*Recursive approach */
+
+        if(head ==null || head.next==null){
+            return head;
         }
-        return temp;
+        Node<T> newHead = reverseLL(head.next);
+        Node<T> front = head.next;
+        front.next = head;
+        head.next = null;
+        return newHead;
     }
 
     public static void main(String[] args) {
