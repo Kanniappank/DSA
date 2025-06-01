@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 
 public class LinkedList {
 
@@ -208,6 +210,73 @@ public class LinkedList {
         return slow;
     }
 
+    private <T> boolean hasCycle(Node<T> head) {
+        /*
+         * Bute force
+         * use hasing to find whether the node repeats or not
+         * time complexity O(N)
+         * space complexity O(N) additional hash map is used
+         */
+
+        // Map<Node,Integer> hash = new HashMap();
+        // Node temp = head;
+        // while(temp!=null){
+        // if(hash.containsKey(temp)){
+        // return true;
+        // }
+        // hash.put(temp,1);
+        // temp=temp.next;
+        // }
+        // return false;
+
+        /*
+         * Optimal approach tortiose and haris method
+         * use fast and slow pointers
+         * fast moves by one pointer slow moves by 2 pointers
+         * if slow and fast pointer meets there is a loop return true else return false
+         */
+
+        Node<T> slow = head;
+        Node<T> fast = head;
+        while (fast != null && fast.next != null) {
+            if (fast == slow) {
+                return true;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return false;
+    }
+
+    private <T> Node<T> detectCycle(Node<T> head) {
+        /*
+         * Brute force
+         * use hasing to check which node repeates first and it is the starting of the
+         * loop
+         */
+        // Node<T> temp = head;
+        // Map<Node<T>,Integer> hash = new HashMap<>();
+        // while(temp!=null){
+        // if(hash.containsKey(temp)){
+        // return temp;
+        // }
+        // hash.put(temp, 1);
+        // temp=temp.next;
+        // }
+        // return null;
+
+        /*
+         * Optimal approach
+         * use tortoise and haris method
+         * use slow and fast pointer slow moves by one fast moves by two
+         * if slow and fast meet move any one of the pointer one by one count the
+         * movement while counting
+         * poiters will be equal at that point return the
+         */
+
+         
+    }
+
     private <T> Node<T> reverseLL(Node head) {
         /*
          * Brute force
@@ -234,16 +303,16 @@ public class LinkedList {
         // Node temp = head;
         // Node prev = null;
         // while (temp != null) {
-        //     Node front = temp.next;     // step-1 preserve the front node
-        //     temp.next = prev;           // step-2 reverse the link
-        //     prev = temp;                // step-3 move prev to the current node
-        //     temp = front;               // step-4 move temp to the front node (i.e) next node
+        // Node front = temp.next; // step-1 preserve the front node
+        // temp.next = prev; // step-2 reverse the link
+        // prev = temp; // step-3 move prev to the current node
+        // temp = front; // step-4 move temp to the front node (i.e) next node
         // }
         // return temp;
 
-        /*Recursive approach */
+        /* Recursive approach */
 
-        if(head ==null || head.next==null){
+        if (head == null || head.next == null) {
             return head;
         }
         Node<T> newHead = reverseLL(head.next);
@@ -251,6 +320,60 @@ public class LinkedList {
         front.next = head;
         head.next = null;
         return newHead;
+    }
+
+    private <T> int findLengthOfLoop(Node<T> head) {
+        /*
+         * Brute force approach
+         * use hashing to find the hasing to preserve the position of the each node
+         * check wheather it is already avaliable in the hash before adding
+         * if it is available subtract the current count the count stored in the re
+         * accouring node
+         * that is the length of the loop
+         * time complexity O(N)
+         * space Complexity O(N)
+         */
+
+        // Node temp = head;
+        // Map<Node,Integer> hash = new HashMap<>();
+        // int count=0;
+        // while(temp!=null){
+        // count++;
+        // if(hash.containsKey(temp)){
+        // return count-hash.get(temp);
+        // }
+        // hash.put(temp, count);
+        // temp=temp.next;
+        // }
+        // return 0;
+
+        /*
+         * Optimal approach
+         * use tortoise and hare method after fast and slow met
+         * it is the intersection point at the intersection move any one ot the point
+         * one by one step
+         * till it reaches the another if they meet count the steps it is the loops
+         * count
+         */
+
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow) {
+                return loopCount(fast, slow);
+            }
+        }
+        return 0;
+    }
+
+    private <T> int loopCount(Node<T> fast, Node<T> slow) {
+        int count = 0;
+        while (slow != fast) {
+            count++;
+        }
+        return count;
     }
 
     public static void main(String[] args) {
@@ -261,5 +384,6 @@ public class LinkedList {
         testList.printLinkedList(head);
         System.out.println();
         testList.printLinkedList(testList.reverseLL(head));
+
     }
 }
