@@ -1,5 +1,7 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.rmi.server.Skeleton;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class LinkedList {
 
@@ -201,8 +203,8 @@ public class LinkedList {
         // temp = temp.next;
         // }
 
-        Node slow = head;
-        Node fast = head;
+        Node<T> slow = head;
+        Node<T> fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -274,7 +276,22 @@ public class LinkedList {
          * poiters will be equal at that point return the
          */
 
-         
+        Node<T> slow = head;
+        Node<T> fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                slow = head;
+                while (slow != fast) { // till fast and slow meets
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow;
+            }
+        }
+        return null;
+
     }
 
     private <T> Node<T> reverseLL(Node head) {
@@ -322,6 +339,102 @@ public class LinkedList {
         return newHead;
     }
 
+    private <T> boolean isPalindrome(Node<T> head) {
+        /*
+         * Brute force
+         * use a stack variable add the nodes to the stack
+         * iterate again
+         * take elements from stack in the each iteration
+         * compare with the current node if any one of the comparison fails
+         * return false
+         * else iterate throughout the end and return true
+         */
+        // Stack<T> stk = new Stack<>();
+        // Node<T> temp = head;
+        // while (temp != null) {
+        // stk.add(temp.data);
+        // temp = temp.next;
+        // }
+        // temp = head;
+        // while (temp != null) {
+        // if (temp.data != stk.peek()) {
+        // return false;
+        // }
+        // stk.pop();
+        // temp=temp.next;
+        // }
+        // return true;
+
+        Node<T> slow = head;
+        Node<T> fast = head;
+        while (fast != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        Node<T> newHead = this.reverseLL(slow.next);
+        Node<T> first = head;
+        Node<T> second = head;
+        while (second != null) {
+            if (first.data != second.data) {
+                this.reverseLL(newHead);
+                return false;
+            }
+            first = first.next;
+            second = second.next;
+        }
+        this.reverseLL(newHead);
+        return true;
+
+    }
+
+    private <T> Node<T> oddEvenList(Node<T> head) {
+        // if(head==null || head.next==null){
+        // return head;
+        // }
+        // Node<T> temp = head;
+        // List<T> arr = new ArrayList<>();
+        // while(temp!=null && temp.next!=null){
+        // arr.add(temp.data);
+        // temp=temp.next.next;
+        // }
+        // if(temp!=null){
+        // arr.add(temp.data);
+        // }
+        // temp=head;
+        // temp=temp.next;
+        // while(temp!=null && temp.next!=null){
+        // arr.add(temp.data);
+        // temp=temp.next.next;
+        // }
+        // if(temp!=null){
+        // arr.add(temp.data);
+        // }
+        // temp = head;
+        // int i=0;
+        // while(temp!=null){
+        // temp.data=arr.get(i);
+        // i++;
+        // temp=temp.next;
+        // }
+        // return head;
+
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        Node<T> odd = head;
+        Node<T> even = head.next;
+        Node<T> evenHead = head.next;
+        while(even!=null && even.next!=null){
+            odd.next=odd.next.next;
+            even.next=even.next;
+            odd=odd.next;
+            even=even.next.next;
+        }
+        odd.next=evenHead;
+        return head;
+    }
+
     private <T> int findLengthOfLoop(Node<T> head) {
         /*
          * Brute force approach
@@ -356,8 +469,8 @@ public class LinkedList {
          * count
          */
 
-        Node slow = head;
-        Node fast = head;
+        Node<T> slow = head;
+        Node<T> fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
