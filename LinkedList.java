@@ -1,7 +1,6 @@
-import java.rmi.server.Skeleton;
+
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+
 
 public class LinkedList {
 
@@ -425,13 +424,13 @@ public class LinkedList {
         Node<T> odd = head;
         Node<T> even = head.next;
         Node<T> evenHead = head.next;
-        while(even!=null && even.next!=null){
-            odd.next=odd.next.next;
-            even.next=even.next;
-            odd=odd.next;
-            even=even.next.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next;
+            odd = odd.next;
+            even = even.next.next;
         }
-        odd.next=evenHead;
+        odd.next = evenHead;
         return head;
     }
 
@@ -489,6 +488,31 @@ public class LinkedList {
         return count;
     }
 
+    private <T> Node<T> sortLinkedList(Node<T> head){
+        /*Brute force solution 
+         * add the elements of the linked list to the arrray
+         * sort the array 
+         * again iterate through the linked list add the element one by one
+         * to the linked list
+         */
+        // Node<T> temp=head;
+        // ArrayList<T> arr = new ArrayList<>();
+        // while(temp!=null){
+        //     arr.add(temp.data);
+        //     temp=temp.next;
+        // } 
+        // arr.sort(null);
+        // System.out.println("Array"+arr);
+        // temp=head;
+        // int count=0;
+        // while(temp!=null){
+        //     temp.data=arr.get(count);
+        //     temp=temp.next;
+        //     count++;
+        // }
+        // return head;
+    }
+
     public static void main(String[] args) {
         int[] arr = { 3, 5, 6, 4, 7, 8, 9, 1, 0 };
         LinkedList testList = new LinkedList();
@@ -496,7 +520,9 @@ public class LinkedList {
         Node<Integer> head = testList.convertArray2LinkedList(arr);
         testList.printLinkedList(head);
         System.out.println();
-        testList.printLinkedList(testList.reverseLL(head));
+        // testList.printLinkedList(testList.reverseLL(head));
+        // System.out.println();
+        testList.printLinkedList(testList.sortLinkedList(head));
 
     }
 }
