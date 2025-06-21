@@ -495,10 +495,11 @@ public class LinkedList {
         return slow;
     }
 
-    private <T> Node<T> sortLinkedList(Node<T> head) {
-        /*Brute force solution 
-         * add the elements of the linked list to the arrray
-         * sort the array 
+    private <T> Node<T> sortLinkedListBruteForce(Node<T> head) {
+        /*
+         * Brute force solution
+         * add the elements of the linked list to the array
+         * sort the array
          * again iterate through the linked list add the element one by one
          * to the linked list
          */
@@ -518,14 +519,6 @@ public class LinkedList {
             count++;
         }
         return head;
-        /* Optimal approach 
-        using merge sort to sort the linked list*/
-
-        // if(head==null ||head.next==null){
-        //     return head;
-        // }
-        // Node<T> mid = this.returnMidForMergeSort(head);
-        // Node<T> left =
     }
 
     private <T> Node<T> deleteMiddleNode(Node<T> head) {
@@ -641,7 +634,83 @@ public class LinkedList {
         two.next = null;
         return zeroDummy.next;
 
-        // You may want to implement the rest of the optimal approach here.
+    }
+    // You may want to implement the rest of the optimal approach here.
+
+    private <T extends Comparable<T>> Node<T> sortLinkedList(Node<T> head) {
+        // Node<T> temp=head;
+        // ArrayList<T> arr = new ArrayList<>();
+        // while(temp!=null){
+        // arr.add(temp.data);
+        // temp=temp.next;
+        // }
+        // arr.sort(null);
+        // System.out.println("Array"+arr);
+        // temp=head;
+        // int count=0;
+        // while(temp!=null){
+        // temp.data=arr.get(count);
+        // temp=temp.next;
+        // count++;
+        // }
+        // return head;
+
+        /*
+         * optimal approach
+         * Here's a short and crisp summary of the operations:
+         * 
+         * **`midForSortingLL(Node head)`:** Finds the middle node of a linked list
+         * using slow (1 step) and fast (2 steps) pointers.
+         * 
+         * **`sortLinkedList(Node head)`:**
+         * **Base Case:** Returns `head` if the list is empty or has one node.
+         * 
+         * **Divide:** Finds the middle node using `midForSortingLL` and implicitly
+         * divides the list into `left` and `right` halves.
+         * 
+         * **Conquer:** Recursively sorts the `left` and `right` halves.
+         * 
+         * **Combine:** Merges the two sorted halves using `mergeToLL`.
+         * (A commented-out "brute force" approach involving `ArrayList` sorting is also
+         * mentioned but not used).
+         * 
+         * **`mergeToLL(Node LL1, Node LL2)`:** Merges two sorted linked lists (`LL1`,
+         * `LL2`) into one. It uses a `dummyNode` and compares elements to build the
+         * merged list, then appends any remaining nodes.
+         */
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        Node<T> mid = this.returnMidForMergeSort(head);
+        Node<T> left = head;
+        Node<T> right = mid.next;
+        Node<T> leftSortedHead = this.sortLinkedList(left);
+        Node<T> rightSortedHead = this.sortLinkedList(right);
+
+        return this.mergeToLL(leftSortedHead, rightSortedHead);
+
+    }
+
+    private <T extends Comparable<T>> Node<T> mergeToLL(Node<T> LL1, Node<T> LL2) {
+
+        Node<T> dummyNode = new Node<>(null);
+        Node<T> temp = dummyNode;
+
+        while (LL1 != null && LL2 != null) {
+            if (LL1.data.compareTo(LL2.data) <= 0) {
+                temp.next = LL1;
+                LL1 = LL1.next;
+            } else {
+                temp.next = LL2;
+                LL2 = LL2.next;
+            }
+            temp = temp.next;
+        }
+        temp.next = LL1 != null ? LL1 : LL2;
+
+        return dummyNode.next;
+
     }
 
     public static void main(String[] args) {
