@@ -1,10 +1,10 @@
 
 import java.util.ArrayList;
 
-
 public class LinkedList {
 
     private class Node<T> {
+
         T data;
         Node<T> next;
 
@@ -55,8 +55,9 @@ public class LinkedList {
     }
 
     private <T> Node<T> removeHead(Node<T> head) {
-        if (head == null)
+        if (head == null) {
             return head;
+        }
         head = head.next;
         return head;
     }
@@ -129,10 +130,11 @@ public class LinkedList {
 
     private <T> Node<T> insertAtPosition(Node<T> head, int position, T data) {
         if (head == null) {
-            if (position == 1)
+            if (position == 1) {
                 return new Node<>(data);
-            else
+            } else {
                 throw new RuntimeException("the given position is not in the linked list");
+            }
         }
         if (position == 1) {
             return new Node<>(data);
@@ -201,7 +203,6 @@ public class LinkedList {
         // break;
         // temp = temp.next;
         // }
-
         Node<T> slow = head;
         Node<T> fast = head;
         while (fast != null && fast.next != null) {
@@ -236,7 +237,6 @@ public class LinkedList {
          * fast moves by one pointer slow moves by 2 pointers
          * if slow and fast pointer meets there is a loop return true else return false
          */
-
         Node<T> slow = head;
         Node<T> fast = head;
         while (fast != null && fast.next != null) {
@@ -274,7 +274,6 @@ public class LinkedList {
          * movement while counting
          * poiters will be equal at that point return the
          */
-
         Node<T> slow = head;
         Node<T> fast = head;
         while (fast != null && fast.next != null) {
@@ -327,7 +326,6 @@ public class LinkedList {
         // return temp;
 
         /* Recursive approach */
-
         if (head == null || head.next == null) {
             return head;
         }
@@ -467,7 +465,6 @@ public class LinkedList {
          * till it reaches the another if they meet count the steps it is the loops
          * count
          */
-
         Node<T> slow = head;
         Node<T> fast = head;
         while (fast != null && fast.next != null) {
@@ -488,33 +485,167 @@ public class LinkedList {
         return count;
     }
 
-    private <T> Node<T> sortLinkedList(Node<T> head){
+    private <T> Node<T> returnMidForMergeSort(Node<T> head) {
+        Node<T> slow = head;
+        Node<T> fast = head.next; // to get the node which is one step back to the mid node ie it belongs to the left side
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    private <T> Node<T> sortLinkedList(Node<T> head) {
         /*Brute force solution 
          * add the elements of the linked list to the arrray
          * sort the array 
          * again iterate through the linked list add the element one by one
          * to the linked list
          */
-        // Node<T> temp=head;
-        // ArrayList<T> arr = new ArrayList<>();
-        // while(temp!=null){
-        //     arr.add(temp.data);
-        //     temp=temp.next;
-        // } 
-        // arr.sort(null);
-        // System.out.println("Array"+arr);
-        // temp=head;
-        // int count=0;
-        // while(temp!=null){
-        //     temp.data=arr.get(count);
-        //     temp=temp.next;
+        Node<T> temp = head;
+        ArrayList<T> arr = new ArrayList<>();
+        while (temp != null) {
+            arr.add(temp.data);
+            temp = temp.next;
+        }
+        arr.sort(null);
+        System.out.println("Array" + arr);
+        temp = head;
+        int count = 0;
+        while (temp != null) {
+            temp.data = arr.get(count);
+            temp = temp.next;
+            count++;
+        }
+        return head;
+        /* Optimal approach 
+        using merge sort to sort the linked list*/
+
+        // if(head==null ||head.next==null){
+        //     return head;
+        // }
+        // Node<T> mid = this.returnMidForMergeSort(head);
+        // Node<T> left =
+    }
+
+    private <T> Node<T> deleteMiddleNode(Node<T> head) {
+        /*Brute force 
+        traverse the entire linked list count the number of nodes present
+        find the mid node by dividing the total count by 2 and delete the 
+        mid node by pointing the previous node to the next node */
+
+        // Node<T> temp = head;
+        // int count = 0;
+        // while (temp != null) {
         //     count++;
+        //     temp = temp.next;
+        // }
+        // temp = head;
+        // count = count / 2;
+        // while (temp != null) {
+        //     count--;
+        //     if (count == 0) {
+        //         temp.next = temp.next.next;
+        //         break;
+        //     }
+        //     temp = temp.next;
         // }
         // return head;
+        /*Optmial approach 
+            use tortoise and hare method find the midle node connect the prevois node and next node
+         */
+        Node<T> slow = head;
+        Node<T> fast = head;
+        fast = head.next.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        System.out.println("mid " + slow.data);
+        slow.next = slow.next.next;
+        return head;
+    }
+
+    /**
+     * Sorts a linked list containing nodes with data values 0, 1, or 2 using a
+     * brute force counting approach.
+     * <p>
+     * This method counts the occurrences of 0s, 1s, and 2s in the list, then
+     * overwrites the node values in order.
+     * </p>
+     *
+     * Time Complexity: O(n), where n is the number of nodes in the list. Space
+     * Complexity: O(1), as only a constant amount of extra space is used.
+     *
+     * @param head the head node of the linked list
+     * @param <T> the type of data stored in the nodes (should be Integer for
+     * correct behavior)
+     * @return the head node of the sorted linked list
+     */
+    private Node<Integer> sortList(Node<Integer> head) {
+
+        // int count0=0;
+        // int count1=0;
+        // int count2=0;
+        // Node<Integer> temp = head;
+        // while(temp!=null){
+        //     if(temp.data.equals(0)) count0++;
+        //     else if(temp.data.equals(1)) count1++;
+        //     else count2++;
+        //     temp=temp.next;
+        // }
+        // temp=head;
+        // while(temp!=null){
+        //     if(count0 > 0){
+        //         temp.data = 0;
+        //         count0--;
+        //     } else if(count1 > 0){
+        //         temp.data = 1;
+        //         count1--;
+        //     } else if(count2 > 0){
+        //         temp.data = 2;
+        //         count2--;
+        //     }
+        //     temp = temp.next;
+        // }
+        // return head;
+        /**
+         * Optimal approach
+         *
+         */
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node<Integer> temp = head;
+        Node<Integer> zeroDummy = new Node<>(-1);
+        Node<Integer> oneDummy = new Node<>(-1);
+        Node<Integer> twoDummy = new Node<>(-1);
+        Node<Integer> zero = zeroDummy;
+        Node<Integer> one = oneDummy;
+        Node<Integer> two = twoDummy;
+        while (temp != null) {
+            if (temp.data.equals(0)) {
+                zero.next = temp;
+                zero = zero.next;
+            } else if (temp.data.equals(1)) {
+                one.next = temp;
+                one = one.next;
+            } else {
+                two.next = temp;
+                two = two.next;
+            }
+            temp = temp.next;
+        }
+        zero.next = (oneDummy.next != null) ? oneDummy.next : twoDummy.next;
+        one.next = twoDummy.next;
+        two.next = null;
+        return zeroDummy.next;
+
+        // You may want to implement the rest of the optimal approach here.
     }
 
     public static void main(String[] args) {
-        int[] arr = { 3, 5, 6, 4, 7, 8, 9, 1, 0 };
+        int[] arr = {1, 2, 3, 4, 5};
         LinkedList testList = new LinkedList();
 
         Node<Integer> head = testList.convertArray2LinkedList(arr);
@@ -523,6 +654,9 @@ public class LinkedList {
         // testList.printLinkedList(testList.reverseLL(head));
         // System.out.println();
         testList.printLinkedList(testList.sortLinkedList(head));
+        testList.deleteMiddleNode(head);
+        System.out.println("After deleting");
+        testList.printLinkedList(head);
 
     }
 }
