@@ -635,7 +635,6 @@ public class LinkedList {
         return zeroDummy.next;
 
     }
-    // You may want to implement the rest of the optimal approach here.
 
     private <T extends Comparable<T>> Node<T> sortLinkedList(Node<T> head) {
         // Node<T> temp=head;
@@ -713,19 +712,216 @@ public class LinkedList {
 
     }
 
+    /**
+     * Finds the intersection node of two singly linked lists, if it exists.
+     *
+     * <p>
+     * This method implements three approaches (brute force, better, and
+     * optimal) to find the intersection node. The optimal approach is used in
+     * the final implementation.
+     * </p>
+     *
+     * <p>
+     * <b>Optimal approach:</b><br>
+     * Uses two pointers to traverse both linked lists. When a pointer reaches
+     * the end of a list, it is redirected to the head of the other list. If the
+     * lists intersect, the pointers will meet at the intersection node after at
+     * most (lengthA + lengthB) steps. If they do not intersect, both pointers
+     * will eventually become null at the same time, and the method returns
+     * null. This approach runs in O(N + M) time and uses O(1) extra space.
+     * </p>
+     *
+     * @param headA the head node of the first linked list
+     * @param headB the head node of the second linked list
+     * @param <T> the type of the data stored in the nodes
+     * @return the intersection node if one exists; otherwise, null
+     */
+    public <T> Node<T> getIntersectionNode(Node<T> headA, Node<T> headB) {
+        /**
+         * Brute force using hash map check wheather the node have appeared
+         * previously if it appeared return appeared node else return null
+         */
+        // Map<Node, Integer> hash = new HashMap<>();
+        // Node<T> temp1 = headA;
+        // while (temp1 != null) {
+        //     hash.put(temp1, 1);
+        //     temp1 = temp1.next;
+        // }
+        // System.out.println(hash);
+        // Node<T> temp2 = headB;
+        // while (temp2 != null) {
+        //     if (hash.containsKey(temp2)) {
+        //         return temp2;
+        //     }
+        //     temp2 = temp2.next;
+        // }
+        // return null;
+
+        /**
+         * Better approach get to the starting point of the smallest linked move
+         * to the same postion of the largest linked list and move
+         * simultanioulsly if nodes are equal return the node else return null
+         */
+        // Node<T> temp1 = headA;
+        // int l1 = 0;
+        // int l2 = 0;
+        // Node<T> temp2 = headB;
+        // while (temp1 != null) {
+        //     l1++;
+        //     temp1 = temp1.next;
+        // }
+        // while (temp2 != null) {
+        //     l2++;
+        //     temp2 = temp2.next;
+        // }
+        // if (l1 < l2) {
+        //     return findTheCollisionPoint(headA, headB, l2 - l1); 
+        // }else {
+        //     return findTheCollisionPoint(headB, headA, l1 - l2);
+        // }
+        /**
+         * Optimal approach
+         *
+         */
+        if (headA == null || headB == null) {
+            return null;
+        }
+
+        Node<T> temp1 = headA;
+        Node<T> temp2 = headB;
+
+        while (temp1 != temp2) {
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+            if (temp1 == temp2) {
+                return temp1;
+            }
+
+            if (temp1 == null) {
+                temp1 = headB;
+            }
+            if (temp2 == null) {
+                temp2 = headA;
+            }
+        }
+        return null;
+    }
+
+    private <T> Node<T> findTheCollisionPoint(Node<T> head1, Node<T> head2, int d) {
+        while (d > 0) {
+            d--;
+            head2 = head2.next;
+        }
+        while (head1 != head2) {
+            head1 = head1.next;
+            head2 = head2.next;
+        }
+        return head1;
+    }
+
+    public Node<Integer> addOne(Node<Integer> head) {
+
+        // head = this.reverseLL(head);
+        // Node<Integer> temp = head;
+        // int carry = 1;
+        // Node<Integer> prev = null;
+        // while (temp != null) {
+        //     temp.data += carry;
+        //     if (temp.data < 10) {
+        //         carry = 0;
+        //         break;
+        //     } else {
+        //         temp.data = 0;
+        //         carry = 1;
+        //     }
+        //     temp = temp.next;
+        // }
+        // if (carry == 1) {
+        //     Node newNode = new Node(1);
+        //     head = this.reverseLL(head);
+        //     newNode.next = head;
+        //     return newNode;
+        // }
+        // return this.reverseLL(head);
+        /**
+         * oPTIMA approach using recursion
+         */
+        int carry = this.helper(head);
+        if (carry == 1) {
+            Node newNode = new Node(1);
+            newNode.next = head;
+            return newNode;
+        }
+        return head;
+    }
+
+    private Integer helper(Node<Integer> temp) {
+        if (temp == null) {
+            return 1;
+        }
+        Integer carry = helper(temp);
+        temp.data += carry;
+        if (temp.data < 10) {
+            return 0;
+        }
+        temp.data = 0;
+        return 1;
+    }
+
+    public Node addTwoNumbers(Node<Integer> l1, Node<Integer> l2) {
+        Node dummyNode = new Node(-1);
+        Node curr = dummyNode;
+        Node<Integer> temp1 = l1;
+        Node<Integer> temp2 = l2;
+        Integer carry = 0;
+        while (temp1 != null || temp2 != null) {
+            Integer sum = carry;
+            if (temp1 != null) {
+                sum += temp1.data;
+            }
+            if(temp2!=null){
+                sum+=temp2.data;
+            }
+            Node newNode = new Node(sum%10);
+            carry=sum/10;
+            curr.next = newNode;
+            curr = curr.next;
+            if(temp1 != null && temp1.next != null) temp1 = temp1.next;
+            if(temp2 != null && temp2.next!=null) temp2=temp2.next;
+        }
+        if(carry>0){
+            Node newNode= new Node(carry);
+            curr.next=newNode;
+        }
+        return dummyNode.next;
+
+    }
+
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 4, 5};
         LinkedList testList = new LinkedList();
 
         Node<Integer> head = testList.convertArray2LinkedList(arr);
-        testList.printLinkedList(head);
-        System.out.println();
+
+        int[] listA = {9, 9, 9, 9, 9};
+        int[] listB = {5, 6, 1, 8, 4, 5};
+        Node<Integer> LLA = testList.convertArray2LinkedList(listA);
+
+        testList.printLinkedList(LLA);
+        System.out.println(".()");
+        // Node<Integer> LLB = testList.convertArray2LinkedList(listB);
+        // testList.printLinkedList(LLB);
+
+        // System.out.println(testList.getIntersectionNode(LLA, LLB));
+        // testList.printLinkedList(head);
+        // System.out.println();
         // testList.printLinkedList(testList.reverseLL(head));
         // System.out.println();
-        testList.printLinkedList(testList.sortLinkedList(head));
-        testList.deleteMiddleNode(head);
-        System.out.println("After deleting");
-        testList.printLinkedList(head);
-
+        // testList.printLinkedList(testList.sortLinkedList(head));
+        // testList.deleteMiddleNode(head);
+        // System.out.println("After deleting");
+        // testList.printLinkedList(head);
+        testList.printLinkedList(testList.addOne(LLA));
     }
 }
+
