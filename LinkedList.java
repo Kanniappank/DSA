@@ -879,22 +879,86 @@ public class LinkedList {
             if (temp1 != null) {
                 sum += temp1.data;
             }
-            if(temp2!=null){
-                sum+=temp2.data;
+            if (temp2 != null) {
+                sum += temp2.data;
             }
-            Node newNode = new Node(sum%10);
-            carry=sum/10;
+            Node newNode = new Node(sum % 10);
+            carry = sum / 10;
             curr.next = newNode;
             curr = curr.next;
-            if(temp1 != null && temp1.next != null) temp1 = temp1.next;
-            if(temp2 != null && temp2.next!=null) temp2=temp2.next;
+            if (temp1 != null && temp1.next != null) {
+                temp1 = temp1.next;
+            }
+            if (temp2 != null && temp2.next != null) {
+                temp2 = temp2.next;
+            }
         }
-        if(carry>0){
-            Node newNode= new Node(carry);
-            curr.next=newNode;
+        if (carry > 0) {
+            Node newNode = new Node(carry);
+            curr.next = newNode;
         }
         return dummyNode.next;
 
+    }
+
+    /**
+     * Reverses nodes of a linked list in groups of size k.
+     * 
+     * This method iteratively processes the linked list, reversing every contiguous group of k nodes.
+     * For each group, it finds the k-th node, detaches the group, reverses it, and then reconnects it to the rest of the list.
+     * If the remaining nodes are fewer than k, they are left as is.
+     * 
+     * Approach:
+     * - Traverse the list, for each group of k nodes:
+     *   - Find the k-th node.
+     *   - Detach the group and reverse it.
+     *   - Connect the reversed group to the previous part and continue.
+     * - If the remaining nodes are less than k, leave them unchanged.
+     * 
+     * Link: https://www.youtube.com/watch?v=lIar1skcQYI
+     * doc : https://docs.google.com/document/d/1iDjZEOqWWuFqb61ROCf_bxO6GN0efzucqumCPAaq91U/edit?tab=t.0
+     * 
+     * Time Complexity: O(N), where N is the number of nodes in the linked list (each node is visited once).
+     * Space Complexity: O(1), as the reversal is done in-place without using extra space.
+     *
+     * @param head The head node of the linked list.
+     * @param k The size of the groups to reverse.
+     * @return The head node of the modified linked list after reversing every k-group.
+     */
+    public <T> Node<T> reverseKGroup(Node<T> head, int k) {
+        
+        Node<T> temp = head;
+        Node<T> nextNode = null;
+        Node<T> prevNode = null;
+        while (temp != null) {
+            Node<T> kthNode = this.findKthNode(temp, k);
+            if (kthNode == null) {
+                if (prevNode != null) {
+                    prevNode.next = temp;
+                }
+                break;
+            }
+            nextNode=kthNode.next;
+            kthNode.next=null;
+            this.reverseLL(temp);
+            if (temp == head) {
+                head = kthNode;
+            } else if (prevNode != null) {
+                prevNode.next = kthNode;
+            }
+            prevNode = temp;
+            temp = nextNode;
+        }
+        return head;
+    }
+
+    public <T> Node<T> findKthNode(Node temp, int k) {
+        k -= 1;
+        while (temp != null && k > 0) {
+            k--;
+            temp = temp.next;
+        }
+        return temp;
     }
 
     public static void main(String[] args) {
@@ -924,4 +988,3 @@ public class LinkedList {
         testList.printLinkedList(testList.addOne(LLA));
     }
 }
-
