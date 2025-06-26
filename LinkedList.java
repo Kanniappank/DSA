@@ -487,7 +487,8 @@ public class LinkedList {
 
     private <T> Node<T> returnMidForMergeSort(Node<T> head) {
         Node<T> slow = head;
-        Node<T> fast = head.next; // to get the node which is one step back to the mid node ie it belongs to the left side
+        Node<T> fast = head.next; // to get the node which is one step back to the mid node ie it belongs to the
+                                  // left side
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -522,30 +523,34 @@ public class LinkedList {
     }
 
     private <T> Node<T> deleteMiddleNode(Node<T> head) {
-        /*Brute force 
-        traverse the entire linked list count the number of nodes present
-        find the mid node by dividing the total count by 2 and delete the 
-        mid node by pointing the previous node to the next node */
+        /*
+         * Brute force
+         * traverse the entire linked list count the number of nodes present
+         * find the mid node by dividing the total count by 2 and delete the
+         * mid node by pointing the previous node to the next node
+         */
 
         // Node<T> temp = head;
         // int count = 0;
         // while (temp != null) {
-        //     count++;
-        //     temp = temp.next;
+        // count++;
+        // temp = temp.next;
         // }
         // temp = head;
         // count = count / 2;
         // while (temp != null) {
-        //     count--;
-        //     if (count == 0) {
-        //         temp.next = temp.next.next;
-        //         break;
-        //     }
-        //     temp = temp.next;
+        // count--;
+        // if (count == 0) {
+        // temp.next = temp.next.next;
+        // break;
+        // }
+        // temp = temp.next;
         // }
         // return head;
-        /*Optmial approach 
-            use tortoise and hare method find the midle node connect the prevois node and next node
+        /*
+         * Optmial approach
+         * use tortoise and hare method find the midle node connect the prevois node and
+         * next node
          */
         Node<T> slow = head;
         Node<T> fast = head;
@@ -571,8 +576,8 @@ public class LinkedList {
      * Complexity: O(1), as only a constant amount of extra space is used.
      *
      * @param head the head node of the linked list
-     * @param <T> the type of data stored in the nodes (should be Integer for
-     * correct behavior)
+     * @param <T>  the type of data stored in the nodes (should be Integer for
+     *             correct behavior)
      * @return the head node of the sorted linked list
      */
     private Node<Integer> sortList(Node<Integer> head) {
@@ -582,24 +587,24 @@ public class LinkedList {
         // int count2=0;
         // Node<Integer> temp = head;
         // while(temp!=null){
-        //     if(temp.data.equals(0)) count0++;
-        //     else if(temp.data.equals(1)) count1++;
-        //     else count2++;
-        //     temp=temp.next;
+        // if(temp.data.equals(0)) count0++;
+        // else if(temp.data.equals(1)) count1++;
+        // else count2++;
+        // temp=temp.next;
         // }
         // temp=head;
         // while(temp!=null){
-        //     if(count0 > 0){
-        //         temp.data = 0;
-        //         count0--;
-        //     } else if(count1 > 0){
-        //         temp.data = 1;
-        //         count1--;
-        //     } else if(count2 > 0){
-        //         temp.data = 2;
-        //         count2--;
-        //     }
-        //     temp = temp.next;
+        // if(count0 > 0){
+        // temp.data = 0;
+        // count0--;
+        // } else if(count1 > 0){
+        // temp.data = 1;
+        // count1--;
+        // } else if(count2 > 0){
+        // temp.data = 2;
+        // count2--;
+        // }
+        // temp = temp.next;
         // }
         // return head;
         /**
@@ -733,7 +738,7 @@ public class LinkedList {
      *
      * @param headA the head node of the first linked list
      * @param headB the head node of the second linked list
-     * @param <T> the type of the data stored in the nodes
+     * @param <T>   the type of the data stored in the nodes
      * @return the intersection node if one exists; otherwise, null
      */
     public <T> Node<T> getIntersectionNode(Node<T> headA, Node<T> headB) {
@@ -744,16 +749,16 @@ public class LinkedList {
         // Map<Node, Integer> hash = new HashMap<>();
         // Node<T> temp1 = headA;
         // while (temp1 != null) {
-        //     hash.put(temp1, 1);
-        //     temp1 = temp1.next;
+        // hash.put(temp1, 1);
+        // temp1 = temp1.next;
         // }
         // System.out.println(hash);
         // Node<T> temp2 = headB;
         // while (temp2 != null) {
-        //     if (hash.containsKey(temp2)) {
-        //         return temp2;
-        //     }
-        //     temp2 = temp2.next;
+        // if (hash.containsKey(temp2)) {
+        // return temp2;
+        // }
+        // temp2 = temp2.next;
         // }
         // return null;
 
@@ -767,17 +772,17 @@ public class LinkedList {
         // int l2 = 0;
         // Node<T> temp2 = headB;
         // while (temp1 != null) {
-        //     l1++;
-        //     temp1 = temp1.next;
+        // l1++;
+        // temp1 = temp1.next;
         // }
         // while (temp2 != null) {
-        //     l2++;
-        //     temp2 = temp2.next;
+        // l2++;
+        // temp2 = temp2.next;
         // }
         // if (l1 < l2) {
-        //     return findTheCollisionPoint(headA, headB, l2 - l1); 
+        // return findTheCollisionPoint(headA, headB, l2 - l1);
         // }else {
-        //     return findTheCollisionPoint(headB, headA, l1 - l2);
+        // return findTheCollisionPoint(headB, headA, l1 - l2);
         // }
         /**
          * Optimal approach
@@ -826,21 +831,21 @@ public class LinkedList {
         // int carry = 1;
         // Node<Integer> prev = null;
         // while (temp != null) {
-        //     temp.data += carry;
-        //     if (temp.data < 10) {
-        //         carry = 0;
-        //         break;
-        //     } else {
-        //         temp.data = 0;
-        //         carry = 1;
-        //     }
-        //     temp = temp.next;
+        // temp.data += carry;
+        // if (temp.data < 10) {
+        // carry = 0;
+        // break;
+        // } else {
+        // temp.data = 0;
+        // carry = 1;
+        // }
+        // temp = temp.next;
         // }
         // if (carry == 1) {
-        //     Node newNode = new Node(1);
-        //     head = this.reverseLL(head);
-        //     newNode.next = head;
-        //     return newNode;
+        // Node newNode = new Node(1);
+        // head = this.reverseLL(head);
+        // newNode.next = head;
+        // return newNode;
         // }
         // return this.reverseLL(head);
         /**
@@ -904,29 +909,35 @@ public class LinkedList {
     /**
      * Reverses nodes of a linked list in groups of size k.
      * 
-     * This method iteratively processes the linked list, reversing every contiguous group of k nodes.
-     * For each group, it finds the k-th node, detaches the group, reverses it, and then reconnects it to the rest of the list.
+     * This method iteratively processes the linked list, reversing every contiguous
+     * group of k nodes.
+     * For each group, it finds the k-th node, detaches the group, reverses it, and
+     * then reconnects it to the rest of the list.
      * If the remaining nodes are fewer than k, they are left as is.
      * 
      * Approach:
      * - Traverse the list, for each group of k nodes:
-     *   - Find the k-th node.
-     *   - Detach the group and reverse it.
-     *   - Connect the reversed group to the previous part and continue.
+     * - Find the k-th node.
+     * - Detach the group and reverse it.
+     * - Connect the reversed group to the previous part and continue.
      * - If the remaining nodes are less than k, leave them unchanged.
      * 
      * Link: https://www.youtube.com/watch?v=lIar1skcQYI
-     * doc : https://docs.google.com/document/d/1iDjZEOqWWuFqb61ROCf_bxO6GN0efzucqumCPAaq91U/edit?tab=t.0
+     * doc :
+     * https://docs.google.com/document/d/1iDjZEOqWWuFqb61ROCf_bxO6GN0efzucqumCPAaq91U/edit?tab=t.0
      * 
-     * Time Complexity: O(N), where N is the number of nodes in the linked list (each node is visited once).
-     * Space Complexity: O(1), as the reversal is done in-place without using extra space.
+     * Time Complexity: O(N), where N is the number of nodes in the linked list
+     * (each node is visited once).
+     * Space Complexity: O(1), as the reversal is done in-place without using extra
+     * space.
      *
      * @param head The head node of the linked list.
-     * @param k The size of the groups to reverse.
-     * @return The head node of the modified linked list after reversing every k-group.
+     * @param k    The size of the groups to reverse.
+     * @return The head node of the modified linked list after reversing every
+     *         k-group.
      */
     public <T> Node<T> reverseKGroup(Node<T> head, int k) {
-        
+
         Node<T> temp = head;
         Node<T> nextNode = null;
         Node<T> prevNode = null;
@@ -938,8 +949,8 @@ public class LinkedList {
                 }
                 break;
             }
-            nextNode=kthNode.next;
-            kthNode.next=null;
+            nextNode = kthNode.next;
+            kthNode.next = null;
             this.reverseLL(temp);
             if (temp == head) {
                 head = kthNode;
@@ -961,18 +972,37 @@ public class LinkedList {
         return temp;
     }
 
+    private <T> Node<T> rotateLinkedList(Node<T> head, int k) {
+        int len = 1;
+        Node<T> tail = head;
+        while (tail.next != null) {
+            len++;
+            tail = tail.next;
+        }
+        if (len % k == 0) {
+            return head;
+        }
+        k%= len;
+        tail.next = head;
+        Node<T> newTailNode = findKthNode(head, len - k);
+        head= newTailNode.next;
+        newTailNode.next = null;
+        return head;
+    }
+
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
+        int[] arr = { 1, 2, 3, 4, 5 };
         LinkedList testList = new LinkedList();
 
         Node<Integer> head = testList.convertArray2LinkedList(arr);
 
-        int[] listA = {9, 9, 9, 9, 9};
-        int[] listB = {5, 6, 1, 8, 4, 5};
-        Node<Integer> LLA = testList.convertArray2LinkedList(listA);
+        int[] listA = { 9, 9, 9, 9, 9 };
+        int[] listB = { 5, 6, 1, 8, 4, 5 };
+        Node<Integer> LLA = testList.convertArray2LinkedList(listB);
 
         testList.printLinkedList(LLA);
         System.out.println(".()");
+
         // Node<Integer> LLB = testList.convertArray2LinkedList(listB);
         // testList.printLinkedList(LLB);
 
@@ -985,6 +1015,7 @@ public class LinkedList {
         // testList.deleteMiddleNode(head);
         // System.out.println("After deleting");
         // testList.printLinkedList(head);
-        testList.printLinkedList(testList.addOne(LLA));
+        // testList.printLinkedList(testList.addOne(LLA));
+        testList.printLinkedList(testList.rotateLinkedList(head, 2));
     }
 }
