@@ -14,6 +14,25 @@ public class LinkedList {
         }
     }
 
+    private class NodeWithChild<T> {
+
+        T data;
+        NodeWithChild<T> next;
+        NodeWithChild<T> child;
+
+        public NodeWithChild(T data, NodeWithChild<T> next, NodeWithChild<T> child) {
+            this.data = data;
+            this.next = next;
+            this.child = child;
+        }
+
+        public NodeWithChild(T data) {
+            this.data = data;
+            this.next = null;
+            this.child = null;
+        }
+    }
+
     private Node<Integer> convertArray2LinkedList(int[] arr) {
         Node<Integer> head = new Node<>(arr[0]);
         Node<Integer> mover = head;
@@ -488,7 +507,7 @@ public class LinkedList {
     private <T> Node<T> returnMidForMergeSort(Node<T> head) {
         Node<T> slow = head;
         Node<T> fast = head.next; // to get the node which is one step back to the mid node ie it belongs to the
-                                  // left side
+        // left side
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -576,8 +595,8 @@ public class LinkedList {
      * Complexity: O(1), as only a constant amount of extra space is used.
      *
      * @param head the head node of the linked list
-     * @param <T>  the type of data stored in the nodes (should be Integer for
-     *             correct behavior)
+     * @param <T> the type of data stored in the nodes (should be Integer for
+     * correct behavior)
      * @return the head node of the sorted linked list
      */
     private Node<Integer> sortList(Node<Integer> head) {
@@ -738,7 +757,7 @@ public class LinkedList {
      *
      * @param headA the head node of the first linked list
      * @param headB the head node of the second linked list
-     * @param <T>   the type of the data stored in the nodes
+     * @param <T> the type of the data stored in the nodes
      * @return the intersection node if one exists; otherwise, null
      */
     public <T> Node<T> getIntersectionNode(Node<T> headA, Node<T> headB) {
@@ -873,9 +892,9 @@ public class LinkedList {
         return 1;
     }
 
-    public Node addTwoNumbers(Node<Integer> l1, Node<Integer> l2) {
-        Node dummyNode = new Node(-1);
-        Node curr = dummyNode;
+    private Node<Integer> addTwoNumbers(Node<Integer> l1, Node<Integer> l2) {
+        Node<Integer> dummyNode = new Node(-1);
+        Node<Integer> curr = dummyNode;
         Node<Integer> temp1 = l1;
         Node<Integer> temp2 = l2;
         Integer carry = 0;
@@ -908,35 +927,30 @@ public class LinkedList {
 
     /**
      * Reverses nodes of a linked list in groups of size k.
-     * 
-     * This method iteratively processes the linked list, reversing every contiguous
-     * group of k nodes.
-     * For each group, it finds the k-th node, detaches the group, reverses it, and
-     * then reconnects it to the rest of the list.
-     * If the remaining nodes are fewer than k, they are left as is.
-     * 
-     * Approach:
-     * - Traverse the list, for each group of k nodes:
-     * - Find the k-th node.
-     * - Detach the group and reverse it.
-     * - Connect the reversed group to the previous part and continue.
-     * - If the remaining nodes are less than k, leave them unchanged.
-     * 
-     * Link: https://www.youtube.com/watch?v=lIar1skcQYI
-     * doc :
+     *
+     * This method iteratively processes the linked list, reversing every
+     * contiguous group of k nodes. For each group, it finds the k-th node,
+     * detaches the group, reverses it, and then reconnects it to the rest of
+     * the list. If the remaining nodes are fewer than k, they are left as is.
+     *
+     * Approach: - Traverse the list, for each group of k nodes: - Find the k-th
+     * node. - Detach the group and reverse it. - Connect the reversed group to
+     * the previous part and continue. - If the remaining nodes are less than k,
+     * leave them unchanged.
+     *
+     * Link: https://www.youtube.com/watch?v=lIar1skcQYI doc :
      * https://docs.google.com/document/d/1iDjZEOqWWuFqb61ROCf_bxO6GN0efzucqumCPAaq91U/edit?tab=t.0
-     * 
+     *
      * Time Complexity: O(N), where N is the number of nodes in the linked list
-     * (each node is visited once).
-     * Space Complexity: O(1), as the reversal is done in-place without using extra
-     * space.
+     * (each node is visited once). Space Complexity: O(1), as the reversal is
+     * done in-place without using extra space.
      *
      * @param head The head node of the linked list.
-     * @param k    The size of the groups to reverse.
+     * @param k The size of the groups to reverse.
      * @return The head node of the modified linked list after reversing every
-     *         k-group.
+     * k-group.
      */
-    public <T> Node<T> reverseKGroup(Node<T> head, int k) {
+    private <T> Node<T> reverseKGroup(Node<T> head, int k) {
 
         Node<T> temp = head;
         Node<T> nextNode = null;
@@ -982,30 +996,112 @@ public class LinkedList {
         if (len % k == 0) {
             return head;
         }
-        k%= len;
+        k %= len;
         tail.next = head;
         Node<T> newTailNode = findKthNode(head, len - k);
-        head= newTailNode.next;
+        head = newTailNode.next;
         newTailNode.next = null;
         return head;
     }
 
+    NodeWithChild<Integer> flatteredLinkedList(NodeWithChild<Integer> head) {
+        //note: https://docs.google.com/document/d/1F9vZmGbrzQXsEIRT8DVg72Rlc5Gn0bvG69WdHps4D7k/edit?tab=t.0
+
+        // NodeWithChild<Integer> temp = head;
+        // List<Integer> res = new ArrayList<>();
+        // while (temp != null) {
+        //     res.add(temp.data);
+        //     if (temp.child != null) {
+        //         NodeWithChild<Integer> temp2 = temp.child;
+        //         while (temp2 != null) {
+        //             res.add(temp2.data);
+        //             temp2 = temp2.next;
+        //         }
+        //     }
+        //     temp = temp.next;
+        // }
+        // Collections.sort(res);
+        // Node<Integer> newHead = new Node<>(res.get(0));
+        // Node<Integer> mover = newHead;        
+        // for(int i=1;i<res.size();i++){
+        //     Node<Integer> newNode = new Node<>(res.get(i));
+        //     mover.next = newNode;
+        //     mover=mover.next;
+        // }
+        // return newHead;
+        if (head == null || head.next == null) {
+            return head;
+        }
+        NodeWithChild<Integer> mergedHead = this.flatteredLinkedList(head.next);
+        // return merget2lists(head, mergedHead);
+        head = merget2lists(head, mergedHead);
+        return head;
+
+    }
+
+    static NodeWithChild<Integer> merget2lists(NodeWithChild<Integer> l1, NodeWithChild<Integer> l2) {
+        LinkedList list = new LinkedList();
+        LinkedList.NodeWithChild<Integer> dummyNode = list.new NodeWithChild<>(-1);
+        NodeWithChild<Integer> res = dummyNode;
+        while (l1 != null && l2 != null) {
+            if (l1.data < l2.data) {
+                res.child = l1;
+                res = l1;
+                l1 = l1.child;
+            } else {
+                res.child = l2;
+                res = l2;
+                l2 = l2.child;
+            }
+            res.next = null;
+        }
+        if (l1.next != null) {
+            res.child = l1;
+        } else {
+            res.child = l2;
+        }
+        if (dummyNode.child != null) {
+            dummyNode.child.next = null;
+        }
+        return dummyNode.next;
+    }
+
+    static void printOriginalLinkedList(NodeWithChild<Integer> head, int depth) {
+        while (head != null) {
+            System.out.print(head.data);
+
+            // If child exists, recursively
+            // print it with indentation
+            if (head.child != null) {
+                System.out.print(" -> ");
+                printOriginalLinkedList(head.child, depth + 1);
+            }
+
+            // Add vertical bars
+            // for each level in the grid
+            if (head.next != null) {
+                System.out.println();
+                for (int i = 0; i < depth; ++i) {
+                    System.out.println("inside the loop");
+                    System.out.print("| ");
+                }
+            }
+            head = head.next;
+        }
+    }
+
     public static void main(String[] args) {
-        int[] arr = { 1, 2, 3, 4, 5 };
-        LinkedList testList = new LinkedList();
+        // int[] arr = {1, 2, 3, 4, 5};
+        // LinkedList testList = new LinkedList();
 
-        Node<Integer> head = testList.convertArray2LinkedList(arr);
-
-        int[] listA = { 9, 9, 9, 9, 9 };
-        int[] listB = { 5, 6, 1, 8, 4, 5 };
-        Node<Integer> LLA = testList.convertArray2LinkedList(listB);
-
-        testList.printLinkedList(LLA);
-        System.out.println(".()");
-
+        // Node<Integer> head = testList.convertArray2LinkedList(arr);
+        // int[] listA = {9, 9, 9, 9, 9};
+        // int[] listB = {5, 6, 1, 8, 4, 5};
+        // Node<Integer> LLA = testList.convertArray2LinkedList(listB);
+        // testList.printLinkedList(LLA);
+        // System.out.println(".()");
         // Node<Integer> LLB = testList.convertArray2LinkedList(listB);
         // testList.printLinkedList(LLB);
-
         // System.out.println(testList.getIntersectionNode(LLA, LLB));
         // testList.printLinkedList(head);
         // System.out.println();
@@ -1016,6 +1112,26 @@ public class LinkedList {
         // System.out.println("After deleting");
         // testList.printLinkedList(head);
         // testList.printLinkedList(testList.addOne(LLA));
-        testList.printLinkedList(testList.rotateLinkedList(head, 2));
+        // testList.printLinkedList(testList.rotateLinkedList(head, 2));
+        System.out.println("specail linked list");
+        LinkedList list = new LinkedList();
+        LinkedList.NodeWithChild<Integer> head = list.new NodeWithChild<>(5);
+        head.child = list.new NodeWithChild<>(14);
+
+        head.next = list.new NodeWithChild<>(10);
+        head.next.child = list.new NodeWithChild<>(4);
+
+        head.next.next = list.new NodeWithChild<>(12);
+        head.next.next.child = list.new NodeWithChild<>(20);
+        head.next.next.child.child = list.new NodeWithChild<>(13);
+
+        head.next.next.next = list.new NodeWithChild<>(7);
+        head.next.next.next.child = list.new NodeWithChild<>(17);
+
+        System.out.println("print Original liked list");
+
+        printOriginalLinkedList(head, 0);
+
+        printOriginalLinkedList(list.flatteredLinkedList(head), 0);
     }
 }
