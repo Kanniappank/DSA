@@ -5,43 +5,68 @@ public class QueInStack<T> {
     Stack<T> s1 = new Stack<>();
     Stack<T> s2 = new Stack<>();
 
-    //This method applicale only for less number of pushes
+    // This method applicale only for less number of pushes
     // public void push(T data) {
 
-    //     while (!s1.isEmpty()) {
-    //         s2.push(s1.peek());
-    //         s1.pop();
-    //     }
-    //     s1.push(data);
+    // while (!s1.isEmpty()) {
+    // s2.push(s1.peek());
+    // s1.pop();
+    // }
+    // s1.push(data);
 
-    //     while (!s2.isEmpty()) {
-    //         s1.push(s2.peek());
-    //         s2.pop();
-    //     }
+    // while (!s2.isEmpty()) {
+    // s1.push(s2.peek());
+    // s2.pop();
+    // }
 
     // }
 
     // public T pop() {
-    //     return s1.pop();
+    // return s1.pop();
     // }
 
     // public T peek() {
-    //     if (s1.isEmpty()) {
-    //         System.out.println("que is empty");
-    //         return null;
-    //     }
-    //     return s1.peek();
+    // if (s1.isEmpty()) {
+    // System.out.println("que is empty");
+    // return null;
+    // }
+    // return s1.peek();
     // }
 
     // public int size() {
-    //     return s1.size();
+    // return s1.size();
     // }
 
-    //pushes are more
+    // pushes are more
 
-    // public void push(T data){
+    public void push(T data) {
+        s1.push(data);
+    }
 
-    // }
+    public T peek() {
+        if (s2.isEmpty()) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.peek());
+                s1.pop();
+            }
+            return s2.peek();
+        } else {
+            return s2.peek();
+        }
+    }
+
+    public T pop(){
+        if(s2.isEmpty()){
+            while(!s1.isEmpty()){
+                s2.push(s1.peek());
+                s1.pop();
+            }
+            return s2.pop();
+        }
+        else{
+            return s2.pop();
+        }
+    }
 
     public static void main(String[] args) {
         QueInStack<Integer> que = new QueInStack<>();
