@@ -224,6 +224,26 @@ class StackandQue {
 
     }
 
+    public String prefixToInfix(String s){
+        Stack<String> stk = new Stack<>();
+        int i=s.length()-1;
+        while(i>=0){
+            Character ch = s.charAt(i);
+            if(Character.isLetterOrDigit(ch)){
+                stk.push(ch.toString());
+            }
+            else{
+                StringBuilder converted = new StringBuilder();
+                String t1=stk.pop();
+                String t2 = stk.pop();
+                converted.append('(').append(t1).append(ch).append(t2).append(')');
+                stk.push(converted.toString());
+            }
+            i--;
+        }
+        return stk.pop();
+    }
+
     public boolean isRightAssociative(char c) {
         return c == '^';
     }
