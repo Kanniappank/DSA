@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.Stack;
 
 class StackandQue {
@@ -206,15 +207,14 @@ class StackandQue {
     public String postFixtoInfix(String s) {
         int i = 0, n = s.length();
         Stack<String> stk = new Stack();
-        while(i<n){
+        while (i < n) {
             Character ch = s.charAt(i);
-            if(Character.isLetter(ch)){
+            if (Character.isLetter(ch)) {
                 stk.push(String.valueOf(ch));
-            }
-            else{
+            } else {
                 StringBuilder converted = new StringBuilder();
-                String t2=stk.pop();
-                String t1=stk.pop();
+                String t2 = stk.pop();
+                String t1 = stk.pop();
                 converted.append('(').append(t1).append(ch).append(t2).append(')');
                 stk.push(String.valueOf(converted));
             }
@@ -224,17 +224,16 @@ class StackandQue {
 
     }
 
-    public String prefixToInfix(String s){
+    public String prefixToInfix(String s) {
         Stack<String> stk = new Stack<>();
-        int i=s.length()-1;
-        while(i>=0){
+        int i = s.length() - 1;
+        while (i >= 0) {
             Character ch = s.charAt(i);
-            if(Character.isLetterOrDigit(ch)){
+            if (Character.isLetterOrDigit(ch)) {
                 stk.push(ch.toString());
-            }
-            else{
+            } else {
                 StringBuilder converted = new StringBuilder();
-                String t1=stk.pop();
+                String t1 = stk.pop();
                 String t2 = stk.pop();
                 converted.append('(').append(t1).append(ch).append(t2).append(')');
                 stk.push(converted.toString());
@@ -242,6 +241,62 @@ class StackandQue {
             i--;
         }
         return stk.pop();
+    }
+
+    public String postfixToPrefix(String s) {
+        Stack<String> stk = new Stack<>();
+        int n = s.length(), i = 0;
+        while (i < n) {
+            Character ch = s.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                stk.push(ch.toString());
+            } else {
+                StringBuilder converted = new StringBuilder();
+                String t2 = stk.peek();
+                String t1 = stk.peek();
+                converted.append(ch).append(t2).append(t1);
+                stk.push(converted.toString());
+            }
+            i++;
+        }
+        return stk.peek();
+    }
+
+    public String prefixToPostFix(String s) {
+        Stack<String> stk = new Stack<>();
+        int i = s.length() - 1;
+        while (i > 0) {
+            Character ch = s.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                stk.push(ch.toString());
+            } else {
+                StringBuilder converted = new StringBuilder();
+                String t1 = stk.peek();
+                String t2 = stk.peek();
+                converted.append(t1).append(t2).append(ch);
+                stk.push(converted.toString());
+            }
+            i--;
+        }
+        return stk.peek();
+    }
+
+    public int[] findNextGratestElement(int[] arr) {
+        int len = arr.length;
+        int[] nge = new int[len];
+        Stack<Integer> stk = new Stack<>();
+        for (int i = len-1; i >= 0; i--) {
+            while (!stk.isEmpty() && stk.peek() <= arr[i]) {
+                stk.pop();
+            }
+            if (stk.isEmpty()) {
+                nge[i] = -1;
+            } else {
+                nge[i] = stk.peek();
+            }
+            stk.push(arr[i]);
+        }
+        return nge;
     }
 
     public boolean isRightAssociative(char c) {
@@ -278,7 +333,9 @@ class StackandQue {
         System.out.println("min value in stack " + minStack.getMin());
         // System.out.println(reverseString("(A+B)*C-D+F"));
         System.out.println(skt.infixToPostFix("a+b*c"));
-        System.out.println("post fix to in fix "+skt.postFixtoInfix("abc*+"));
+        System.out.println("post fix to in fix " + skt.postFixtoInfix("abc*+"));
+        int[] arr = {3, 10, 4, 2, 1, 2, 6, 1, 7, 2, 9};
+        System.out.println(Arrays.toString(skt.findNextGratestElement(arr)));
 
     }
 }
