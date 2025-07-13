@@ -14,33 +14,33 @@ class StackandQue {
             this.y = y;
         }
     }
-    //min stack with pair
+    // min stack with pair
     // static class MinStack {
 
-    //     Stack<Pair<Integer>> stk = new Stack<>();
-    //     public void push(int data) {
-    //         int min;
-    //         if (stk.isEmpty()) {
-    //             min = data;
-    //         } else {
-    //             min = Math.min(data, stk.peek().y);
-    //         }
-    //         stk.push(new Pair<>(data, min));
-    //     }
-    //     public int peek() {
-    //         return stk.peek().x;
-    //     }
-    //     public void pop() {
-    //         stk.pop();
-    //     }
-    //     public int size() {
-    //         return stk.size();
-    //     }
-    //     public int getMin() {
-    //         return stk.peek().y;
-    //     }
+    // Stack<Pair<Integer>> stk = new Stack<>();
+    // public void push(int data) {
+    // int min;
+    // if (stk.isEmpty()) {
+    // min = data;
+    // } else {
+    // min = Math.min(data, stk.peek().y);
     // }
-    //without a pair
+    // stk.push(new Pair<>(data, min));
+    // }
+    // public int peek() {
+    // return stk.peek().x;
+    // }
+    // public void pop() {
+    // stk.pop();
+    // }
+    // public int size() {
+    // return stk.size();
+    // }
+    // public int getMin() {
+    // return stk.peek().y;
+    // }
+    // }
+    // without a pair
     static class MinStack {
 
         Stack<Integer> stk = new Stack<>();
@@ -54,7 +54,8 @@ class StackandQue {
                 if (val > min) {
                     stk.push(min);
                 } else {
-                    stk.push(2 * val - min); // modifing the value and pushing to the stack so the we can get back the pervious min val;
+                    stk.push(2 * val - min); // modifing the value and pushing to the stack so the we can get back the
+                                             // pervious min val;
                     min = val;
                 }
             }
@@ -80,7 +81,8 @@ class StackandQue {
             int x = stk.peek();
             stk.pop();
             if (min > x) {
-                min = 2 * min - x; // to update the previous minimum value the formula we used in the push is reciprocal
+                min = 2 * min - x; // to update the previous minimum value the formula we used in the push is
+                                   // reciprocal
             }
             return null;
         }
@@ -105,7 +107,8 @@ class StackandQue {
                 }
                 Character ch = stk.peek();
                 stk.pop();
-                if ((s.charAt(i) == ')' && ch == '(') || (s.charAt(i) == ']' && ch == '[') || (s.charAt(i) == '}' && ch == '{')) {
+                if ((s.charAt(i) == ')' && ch == '(') || (s.charAt(i) == ']' && ch == '[')
+                        || (s.charAt(i) == '}' && ch == '{')) {
 
                 } else {
                     return false;
@@ -118,13 +121,15 @@ class StackandQue {
 
     public StringBuilder infixToPostFix(String s) {
         /*
-         *  | Type                                   | Action                                                              |
-            | -------------------------------------- | ------------------------------------------------------------------- |
-            | **Operand (A, B, 1, x)**               | ➜ **Add to output** directly                                        |
-            | **Left Parenthesis `(`**               | ➜ **Push to stack**                                                 |
-            | **Right Parenthesis `)`**              | ➜ **Pop from stack to output until `(` is found**, then discard `(` |
-            | **Operator (`+`, `-`, `*`, `/`, `^`)** | ➜ Do this 👇                                                        |
-
+         * | Type | Action |
+         * | -------------------------------------- |
+         * ------------------------------------------------------------------- |
+         * | **Operand (A, B, 1, x)** | ➜ **Add to output** directly |
+         * | **Left Parenthesis `(`** | ➜ **Push to stack** |
+         * | **Right Parenthesis `)`** | ➜ **Pop from stack to output until `(` is
+         * found**, then discard `(` |
+         * | **Operator (`+`, `-`, `*`, `/`, `^`)** | ➜ Do this 👇 |
+         * 
          * 
          */
 
@@ -192,7 +197,7 @@ class StackandQue {
                 // Operator handling with correct associativity
                 while (!stk.isEmpty() && stk.peek() != '('
                         && (isRightAssociative(ch) ? priority(ch) < priority(stk.peek())
-                        : priority(ch) <= priority(stk.peek()))) {
+                                : priority(ch) <= priority(stk.peek()))) {
                     ans.append(stk.pop());
                 }
                 stk.push(ch);
@@ -285,7 +290,7 @@ class StackandQue {
         int len = arr.length;
         int[] nge = new int[len];
         Stack<Integer> stk = new Stack<>();
-        for (int i = len-1; i >= 0; i--) {
+        for (int i = len - 1; i >= 0; i--) {
             while (!stk.isEmpty() && stk.peek() <= arr[i]) {
                 stk.pop();
             }
@@ -298,13 +303,44 @@ class StackandQue {
         }
         return nge;
     }
+    public int[] findNextSmallerElement(int[] arr){
+        int len=arr.length;
+        int[] nge = new int[len];
+        Stack<Integer> stk = new Stack<>();
+        for(int i=len-1;i>=0;i--){
+            while(!stk.isEmpty() && stk.peek()>=arr[i]){
+                stk.pop();
+            }
+            if(stk.isEmpty()){
+                nge[i]=-1;
+            }
+            else{
+                nge[i]=stk.peek();
+            }
+            stk.push(arr[i]);
+        }
+        return nge;
+    }
+
+    public int[] findNextFreatestElementCircularArray(int[] arr) {
+        int len = arr.length;
+        Stack<Integer> stk = new Stack<>();
+        int[] nge = new int[len];
+        for (int i = (2 * len) - 1; i >= 0; i--) {
+            while (!stk.isEmpty() && stk.peek() <= arr[i % len]) {
+                stk.pop();
+            }
+            if (i < len) {
+                nge[i] = stk.isEmpty() ? -1 : stk.peek();
+            }
+            stk.push(arr[i % len]);
+        }
+        return nge;
+    }
 
     public boolean isRightAssociative(char c) {
         return c == '^';
     }
-
-    // public String inFixToprefix(String s){
-    // }
     public static StringBuilder reverseString(String s) {
         int len = s.length();
         StringBuilder reversed = new StringBuilder();
@@ -334,8 +370,13 @@ class StackandQue {
         // System.out.println(reverseString("(A+B)*C-D+F"));
         System.out.println(skt.infixToPostFix("a+b*c"));
         System.out.println("post fix to in fix " + skt.postFixtoInfix("abc*+"));
-        int[] arr = {3, 10, 4, 2, 1, 2, 6, 1, 7, 2, 9};
+        int[] arr = {6, 8, 0, 1, 3};
         System.out.println(Arrays.toString(skt.findNextGratestElement(arr)));
+        int[] newArr ={1,2,3,4,3};
+        System.out.println(Arrays.toString(skt.findNextFreatestElementCircularArray(newArr)));
+        int[] smallersArr = {4, 8, 5, 2, 25};
+        System.out.println(Arrays.toString(skt.findNextSmallerElement(smallersArr)));
+
 
     }
 }
