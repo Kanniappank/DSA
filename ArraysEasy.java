@@ -1133,6 +1133,31 @@ class ArraysEasy {
          * 
          * Time complexity -> O(n^3)
          * Space complexity -> O(no. of triplets)
+         * 
+         * Dry Run (Brute Force):
+         * Input: [-1, 0, 1, 2, -1, -4]
+         * All triplets checked:
+         * [-1, 0, 1] -> 0 (valid)
+         * [-1, 2, -1] -> 0 (valid)
+         * [0, 1, -1] -> 0 (valid, but duplicate after sorting)
+         * ... (other combinations)
+         * Unique triplets after sorting and set: [[-1, -1, 2], [-1, 0, 1]]
+         * 
+         * Dry Run (Better Approach):
+         * For each i, use a HashSet to find the third element:
+         * i=0, nums[i]=-1, j=1, nums[j]=0, third=1
+         * HashSet: {0}
+         * j=2, nums[j]=1, third=0 (0 in HashSet) -> [-1, 0, 1]
+         * Continue for all i, j, avoiding duplicates using Set.
+         * 
+         * Dry Run (Optimal Approach):
+         * Sort nums: [-4, -1, -1, 0, 1, 2]
+         * For i=0, nums[i]=-4, j=1, k=5
+         * sum = -4 + (-1) + 2 = -3 < 0 -> j++
+         * ...
+         * For i=1, nums[i]=-1, j=2, k=5
+         * sum = -1 + (-1) + 2 = 0 -> add [-1, -1, 2], move j and k, skip duplicates
+         * Continue for all i, skipping duplicates, collect unique triplets.
          */
 
         // Set<List<Integer>> uniqeSet = new HashSet<List<Integer>>();
