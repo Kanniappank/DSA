@@ -52,6 +52,5 @@ public class ISWithoutVoilation {
 
         Robot robo = new Robot();
         robo.work();
-        robo.eat();
     }
 }
