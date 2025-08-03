@@ -1,3 +1,21 @@
+/**
+ * The {@code Singleton} class demonstrates the Bill Pugh Singleton Design Pattern.
+ * <p>
+ * This approach leverages a static inner helper class to create the singleton instance.
+ * The instance is created only when {@link #getInstance()} is called for the first time,
+ * ensuring lazy initialization.
+ * <ul>
+ *   <li><b>Thread Safety:</b> The static inner class is loaded only when referenced,
+ *       guaranteeing thread-safe initialization without explicit synchronization.</li>
+ *   <li><b>Lazy Initialization:</b> The singleton instance is not created until it is needed,
+ *       saving resources and improving performance.</li>
+ *   <li><b>Performance:</b> No synchronization overhead is incurred during instance retrieval,
+ *       making it more efficient than other thread-safe singleton implementations.</li>
+ *   <li><b>Clarity:</b> The implementation is concise and avoids complex locking mechanisms.</li>
+ * </ul>
+ * <p>
+ * This makes the Bill Pugh approach a preferred and robust way to implement the Singleton pattern in Java.
+ */
 package singleton.bill_pugh;
 
 
