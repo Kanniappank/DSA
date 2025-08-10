@@ -1,4 +1,4 @@
-package decorator.template;
+package template;
 
 public abstract class IPaymentFlow {
     

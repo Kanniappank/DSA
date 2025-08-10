@@ -1,4 +1,4 @@
-package decorator.template;
+package template;
 
 public class PayToMerchant extends IPaymentFlow {
 
