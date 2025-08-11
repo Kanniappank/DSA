@@ -1,3 +1,6 @@
+
+package singleton.thread_safe_singleton;
+
 /**
  * Thread-safe Singleton class.
  * <p>
@@ -23,9 +26,6 @@
  * </ul>
  * </p>
  */
-package singleton.thread_safe_singleton;
-
-
 class Singleton{
     private static Singleton instance;
 

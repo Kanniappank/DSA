@@ -1,5 +1,9 @@
 package singleton.efficient_thread_safty;
-
+/**
+ * Why is this better?
+ * ✅ Only synchronizes the first time (reduces performance overhead).
+ * ✅ Ensures instance is created safely in a multi-threaded environment.
+ */
 public class Singleton {
     private static volatile Singleton instance;  // Volatile keyword ensures visibility
 
@@ -35,8 +39,4 @@ class Main {
     }
 }
 
-/**
- * Why is this better?
- * ✅ Only synchronizes the first time (reduces performance overhead).
- * ✅ Ensures instance is created safely in a multi-threaded environment.
- */
+

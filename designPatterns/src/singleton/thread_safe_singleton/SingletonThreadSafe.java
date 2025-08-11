@@ -1,3 +1,7 @@
+
+package singleton.thread_safe_singleton;
+
+
 /**
  * Demonstrates the usage of a thread-safe Singleton pattern in Java.
  * <p>
@@ -47,10 +51,6 @@
  *   </li>
  * </ul>
  */
-package singleton.thread_safe_singleton;
-
-
-
 class SingletonThreadSafe {
     public static void main(String[] args) {
         Runnable task = () -> {
