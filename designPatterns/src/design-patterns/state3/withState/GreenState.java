@@ -10,7 +10,7 @@ public class GreenState implements ITrafficLightState{
 
     @Override
     public String getColor() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return "Green";
     }
     
 }

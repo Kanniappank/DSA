@@ -11,7 +11,7 @@ public class RedState implements ITrafficLightState {
 
     @Override
     public String getColor() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Red";
     }
     
 }

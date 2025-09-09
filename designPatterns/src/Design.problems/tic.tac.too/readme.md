@@ -20,8 +20,29 @@ point 4 : Desing challenge
                 - Current Board Status
                 - Game completion condition
         2. Implement move validation
-            - Verifying each move is legal
-            - 
+            - Verifying each move is legal made in an empty cell
+        3. Tracking players turn
+            - Ensure proper alternation between X and O after each valid move
+        4. Deciding game ending condition
+            - Win condition(three symbols are in a row).
+            - A draw condition (all the empty cells are filled)
+point 5 : Desing patterns involvement
+    - I can use statergy desing pattern for players intraction not the word can 
+        - Bramstram the universal
+            - we can incorperate stategy and factory in most of the problems
+            - we can use use to show details to the user or some message we can incoporate observer desing pattern
+            - we can incorporate state pattern to change to diffrent state X state O state draw state like that
+    - Now we are gone uh use statergy pattern to communication between players
+        - Ensure players intract with the system through a consistent interface
+        - allow flexible player move implementations supporiting 
+        - human players 
+        - AI player future extension
+        - Example A player interface with makeMove() method implementation diffrently for human player and AI player
+    - And we are gone use the State pattern for the game flow Management
+        - In Progress
+        - Won
+        - Draw
+        - Example A gameState class with methods to transision between the game states based on the game conditon
 
 
 
