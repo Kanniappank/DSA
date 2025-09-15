@@ -1,4 +1,4 @@
-package Design.problems.tic.tac.too;
+package tictactoe;
 
 public class GameContext {
     private IGameState currentState;
@@ -15,11 +15,11 @@ public class GameContext {
         this.currentState.next(this);
     }
 
-    public isGameOver() {
+    public boolean isGameOver() {
         return this.currentState.isGameOver();
     }
 
-    public getCurrentState() {
+    public IGameState getCurrentState() {
         return this.currentState;
     }
 

@@ -1,4 +1,4 @@
-package Design.problems.tic.tac.too;
+package tictactoe;
 
 public class Player {
     Symbols symbol;

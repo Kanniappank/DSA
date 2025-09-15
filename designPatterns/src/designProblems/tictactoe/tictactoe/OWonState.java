@@ -1,4 +1,4 @@
-package Design.problems.tic.tac.too;
+package tictactoe;
 
 public class OWonState implements IGameState {
 
