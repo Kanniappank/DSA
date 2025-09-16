@@ -1,5 +1,6 @@
-package tictactoe;
-class Position {
+package tictactoe.Utility;
+
+public class Position {
     public int row;
     public int column;
 
@@ -8,9 +9,9 @@ class Position {
         this.column = column;
     }
 
-    @override
+    @Override
     public String toString() {
-        return "(" + row + ", " + col + ")";
+        return "(" + row + ", " + column + ")";
     }
 
 }

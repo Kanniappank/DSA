@@ -1,4 +1,8 @@
-package tictactoe;
+package tictactoe.GameState.ConcreteStates;
+
+import tictactoe.GameState.IGameState;
+import tictactoe.GameState.Context.GameContext;
+import tictactoe.Utility.Player;
 
 public class XTurnState implements IGameState {
 

@@ -1,5 +1,8 @@
-import Design.problems.tic.tac.too.IGameState;package tictactoe;
-public class YTurnState implements IGameState {
+import Design.problems.tic.tac.too.IGameState;
+import tictactoe.CommonEnums.Symbols;
+import tictactoe.GameState.Context.GameContext;
+import tictactoe.Utility.Player;package tictactoe.GameState.ConcreteStates;
+public class OTurnState implements IGameState {
     @Override
     public void next(GameContext context, Player player, boolean hasWon) {
 

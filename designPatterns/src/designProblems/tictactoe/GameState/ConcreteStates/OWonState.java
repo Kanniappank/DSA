@@ -1,4 +1,6 @@
-package tictactoe;
+package tictactoe.GameState.ConcreteStates;
+
+import tictactoe.GameState.IGameState;
 
 public class OWonState implements IGameState {
 

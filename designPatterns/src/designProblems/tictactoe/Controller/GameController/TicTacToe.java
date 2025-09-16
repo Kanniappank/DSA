@@ -1,14 +1,15 @@
-package tictactoe;
+package tictactoe.Controller.GameController;
 
-import Design.problems.tic.tac.too.Board;
-import Design.problems.tic.tac.too.GameContext;
-import Design.problems.tic.tac.too.GameContext;
-import Design.problems.tic.tac.too.IGameState;
-import Design.problems.tic.tac.too.IPlayerStatergy;
-import Design.problems.tic.tac.too.IPlayerStatergy;
-import Design.problems.tic.tac.too.Symbols;
-import Design.problems.tic.tac.too.XWonState;
-import Design.problems.tic.tac.too.OWonState;
+import tictactoe.CommonEnums.Symbols;
+import tictactoe.GameState.IGameState;
+import tictactoe.GameState.ConcreteStates.OWonState;
+import tictactoe.GameState.ConcreteStates.XWonState;
+import tictactoe.GameState.Context.GameContext;
+import tictactoe.PlayerStatergy.IPlayerStatergy;
+import tictactoe.Utility.Board;
+import tictactoe.Utility.Player;
+import tictactoe.Controller.*;
+
 
 public class TicTacToe implements IBoardGames {
 

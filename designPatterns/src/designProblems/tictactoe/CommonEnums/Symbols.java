@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.CommonEnums;
 
 public enum Symbols {
 

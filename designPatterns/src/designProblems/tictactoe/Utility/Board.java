@@ -1,14 +1,17 @@
-package tictactoe;
+package tictactoe.Utility;
+
+import tictactoe.CommonEnums.Symbols;
+import tictactoe.GameState.Context.GameContext;
 
 public class Board {
-    private final rows;
-    private final columns;
-    private Symbols[][] gird;
+    private final int rows;
+    private final int columns;
+    private Symbols[][] grid;
 
     public Board(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        grid = new Symbols[][];
+        grid = new Symbols[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 grid[i][j] = Symbols.EMPTY;
@@ -17,10 +20,11 @@ public class Board {
     }
 
     public boolean isValidMove(Position pos) {
-        return pos.row > 0 && pos.row < this.rows && pos.column > 0 && pos.column < this.colunms && grid[pos.row][pos.column] == Symbols.empty
+        return pos.row > 0 && pos.row < this.rows && pos.column > 0 && pos.column < this.columns
+                && grid[pos.row][pos.column] == Symbols.EMPTY;
     }
 
-    public makeMove(Position pos, Symbols symbol) {
+    public void makeMove(Position pos, Symbols symbol) {
         this.grid[pos.row][pos.column] = symbol;
     }
 

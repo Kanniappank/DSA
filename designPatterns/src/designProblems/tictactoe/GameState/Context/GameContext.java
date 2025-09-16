@@ -1,4 +1,8 @@
-package tictactoe;
+package tictactoe.GameState.Context;
+
+import tictactoe.GameState.ConcreteStates.XTurnState;
+import tictactoe.GameState.IGameState;
+import tictactoe.Utility.Player;
 
 public class GameContext {
     private IGameState currentState;

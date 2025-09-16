@@ -1,4 +1,7 @@
-package tictactoe;
+package tictactoe.Utility;
+
+import tictactoe.CommonEnums.Symbols;
+import tictactoe.PlayerStatergy.IPlayerStatergy;
 
 public class Player {
     Symbols symbol;
