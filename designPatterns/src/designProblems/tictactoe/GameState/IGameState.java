@@ -1,6 +1,6 @@
-package tictactoe.GameState;
+package designProblems.tictactoe.GameState;
 
-import tictactoe.GameState.Context.GameContext;
+import designProblems.tictactoe.GameState.Context.GameContext;
 
 public interface IGameState {
 

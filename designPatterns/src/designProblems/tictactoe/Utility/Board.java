@@ -1,7 +1,7 @@
-package tictactoe.Utility;
+package designProblems.tictactoe.Utility;
 
-import tictactoe.CommonEnums.Symbols;
-import tictactoe.GameState.Context.GameContext;
+import designProblems.tictactoe.CommonEnums.Symbols;
+import designProblems.tictactoe.GameState.Context.GameContext;
 
 public class Board {
     private final int rows;
@@ -24,40 +24,39 @@ public class Board {
                 && grid[pos.row][pos.column] == Symbols.EMPTY;
     }
 
-    public void makeMove(Position pos, Symbols symbol) {
-        this.grid[pos.row][pos.column] = symbol;
+    public void makeMove(Position pos, Symbols Symbols) {
+        this.grid[pos.row][pos.column] = Symbols;
     }
 
     public void checkGameState(GameContext context, Player currentPlayer) {
 
-        //checks Row wise won
+        // checks Row wise won
         for (int i = 0; i < this.rows; i++) {
-            if (gird[i][0] != Symbol.EMPTY && this.isWinningLine(grid[[i]])){
-                context.setState(currentPlayer, true);
+            if (grid[i][0] != Symbols.EMPTY && this.isWinningLine(grid[i])) {
+                context.next(currentPlayer, true);
                 return;
             }
         }
 
-        //checks column wise
+        // checks column wise
         for (int i = 0; i < this.columns; i++) {
-            Symbol[] column = new Symbol[this.rows];
+            Symbols[] column = new Symbols[this.rows];
             for (int j = 0; j < this.rows; j++) {
                 column[j] = grid[j][i];
             }
             if (column[0] != Symbols.EMPTY && isWinningLine(column)) {
                 context.next(currentPlayer, true);
-                retrun;
+                return;
             }
         }
 
+        // checks diagonals
+        Symbols[] diagonal1 = new Symbols[Math.min(this.rows, this.columns)];
+        Symbols[] diagonal2 = new Symbols[Math.min(this.rows, this.columns)];
 
-        //checks diagonals
-        Symbol[] diagonal1 = new Symbol[Math.min(this.rows, this.columns)];
-        Symbol[] diagonal2 = new Symbol[Math.min(this.rows, this.columns)];
-
-        for (int i = 0; i < math.min(this.rows, this.columns); i++) {
-            diagonal1 = gird[i][i];
-            diagonal2 = grid[i][this.colunm - 1 - i];
+        for (int i = 0; i < Math.min(this.rows, this.columns); i++) {
+            diagonal1[i] = grid[i][i];
+            diagonal2[i] = grid[i][this.columns - 1 - i];
         }
         if (diagonal1[0] != Symbols.EMPTY && isWinningLine((diagonal1))) {
             context.next(currentPlayer, true);
@@ -68,12 +67,11 @@ public class Board {
             return;
         }
 
-
     }
 
-    private boolean isWinningLine(Symbol[] line) {
-        Symbol first = line[0];
-        for (Symbol s : line) {
+    private boolean isWinningLine(Symbols[] line) {
+        Symbols first = line[0];
+        for (Symbols s : line) {
             if (s != first) {
                 return false;
             }
@@ -81,7 +79,7 @@ public class Board {
         return true;
     }
 
-    public printBoard() {
+    public void printBoard() {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 Symbols symbol = grid[i][j];
@@ -96,7 +94,7 @@ public class Board {
                         System.out.print(" . ");
                 }
                 if (j < this.columns - 1) {
-                    System.out.print('|')
+                    System.out.print('|');
                 }
 
             }

@@ -1,7 +1,7 @@
-package tictactoe.PlayerStatergy;
+package designProblems.tictactoe.PlayerStatergy;
 
-import tictactoe.Utility.Board;
-import tictactoe.Utility.Position;
+import designProblems.tictactoe.Utility.Board;
+import designProblems.tictactoe.Utility.Position;
 
 public interface IPlayerStatergy {
 

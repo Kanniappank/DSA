@@ -1,10 +1,10 @@
-package tictactoe.PlayerStatergy.ConcreteStategies;
+package designProblems.tictactoe.PlayerStatergy.ConcreteStategies;
 
 import java.util.Scanner;
 
-import tictactoe.PlayerStatergy.IPlayerStatergy;
-import tictactoe.Utility.Board;
-import tictactoe.Utility.Position;
+import designProblems.tictactoe.PlayerStatergy.IPlayerStatergy;
+import designProblems.tictactoe.Utility.Board;
+import designProblems.tictactoe.Utility.Position;
 
 public class HumanPlayerStategy implements IPlayerStatergy {
 

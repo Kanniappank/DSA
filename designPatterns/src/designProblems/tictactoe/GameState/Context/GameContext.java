@@ -1,8 +1,8 @@
-package tictactoe.GameState.Context;
+package designProblems.tictactoe.GameState.Context;
 
-import tictactoe.GameState.ConcreteStates.XTurnState;
-import tictactoe.GameState.IGameState;
-import tictactoe.Utility.Player;
+import designProblems.tictactoe.GameState.ConcreteStates.XTurnState;
+import designProblems.tictactoe.GameState.IGameState;
+import designProblems.tictactoe.Utility.Player;
 
 public class GameContext {
     private IGameState currentState;

@@ -1,19 +1,14 @@
-package tictactoe.GameState.ConcreteStates;
+package designProblems.tictactoe.GameState.ConcreteStates;
 
-import tictactoe.GameState.IGameState;
-import tictactoe.GameState.Context.GameContext;
-import tictactoe.Utility.Player;
+import designProblems.tictactoe.GameState.IGameState;
+import designProblems.tictactoe.GameState.Context.GameContext;
+import designProblems.tictactoe.CommonEnums.Symbols;
 
 public class XTurnState implements IGameState {
 
     @Override
-    public void next(GameContext context, Player player, boolean hasWon) {
-        if (hasWon) {
-            context.setState(player.getSymbol() == Symbol.X ? new XWonState() : new OWonState());
-        } else {
-            context.setState(new OTurnState());
-        }
-
+    public void next(GameContext context) {
+        context.setState(new OTurnState());
     }
 
     @Override

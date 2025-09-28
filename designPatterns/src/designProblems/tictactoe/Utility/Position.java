@@ -1,4 +1,4 @@
-package tictactoe.Utility;
+package designProblems.tictactoe.Utility;
 
 public class Position {
     public int row;

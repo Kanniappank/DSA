@@ -1,8 +1,8 @@
-package tictactoe;
+package designProblems.tictactoe;
 
-import tictactoe.Controller.GameController.TicTacToe;
-import tictactoe.PlayerStatergy.ConcreteStategies.HumanPlayerStategy;
-import tictactoe.PlayerStatergy.IPlayerStatergy;
+import designProblems.tictactoe.Controller.GameController.TicTacToe;
+import designProblems.tictactoe.PlayerStatergy.ConcreteStategies.HumanPlayerStategy;
+import designProblems.tictactoe.PlayerStatergy.IPlayerStatergy;
 
 public class Main {
     public static void main(String[] args) {

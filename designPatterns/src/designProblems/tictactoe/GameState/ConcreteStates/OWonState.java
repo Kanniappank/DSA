@@ -1,11 +1,12 @@
-package tictactoe.GameState.ConcreteStates;
+package designProblems.tictactoe.GameState.ConcreteStates;
 
-import tictactoe.GameState.IGameState;
+import designProblems.tictactoe.GameState.IGameState;
+import designProblems.tictactoe.GameState.Context.GameContext;
 
 public class OWonState implements IGameState {
 
     @Override
-    public void next(Object context) {
+    public void next(GameContext context) {
 
     }
 

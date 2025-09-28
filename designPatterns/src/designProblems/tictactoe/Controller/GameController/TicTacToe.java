@@ -1,15 +1,15 @@
-package tictactoe.Controller.GameController;
+package designProblems.tictactoe.Controller.GameController;
 
-import tictactoe.CommonEnums.Symbols;
-import tictactoe.GameState.IGameState;
-import tictactoe.GameState.ConcreteStates.OWonState;
-import tictactoe.GameState.ConcreteStates.XWonState;
-import tictactoe.GameState.Context.GameContext;
-import tictactoe.PlayerStatergy.IPlayerStatergy;
-import tictactoe.Utility.Board;
-import tictactoe.Utility.Player;
-import tictactoe.Controller.*;
-
+import designProblems.tictactoe.CommonEnums.Symbols;
+import designProblems.tictactoe.Controller.*;
+import designProblems.tictactoe.GameState.ConcreteStates.OWonState;
+import designProblems.tictactoe.GameState.ConcreteStates.XWonState;
+import designProblems.tictactoe.GameState.Context.GameContext;
+import designProblems.tictactoe.GameState.IGameState;
+import designProblems.tictactoe.PlayerStatergy.IPlayerStatergy;
+import designProblems.tictactoe.Utility.Board;
+import designProblems.tictactoe.Utility.Player;
+import designProblems.tictactoe.Utility.Position;
 
 public class TicTacToe implements IBoardGames {
 
@@ -39,9 +39,9 @@ public class TicTacToe implements IBoardGames {
             board.checkGameState(context, currentPlayer);
 
             this.switchPlayer();
-        } while (!context.isGameOver()){
-            anounceResult();
-        }
+        } while (!context.isGameOver());
+
+        anounceResult();
 
     }
 
@@ -50,7 +50,7 @@ public class TicTacToe implements IBoardGames {
     }
 
     private void anounceResult() {
-        IGameState state = context.getState();
+        IGameState state = context.getCurrentState();
 
         if (state instanceof XWonState) {
             System.out.println("Player X won the game");
