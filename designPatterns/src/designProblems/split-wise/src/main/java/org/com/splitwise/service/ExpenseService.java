@@ -2,14 +2,12 @@ package org.com.splitwise.service;
 
 import org.com.splitwise.Exceptions.ExpenseDoesNotExistException;
 import org.com.splitwise.Exceptions.ExpenseSettledException;
-import org.com.splitwise.Model.Expense;
-import org.com.splitwise.Model.ExpenseGroup;
-import org.com.splitwise.Model.ExpenseStatus;
-import org.com.splitwise.Model.UserShare;
+import org.com.splitwise.Model.*;
 import org.com.splitwise.repository.ExpenseRepository;
 import org.com.splitwise.repository.UserRepository;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 public class ExpenseService {
@@ -40,7 +38,7 @@ public class ExpenseService {
         ExpenseRepository.expenseMap.get(expenseId).getExpenseGroup().getGroupMembers().add(UserRepository.userHashMap.get(emailId));
 
         if (notificationService != null) {
-            notificationService.notifyUser(UserRepository.userHashMap.get(emailId),ExpenseRepository.expenseMap.get(expenseId));
+            notificationService.notifyUser(UserRepository.userHashMap.get(emailId), ExpenseRepository.expenseMap.get(expenseId));
         }
     }
 
@@ -55,6 +53,22 @@ public class ExpenseService {
     public void setExpenseStatus(String expenseId, ExpenseStatus expenseStatus) {
         Expense expense = ExpenseRepository.expenseMap.get(expenseId);
         expense.setExpenseStatus(expenseStatus);
+    }
+
+    public boolean isExpenseSettled(String expenseId) {
+        Expense expense = ExpenseRepository.expenseMap.get(expenseId);
+        ExpenseGroup expenseGroup = expense.getExpenseGroup();
+        Map<String, UserShare> userContributions = expenseGroup.getUserContributions();
+
+        double total = expense.getExpenseAmount();
+
+        for (Map.Entry<String, UserShare> entry : userContributions.entrySet()) {
+            UserShare share = entry.getValue();
+            for (Contribution contribution : share.getContributions()) {
+                total -= contribution.getContributionValue();
+            }
+        }
+        return total <= 1;
     }
 
 
