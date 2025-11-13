@@ -24,13 +24,32 @@ public class ParkingLot {
         }
     }
 
-    public ParkingSpot parkVehicle(){
+    public void vacateSpot(ParkingSpot spot,Vehicle vehicle) throws Exception {
+        if(spot!=null && spot.isOccupied() && spot.getVehicle().equals(vehicle)){
+            spot.vacate();
+            System.out.println("Vehicle "+vehicle.getLicencePlate() + " vacated "+spot.getSpotNumber());
+        }
+        else{
+            System.out.println("Invalid operation either the spot is already empty or the vehicle is not matching");
+        }
 
+
+    }
+
+    public ParkingSpot parkVehicle(Vehicle vehicle) throws Exception {
+        ParkingSpot spot = findAvailableSpot(VehicleType.valueOf(vehicle.getVehicleType()));
+        if (spot != null) {
+            spot.parkVehicle(vehicle);
+            System.out.println("vehicle parked successfully in the spot " + spot.getSpotNumber());
+            return spot;
+        }
+        System.out.println("No parking spot available for " + vehicle.getVehicleType() + " !");
+        return null;
     }
 
     public ParkingSpot findAvailableSpot(VehicleType type) {
         PriorityQueue<ParkingSpot> queue = availableSpots.get(type);
-        if (queue.isEmpty() || queue == null) {
+        if (queue.isEmpty()) {
             return null;
         }
         return queue.poll();
