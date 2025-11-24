@@ -1,9 +1,0 @@
-Inventory management system
-- Identify the core entities
-    - products, warehouse, inventory manager
-    - using singleton pattern to create object for Inventory manage because we don't more instance for the inventory manager
-    - create a Product main class and extend it with diffrent types of products electronics, clothing, grocries
-    - use factory desing pattern to create products
-    - use statergy pattern to create Replinishment of stocks
-
-
